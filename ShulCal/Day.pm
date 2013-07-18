@@ -610,10 +610,10 @@ sub is_dst {
 sub dst_start_date {
   my($e_year) = @_;
   my $dst_start_day = new DateTime(year => $e_year,
-				   month => 4,
-				   day => 1);
+				   month => 3,
+				   day => 29);
   # DateTime dow is different than DateTime::Calendar::Hebrew!!
-  $dst_start_day->subtract(DateTime::Duration->new(days => ($dst_start_day->dow + 2) % 7));
+  $dst_start_day->subtract_duration(DateTime::Duration->new(days => ($dst_start_day->dow + 2) % 7));
   return $dst_start_day;
 }
 
@@ -622,8 +622,11 @@ sub dst_start_date {
 sub dst_end_date {
   my($e_year) = @_;
 
-  my $dst_end_day = DateTime->from_object(object => get_rosh_hashana($e_year + 3761));
-  $dst_end_day->add(days => ((7 - $dst_end_day->dow) % 7) + ($dst_end_day->dow == 6 ? 7 :0));
+  my $dst_end_day = new DateTime(year => $e_year,
+                                 month => 10,
+                                 day => 31);
+  # DateTime dow is different than DateTime::Calendar::Hebrew!!
+  $dst_end_day->subtract_duration(DateTime::Duration->new(days => ($dst_end_day->dow) % 7));
   return $dst_end_day;
 }
 

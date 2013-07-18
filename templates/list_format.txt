@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+  <title>Untitled Document</title>
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+
+
+<body>
+
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+
+  <tbody>
+
+    <tr>
+
+      <td><b>SHABBAT SHALOM - Parshat [% e2e(shabbat.parsha) %]</b></td>
+
+      <td style="direction: rtl;">
+שבת שלום - פרשת
+[% e2h(shabbat.parsha) %]
+</td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+<p><b><br>
+
+</b></p>
+
+<table>
+
+  <tbody>
+
+    <tr>
+
+      <td>Shabbat Candle Lighting:</td>
+
+      <td>[% friday.times{'candles'} %]</td>
+
+      <td style="direction: rtl;">הדלקת נרות שבת:</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Shabbat Ends:</td>
+
+      <td>[% friday.times{'candles'} %]</td>
+
+      <td style="direction: rtl;">צאת שבת:</td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+<hr size="2" width="100%">
+<p>
+<table>
+
+  <tbody>
+
+    <tr>
+
+      <td><b>Tefilla times:</b></td>
+
+      <td></td>
+
+      <td style="direction: rtl;"><b>זמני תפילה:</b></td>
+
+    </tr>
+
+    <tr>
+
+      <td colspan="2"><b>Shabbat:<b> </b></b></td>
+
+      <td style="direction: rtl;"><b>שבת:</b></td>
+
+    </tr>
+
+    <tr>
+
+      <td>Early Mincha &amp; Kabbalat Shabbat:</td>
+
+      <td>[% friday.times{'mincha'} %]</td>
+
+      <td style="direction: rtl;">מנחה וקבלת שבת:</td>
+
+    </tr>
+    <tr>
+
+      <td>Mincha &amp; Kabbalat Shabbat:</td>
+
+      <td>[% friday.times{'mincha'} %]</td>
+
+      <td style="direction: rtl;">מנחה וקבלת שבת:</td>
+
+    </tr>
+    <tr>
+
+      <td>Mincha &amp; Kabbalat Shabbat:</td>
+
+      <td>[% friday.times{'mincha'} %]</td>
+
+      <td style="direction: rtl;">מנחה וקבלת שבת:</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Shacharit:</td>
+
+      <td>[% shabbat.times{'shacharit'} %]</td>
+
+      <td style="direction: rtl;">שחרית:</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Latest Kri'at Shma (Gr"a):</td>
+
+      <td>[% shabbat.times{'sof zman kriat shma'} %]</td>
+
+      <td style="direction: rtl;">סוף זמן קריאת שמע (לפי
+הגר"א):</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Children's Tefillot:</td>
+
+      <td style="direction: ltr;">After Kri'at Ha'Tora
+(10:00)<br>
+
+      <span style="direction: rtl;">לאחר קריאת התורה </span>
+      </td>
+
+      <td style="direction: rtl;">תפילות הילדים:</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Mincha:</td>
+
+      <td>[% shabbat.times{'mincha'} %]</td>
+
+      <td style="direction: rtl;">מנחה:</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Arvit Motzei Shabbat:</td>
+
+      <td>[% shabbat.times{'motzash'} %]</td>
+
+      <td style="direction: rtl;">ערבית מוצאי שבת:</td>
+
+    </tr>
+
+    <tr>
+
+      <td colspan="2"><b>Weekday Tefillot:</b></td>
+
+      <td style="direction: rtl;"><b>תפילות ימי חול:</b></td>
+
+    </tr>
+
+    <tr>
+
+      <td>Shacharit - Sunday, Tuesday, Wednesday:</td>
+
+      <td>6:15</td>
+
+      <td style="direction: rtl;">שחרית - יום א', ג', ד':</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Shacharit - Monday, Thursday:</td>
+
+      <td>6:05</td>
+
+      <td style="direction: rtl;">שחרית - יום ב':</td>
+
+    </tr>
+
+    <tr>
+
+      <td>Arvit:</td>
+
+      <td>20:45</td>
+
+      <td style="direction: rtl;">ערבית:</td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+</p>
+
+[% announcements %]
+
+[% special_shiurim %]
+
+[% regular_shiurim %]
+
+[% chesed %]
+
+[% birthdays %]
+
+
+<hr size="2" width="100%"><b>Regular Shiurim:</b>
+<ul style="list-style-type: disc;">
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span><b>Learning
+Group on Pesach Haggadah</b> <br>
+
+Sunday evenings, 21:15 at the Sunday residence, Nachal Katlav 2/2<br>
+
+  </li>
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span><b>"Yom
+Tov through the Eyes of Masechet
+Beitzah"</b> with Sherri Saperstein<br>
+
+Wednesday evenings, 20:15 at the Abrahams residence,
+Nachal&nbsp;Maor 10/8 (4th floor)</li>
+
+  <li>Shiur Mishnayot<br>
+
+Sunday-Thursday for 15 minutes before Shacharit<br>
+
+  </li>
+
+  <li>Avot v'Yeladim program, with prepared material from Amutat
+m'Breishit headed by R' Mordechai Elon.<br>
+
+Shabbat afternoon, <span style="color: rgb(204, 0, 0);">15:30</span>,
+for children Gan Chova age and up</li>
+
+  <li>Inyanei D'yoma shiur
+with R' Eli Duker<br>
+
+Shabbat afternoon after Mincha<br>
+
+  </li>
+
+  <li><b>Avot
+v&rsquo;Yeladim Beit Midrash -</b>
+For school age kids and up (7+)<br>
+
+Motzei Shabbat, 19:10-20:00<br>
+
+  </li>
+
+  <li>The women's Tehillim group<br>
+
+Motzaei Shabbat, 20:00, at the home of Natalie Shaw, Nachal Dolev 49/6</li>
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span>Navi&nbsp;shiur
+on video by R' Yisroel Reisman<br>
+
+Motzei Shabbat, 21:00 at Yeshivat Lev HaTorah (corner of Nachal Luz and
+Nachal Refaim)</li>
+
+</ul>
+
+<hr size="2" width="100%">
+<p><b>Chessed representative:</b><br>
+
+Halana Rosenfield - 991-4368</p>
+
+<hr size="2" width="100%"><b>Mazal tov to:<br>
+
+</b>Hillel Barnett who will be turning 1 this Friday!
+<br>
+Nehemia Rosenfelder who will be turning 8 this Shabbat!<br>
+Millie Raanan who will be turning 1 this Sunday!<br>
+Ayelet Winson who will be turning 1 this Monday!<br>
+Ateret Copperman who will be turning 9 this Wednesday!
+<br>
+Avital Wachtel who will be turning 1 next Thursday!<br>
+
+<div style="direction: rtl; text-align: right;"><br>
+
+<hr size="2" width="100%">
+<p><b>הודעות:</b></p>
+
+<ul style="list-style-type: disc;">
+
+  <li>מזל טוב לדייב ושרה וולף לרגל הולדת הבן! משפ' וולף מזמינה את
+כל הקהילה לשלום זכר לכבוד בנם החדש בביתם, נחל דולב 49/10, החל משעה
+20:30. דלתות ובקבוקים ישארו פתוחים עד 23:30...לפחות!</li>
+
+  <li>קהילת אהבת ציון שמחה לארח את <span style="font-weight: bold;">הרב מנחם קופרמן</span>
+כמעומד לתפקיד רב קהילה. שימו לב לאירועים אלו:<br>
+
+הרב קופרמן יעביר דבר תורה לפני ערבית.<br>
+
+יהיה עונג שבת בביתם של משפ' דוגלן, נחל שמשון 4/8, משעה 20:30 עד 22:00.<br>
+
+הרב קופרמן יעביר דבר תורה לפני מוסף במניין השני.<br>
+
+הרב קופרמן יעביר שיעור בביה"כ בשעה 16:00.</li>
+
+  <li><b>שוק המכירות</b><span style="font-weight: bold;"><br>
+
+    </span>יום ו', כ"ד אדר (24.3)<br>
+
+לפרטים ולהזמנות, צור קשר עם מרשה (999-4624) או רות (991-7684)</li>
+
+</ul>
+
+<hr size="2" width="100%"><b>שיעורים מיוחדים:</b>
+<ul style="list-style-type: disc;">
+
+  <li>השני בסדרה שיעורים בעייני פסח [באנגלית] מפי:<br>
+
+    <span style="font-weight: bold;">הרב חיים ברובנדר שליט"א</span><br>
+
+יום ג', כ"ח אדר (28.3), 21:00 בביתם של משפ' יוקו, נחל דולב 50/16<br>
+
+נשים וגברים מוזמנים.
+  </li>
+
+</ul>
+
+<hr size="2" width="100%">
+<b>שיעורים קבועים:</b>
+<ul style="list-style-type: disc;">
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span><span style="font-weight: bold;">לימוד הגדה של פסח</span> <br>
+
+יום א' בערב,21:15 בביתם של משפ' סנדי, נחל קטלב 2/2<br>
+
+  </li>
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span>"<span style="font-weight: bold;">יום
+טוב בעיני מסכת ביצה</span>" מפי שרי ספרשטיין <br>
+
+יום ד' בערב, 21:00, בביתם של משפ' אברהמס, נחל מאור 10/8 (קומה רביעי)</li>
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span>שיעור
+    <span style="font-weight: bold;">משניות</span>,
+יום א'-ה', לרבע שעה לפני
+שחרית. <br>
+
+  </li>
+
+  <li>אבות וילדים, שבת, בשעה <span style="color: rgb(204, 0, 0);">15:30</span>, עם חומר
+עזר מטעם עמותת
+מבראשית
+בראשות ר' מרדכי אלון, לילדים מגיל גן חובה ומעלה. <br>
+
+  </li>
+
+  <li>שיעור של ר' עלי דוקר בענייני דיומא, בשבת אחרי מנחה. <br>
+
+  </li>
+
+  <li><span style="color: rgb(255, 0, 0); background-color: rgb(255, 255, 51);"></span><b>בית
+מדרש אבות וילדים - </b>
+מיועד לילדים מגיל 7+<br>
+
+ממוצ"ש, 19:10-20:00<br>
+
+  </li>
+
+  <li>קבוצת נשים לאמירת תהילים, מוצאי שבת, 20:00, בביתה של
+נתלי שאו, נחל דולב 49/6. </li>
+
+  <li><span style="background-color: rgb(255, 255, 0); background-image: none; background-repeat: repeat; background-attachment: scroll; color: rgb(255, 0, 0);"></span>שיעור
+נביא בווידיו ע"י ר' ישראל רייזמן<br>
+
+מוצ"ש, 21:00 בישיבת לב התורה (פינת נחל לוז ונחל רפאים)<br>
+
+  </li>
+
+</ul>
+
+<hr size="2" width="100%">
+<p><b>נציגת חסד:
+</b><br>
+
+הלנה רוזנפילד: 991-4368</p>
+
+<hr size="2" width="100%">
+<p><b>מזל טוב </b>ל:<br>
+הלל ברנט לכבוד יום הולדת ה-1 ביום שישי הקרוב!
+<br>
+נחמיה רוזנפלדר לכבוד יום הולדת ה-8 ביום שבת הקרוב!
+<br>
+מילי רענן לכבוד יום הולדת ה-1 ביום ראשון הקרוב!
+<br>
+איילת וינסון לכבוד יום הולדת ה-1 ביום שני הקרוב!
+<br>
+עטרת קופרמן לכבוד יום הולדת ה-9 ביום רביעי הקרוב!
+<br>
+אביטל ווכטל לכבוד יום הולדת ה-1 ביום חמישי הקרוב!
+<br>
+
+<br>
+
+</p>
+
+</div>
+
+</body>
+</html>

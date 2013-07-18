@@ -1,0 +1,399 @@
+- day: 1
+  duration: 2
+  yomtov: 1
+  month: 7
+  name: rosh hashana
+  times:
+    shacharit: 7:30
+    shofar: לא לפני 9:40
+- day: 3
+  fast: 1
+  month: 7
+  name: tzom gedaliah
+  times:
+    selichot: 5:45
+- day: 9
+  month: 7
+  name: erev yom kippur
+  times:
+    early mincha: 12:30
+    selichot: 6:30
+- day: 10
+  fast: 4
+  yomtov: 1
+  month: 7
+  name: yom kippur
+  times:
+    mincha: 15:05
+    neila: 16:20
+#    shofar: 17:55
+    shacharit: 7:15
+    yizkor: לא לפני 10:00
+- day: 14
+  month: 7
+  name: erev sukkot
+- day: 15
+  yomtov: 1
+  month: 7
+  name: sukkot
+  times:
+    shacharit: '6:30, 8:30'
+- day: 16
+  duration: 5
+  month: 7
+  name: chol hamoed sukkot
+  times:
+    shacharit: 7:00
+- day: 16 + 6
+  month: 7
+  name: shabbat chol hamoed sukkot
+  times:
+    shacharit: '6:30, 8:30'
+- day: 21
+  month: 7
+  name: hoshana rabbah
+  times:
+    shacharit: 6:30
+- day: 22
+  yomtov: 1
+  month: 7
+  name: simchat torah
+  times:
+    hakafot: 8:20 (משוער)
+    shacharit: 7:30
+#    shacharit vatikin: 5:15
+    mincha: לאחר מוסף
+- day: 6
+  month: 8
+  bottom_notice: ten tal umatar
+- day: 25
+  duration: 7
+  month: 9
+  name: chanukah
+  times:
+    shacharit: 0-4/6:20//5/6:20
+- day: 2
+  month: 10
+  name: zot chanukah
+  times:
+    shacharit: 6:15
+- day: 24
+  month: 9
+  bottom_notice: erev chanukah
+  holiday: 0
+- day: 10
+  fast: 1
+  month: 10
+  name: fast 10 tevet
+- day: 15
+  month: 11
+  name: tu beshvat
+- day: 14
+  month: 12
+  name: purim katan
+- day: 15
+  month: 12
+  name: shushan purim katan
+- day: 13
+  fast: 1
+  month: -1
+  name: taanit esther
+  times:
+    arvit: '18:05'
+    megillah reading: '18:15, 19:30'
+- day: 14
+  month: -1
+  name: purim
+  times:
+    morning megillah reading: 9:45
+#    shacharit: '6:15, 7:45'
+#    morning megillah reading: 9:30
+    shacharit: '6:30, 8:00'
+    mincha: 13:30
+- day: 15
+  month: -1
+  name: shushan purim
+#- day: 16
+#  month: -1
+#  name: purim meshulash
+# - day: 12
+#   month: 1
+#   notice: bedikat chometz
+#   times:
+#     shacharit and siyum: 6:20
+# - day: 13
+#   month: 1
+#   times:
+#     burn chometz: 11:18
+# - day: 14
+#   month: 1
+#   name: erev pesach
+#   times:
+#     shacharit: 7:00
+#     end eating chometz: 9:57
+#     bitul chometz: 11:18
+#     chatzot halayla: chatzot
+- day: 13
+  month: 1
+  notice: bedikat chometz
+- day: 14
+  month: 1
+  name: erev pesach
+  times:
+    shacharit and siyum: 6:30
+## changed from 7:00 for 5773 winter time
+    burn chometz: 10:28
+    end eating chometz: 9:12
+    chatzot halayla: chatzot
+- day: 15
+  yomtov: 1
+  month: 1
+  name: pesach
+  times:
+    shacharit: '6:45, 8:30'
+## changed from 6:45, 8:45 for 5773 winter time
+- day: 16
+  duration: 5
+  month: 1
+  name: chol hamoed pesach
+  times:
+    shacharit: 7:00
+- day: 16 + 6 limit 5
+  month: 1
+  name: shabbat chol hamoed pesach
+  times:
+    shacharit: '6:35, 8:30'
+- day: 21
+  yomtov: 1
+  month: 1
+  name: acharon pesach
+  times:
+    shacharit: '6:40, 8:30'
+- day: 27
+  month: 1
+  name: yom hashoah
+  disallow_dow: 0,5,6
+- day: 4
+  month: 2
+  name: yom hazikaron
+  disallow_dow: 0,4,5,6
+  times:
+#    mincha and festive arvit: '($sunset)'
+#    mincha: '($sunset - 12) % 5'
+#    festive arvit: '($sunset + 8) % 5'
+    mincha: 18:45
+    tekes yom hazikaron: 19:00
+    festive arvit: 19:35
+- day: 5
+  month: 2
+  name: yom haatzmaut
+  disallow_dow: 0,1,5,6
+  times:
+    shacharit: '7:00, 8:10'
+- day: 14
+  month: 2
+  name: pesach sheni
+- day: 17
+  month: 2
+  times:
+#    arvit: '$tzeit'
+#    arvit: '($tzeit + 5) % 5'
+- day: 18
+  month: 2
+  name: lag baomer
+- day: 27
+  month: 2
+  dow_times:
+    dow: 6
+    times:
+      motzash and festive arvit: '$havdalah'
+  times:
+    mincha: '($sunset - 10) % 5'
+    festive arvit: '($tzeit - 4) % 5'
+- day: 28
+  month: 2
+  name: yom yerushalayim
+  times:
+    shacharit: 6:20
+- day: 5
+  month: 3
+  name: erev shavuot
+#  times:
+#    tikun leil shavuot: חצות
+- day: 6
+  yomtov: 1
+  month: 3
+  name: shavuot
+  times:
+    brachot and megillat ruth: 4:50
+    netz: $sunrise
+    shacharit: '5:15, 8:30'
+- day: 17
+  fast: 1
+  month: 4
+  name: fast 17 tamuz
+- day: 8
+  month: 5
+  dow_times:
+    dow: 5
+    times:
+  times:
+    'start fast': '$sunset'
+    'arvit': "($sunset + 22) % 5"
+    mincha: 18:00
+- day: 9
+  fast: 2
+  month: 5
+  name: 9 av
+  times:
+    arvit: 19:45
+    mincha: '13:20, 19:00'
+    shacharit: 8:00
+- day: 29
+  month: 6
+  name: erev rosh hashana
+  times:
+    selichot: 6:00
+- day: 15
+  month: 5
+  name: tu av
+#- e_day: 30
+#  e_month: 3
+#  notice: start summer time
+#- e_day: 23
+#  e_month: 10
+#  notice: hachnasat sefer torah
+#- day: 24
+#  month: 1
+#  notice: chanukat habayit
+#- day: 17
+#  month: 8
+#  bar_mitzva: שאול כ"ץ
+#- day: 24
+#  month: 8
+#  bar_mitzva: בנימין פליישמן
+#- day: 16
+#  month: 9
+#  bar_mitzva: דוד פאס
+#- day: 21
+#  month: 10
+#  bar_mitzva: יהודה טרגין
+# - day: 20
+#   month: 11
+#   bar_mitzva: יהונתן גוטליב
+# - day: 24
+#   month: 1
+#   bar_mitzva: אשר פרנק
+# - day: 5
+#   month: 4
+#   bar_mitzva: בנימין סנדי
+# - day: 12
+#   month: 4
+#   bar_mitzva: אלישע הודס
+# - day: 26
+#   month: 4
+#   bar_mitzva: אלי וייס
+#- day: 6
+#  month: 8
+#  bar_mitzva: חננאל אנגלברג
+#- day: 13
+#  month: 8
+#  bar_mitzva: אלישע פרידמן
+#- day: 20
+#  month: 8
+#  notice: שבת נוער
+#- day: 2
+#  month: 10
+#  bar_mitzva: דביר הולנדר
+#- day: 1
+#  month: 11
+#  bar_mitzva: יונתן וולף
+#- day: 27
+#  month: 12
+#  bar_mitzva: מרדכי פישהאוט
+# - day: 1
+#   month: 8
+#   bar_mitzva: יונה ברנט
+# - day: 22
+#   month: 8
+#   bar_mitzva: אלי שאו
+# - day: 29
+#   month: 8
+#   bar_mitzva: דוד וולינס
+# - day: 20
+#   month: 9
+#   bar_mitzva: נריה לוין
+# - day: 11
+#   month: 10
+#   bar_mitzva: איתן ריי
+# - day: 10
+#   month: 11
+#   bar_mitzva: יוסף דדוביץ
+# - day: 17
+#   month: 11
+#   bar_mitzva: יונתן לוין
+# - day: 3
+#   month: 11
+#   notice: שבת נוער
+# - day: 13
+#   month: 13
+#   bar_mitzva: רפי מורר
+# - day: 17
+#   month: 2
+#   bar_mitzva: יואב ברוק
+# - day: 16
+#   month: 3
+#   bar_mitzva: אלרועי מגן (מניין ראשון)
+# - day: 11
+#   month: 6
+#   bar_mitzva: אבישי קלומפס
+- day: 8
+  month: 8
+  bar_mitzva: נפתלי כ"ץ
+- day: 5
+  month: 10
+  bar_mitzva: אביחי סנדי<br>יואל גורדון<br>יוסף מאיר
+- day: 4
+  month: 11
+  bar_mitzva: שלום אופשטיין
+- day: 16
+  month: 12
+  bar_mitzva: ידידיה קופרמן
+#- day: 27
+#  month: 2
+#  bar_mitzva: אריה וינטר
+#- day: 3
+#  month: 4
+#  bar_mitzva: הלל יסקול
+#- day: 17
+#  month: 4
+#  bar_mitzva: עמיחי וולף
+#- day: 23
+#  month: 5
+#  bar_mitzva: דוב וייס
+#- day: 13
+#  month: 7
+#  bar_mitzva: יואב הכסטר
+- day: 3
+  month: 9
+  bar_mitzva: גדי ברנט
+- day: 22
+  month: 11
+  bar_mitzva: יונה אבלס
+- day: 27
+  month: 12
+  bar_mitzva: קובי שכטרמן
+- day: 11
+  month: 11
+  times:
+    shacharit: '6:30, 8:10'
+- day: 5
+  month: 1
+  bar_mitzva: נתנאל רום
+- day: 26
+  month: 1
+  bar_mitzva: שמחה צטל
+- day: 28
+  month: 4
+  bar_mitzva: אריאל בודנהיימר
+

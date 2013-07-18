@@ -1,0 +1,10 @@
+ 2008  shul/zman2/shul_cal2.cgi --month=8 --year=5772 --fullpage > web/mamash.com/test_cal.html 
+ 2009  sudo -i
+ 2010  shul/zman2/shul_cal2.cgi --month=8 --year=5772 --fullpage > web/mamash.com/test_cal.html 
+ 2011  chr web/mamash.com/test_cal.html 
+ 2012  shul/zman2/shul_cal2.cgi --month=8 --year=5772  > web/ahavat-tzion.com/calendar/5772_8.html
+ 2013  wkhtmltopdf web/mamash.com/test_cal.html web/ahavat-tzion.com/calendar/5772_8.pdf
+ 2014  rsync -rvz --update web/ahavat-tzion.com
+ 2015  ls -l
+ 2016  ls
+ 2017  rsync -rvz --update web/ahavat-tzion.com m:

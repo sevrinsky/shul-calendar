@@ -1,0 +1,50 @@
+<p></p>
+
+<table width="100%"><tr><td valign="top">
+</td><td valign="top">
+<div dir="rtl">
+<b>שיעורים
+קבועים:</b><br>
+<span style="font-weight: bold;"></span>
+<ul style="list-style-type: disc;">
+  
+<!--
+  <li><span style="font-weight: bold;">שיעור בנושאים בהלכה</span><br>
+שבת בבוקר, מיד לאחר מניין הראשון</li>
+-->
+  <li><span style="font-weight: bold;">שיעור בהלכה</span>,
+מפי הרב קופרמן<br>
+שבת בבוקר, מיד לאחר מניין השני</li>
+<li><span style="font-weight: bold;">שיעור
+בפרשת השבוע</span> - מיועד לילדים מכיתות ה' ו-ו'<br>
+שבת בבוקר, מיד לאחר מניין שני בבית המדרש</li>
+  <li><b>שיעור בענייני דיומא</b>, מפי ר' עלי דוקר [באנגלית]
+<br>
+שבת, מיד לאחר מנחה</li>
+
+<li><b>בית מדרש הורים וילדים</b> -  מיועד לילדים מגיל +7
+<br>
+
+ מוצאי שבת</li>
+<!--
+        <li><span style="font-weight: bold;">בית
+מדרש ערב<br>
+          </span>ימי ראשון, 20:45</li>
+         -->
+
+<li><span style="font-weight: bold;">שיעור הלכה שבועי</span><br>
+ ימי שלישי, 20:45
+</li>
+
+<li><span style="font-weight: bold;">שיעור גמרא - מסכת מגילה</span>, מפי ר' ג'רמי פין [לגברים]<br>
+ ימי רביעי, 20:40
+</li>
+
+<!--
+<li><span style="font-weight: bold;">חבורת תנ"ך</span>, מונחת על ידי נפתלי דירובן ומשה אבלס<br>
+ ימי שני, 20:45
+</li>
+-->
+</ul>
+</div>
+</td></tr></table>

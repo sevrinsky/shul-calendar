@@ -264,6 +264,7 @@ sub get_times {
    }
 
   my $next_rosh_hashana = get_rosh_hashana($self->year + 1);
+  my $this_pesach = get_pesach($self->year);
   my $days_to_rh = compute_date_diff($next_rosh_hashana, $self);
   if ($self->dow_0 < 6 &&
       ($self->dow_0 != 0 || $days_to_rh > 12 || $days_to_rh < 4) &&
@@ -470,6 +471,7 @@ sub get_times {
         && $tom_holiday->name !~ / rosh hashana/ 
         && $early_mincha_time ge '17:00'
         && $self->month != 7
+        && compute_date_diff($self, $this_pesach) > 0
         && (compute_date_diff($self, $next_rosh_hashana) < -5 ||
             compute_date_diff($self, $next_rosh_hashana) > 0)
        ) {

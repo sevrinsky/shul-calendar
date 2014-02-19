@@ -16,7 +16,7 @@
   month: 7
   name: erev yom kippur
   times:
-    early mincha: 12:30
+    early mincha: 13:30
     selichot: 6:30
 - day: 10
   fast: 4
@@ -24,11 +24,11 @@
   month: 7
   name: yom kippur
   times:
-    mincha: 16:05
-    neila: 17:20
+    mincha: 16:20
+    neila: 17:35
 #    shofar: 17:55
-    shacharit: 7:15
-    yizkor: לא לפני 10:00
+    shacharit: 7:45
+    yizkor: לא לפני 10:30
 - day: 14
   month: 7
   name: erev sukkot
@@ -62,7 +62,7 @@
     hakafot: 8:20 (משוער)
     shacharit: 7:30
 #    shacharit vatikin: 5:15
-    mincha: לאחר מוסף
+#    mincha: לאחר מוסף
 - day: 6
   month: 8
   bottom_notice: ten tal umatar
@@ -347,18 +347,18 @@
 # - day: 11
 #   month: 6
 #   bar_mitzva: אבישי קלומפס
-- day: 8
-  month: 8
-  bar_mitzva: נפתלי כ"ץ
-- day: 5
-  month: 10
-  bar_mitzva: אביחי סנדי<br>יואל גורדון<br>יוסף מאיר
-- day: 4
-  month: 11
-  bar_mitzva: שלום אופשטיין
-- day: 16
-  month: 12
-  bar_mitzva: ידידיה קופרמן
+# - day: 8
+#   month: 8
+#   bar_mitzva: נפתלי כ"ץ
+# - day: 5
+#   month: 10
+#   bar_mitzva: אביחי סנדי<br>יואל גורדון<br>יוסף מאיר
+# - day: 4
+#   month: 11
+#   bar_mitzva: שלום אופשטיין
+# - day: 16
+#   month: 12
+#   bar_mitzva: ידידיה קופרמן
 #- day: 27
 #  month: 2
 #  bar_mitzva: אריה וינטר
@@ -377,23 +377,46 @@
 - day: 3
   month: 9
   bar_mitzva: גדי ברנט
-- day: 22
+#- day: 22
+#  month: 11
+#  bar_mitzva: יונה אבלס
+- day: 24
   month: 11
-  bar_mitzva: יונה אבלס
+  bar_mitzva: לוי גורדון
 - day: 27
   month: 12
   bar_mitzva: קובי שכטרמן
-- day: 11
-  month: 11
-  times:
-    shacharit: '6:30, 8:10'
-- day: 5
-  month: 1
-  bar_mitzva: נתנאל רום
-- day: 26
-  month: 1
-  bar_mitzva: שמחה צטל
-- day: 28
-  month: 4
-  bar_mitzva: אריאל בודנהיימר
+#- day: 11
+#  month: 11
+#  times:
+#    shacharit: '6:30, 8:10'
+#  # for Election day 5773
+# - day: 5
+#   month: 1
+#   bar_mitzva: נתנאל רום
+# - day: 26
+#   month: 1
+#   bar_mitzva: שמחה צטל
+# - day: 11
+#   month: 6
+#   bar_mitzva: איתן שטיינהרט
+# - day: 18
+#   month: 6
+#   bar_mitzva: איתן לוין
+# - day: 1
+#   month: 8
+#   bar_mitzva: אורי ברוק
+# - day: 22
+#   month: 8
+#   bar_mitzva: איתן צור
+# - day: 20
+#   month: 9
+#   bar_mitzva: בנצי ספרשטיין
+- year: 5774
+  parsha: shmini
+  bar_mitzva: אלי מרצ'נט
+- year: 5774
+  parsha: tazria
+  bar_mitzva: אריאל דירובן
+
 

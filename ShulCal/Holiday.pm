@@ -50,6 +50,10 @@ sub get_holiday {
       my @parsha = get_parsha($date);
       $retval->{parsha} = $parsha[0];
       $retval->{subparsha} = $parsha[1] if ($#parsha > 0 && $parsha[1]);
+
+      if ($holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}) {
+          $retval->{bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{bar_mitzva};
+      }
     }
   }
 
@@ -60,164 +64,170 @@ sub get_holiday {
 #----------------------------------------------------------------------
 
 sub generate_cache {
-  my($year) = @_;
+    my($year) = @_;
 
-  for my $h (@{holiday_list()}) {
-    if ($h->{e_month}) {
-      # Secular calendar event
-      my $e_year = $year - 3760;
-      my $date = DateTime::Calendar::Hebrew->from_object(object => new DateTime(year => $e_year,
-                                                                                month => $h->{e_month},
-                                                                                day => $h->{e_day}));
-      if ($date->year != $year) { 
-        $date = DateTime::Calendar::Hebrew->from_object(object => new DateTime(year => $e_year - 1,
-                                                                               month => $h->{e_month},
-                                                                               day => $h->{e_day}));
-      }
-      $holiday_cache{$date->year}->{$date->month}->{$date->day} = $h;
-    } else {
-      if ($h->{month} < 0) {
-        $h->{month} = DateTime::Calendar::Hebrew::_LastMonthOfYear($year) + $h->{month} + 1;
-      }
-      my $delay_dow = -1;
-      my $delay_dow_limit = 0;
-      if ($h->{day} =~ /(\d+) \+ (\d+)/) {
-          my $orig_day = $h->{day};
-          $h->{day} = $1;
-          $delay_dow = $2;
-          if ($orig_day =~ /limit (\d+)/) {
-              $delay_dow_limit = $1;
-          }
-      }
+    for my $h (@{holiday_list()}) {
 
-      my $duration = 1;
-      if (defined($h->{duration})) {
-        $duration = $h->{duration};
-      }
-
-      my $date = new DateTime::Calendar::Hebrew(year => $year,
-                                                month => $h->{month},
-                                                day => $h->{day});
-      if ($delay_dow > -1) {
-        if ($date->dow_0 < $delay_dow) {
-            my $delay_duration = new DateTime::Duration(days => $delay_dow - $date->dow_0);
-            if ($delay_dow_limit && $delay_duration->days > $delay_dow_limit) {
-                next;
+        if ($h->{parsha}) {
+            $holiday_cache{$h->{year}}->{parsha}->{$h->{parsha}} = $h;
+        }
+        elsif ($h->{e_month}) {
+            # Secular calendar event
+            my $e_year = $year - 3760;
+            my $date = DateTime::Calendar::Hebrew->from_object(object => new DateTime(year => $e_year,
+                                                                                      month => $h->{e_month},
+                                                                                      day => $h->{e_day}));
+            if ($date->year != $year) { 
+                $date = DateTime::Calendar::Hebrew->from_object(object => new DateTime(year => $e_year - 1,
+                                                                                       month => $h->{e_month},
+                                                                                       day => $h->{e_day}));
             }
-            $date = $date + $delay_duration;
+            $holiday_cache{$date->year}->{$date->month}->{$date->day} = $h;
         }
-      }
+        else {
+            if ($h->{month} < 0) {
+                $h->{month} = DateTime::Calendar::Hebrew::_LastMonthOfYear($year) + $h->{month} + 1;
+            }
+            my $delay_dow = -1;
+            my $delay_dow_limit = 0;
+            if ($h->{day} =~ /(\d+) \+ (\d+)/) {
+                my $orig_day = $h->{day};
+                $h->{day} = $1;
+                $delay_dow = $2;
+                if ($orig_day =~ /limit (\d+)/) {
+                    $delay_dow_limit = $1;
+                }
+            }
 
-      if (defined($h->{disallow_dow})) {
-        my %disallow_dow = map { ($_ => 1) } split(/,/, $h->{disallow_dow});
-        while ($disallow_dow{$date->dow_0}) {
-          if ($date->dow_0 > 3) {
-            $date = $date - new DateTime::Duration(days => 1);
-          }
-          else {
-            $date = $date + new DateTime::Duration(days => 1);
-          }
+            my $duration = 1;
+            if (defined($h->{duration})) {
+                $duration = $h->{duration};
+            }
+
+            my $date = new DateTime::Calendar::Hebrew(year => $year,
+                                                      month => $h->{month},
+                                                      day => $h->{day});
+            if ($delay_dow > -1) {
+                if ($date->dow_0 < $delay_dow) {
+                    my $delay_duration = new DateTime::Duration(days => $delay_dow - $date->dow_0);
+                    if ($delay_dow_limit && $delay_duration->days > $delay_dow_limit) {
+                        next;
+                    }
+                    $date = $date + $delay_duration;
+                }
+            }
+
+            if (defined($h->{disallow_dow})) {
+                my %disallow_dow = map { ($_ => 1) } split(/,/, $h->{disallow_dow});
+                while ($disallow_dow{$date->dow_0}) {
+                    if ($date->dow_0 > 3) {
+                        $date = $date - new DateTime::Duration(days => 1);
+                    }
+                    else {
+                        $date = $date + new DateTime::Duration(days => 1);
+                    }
+                }
+            }
+
+            if (defined($h->{dow_times})) {
+                if ($date->dow_0 == $h->{dow_times}->{dow}) {
+                    $h->{times} = $h->{dow_times}->{times};
+                }
+            }
+
+            if ($h->{name} && $h->{name} eq 'zot chanukah' && DateTime::Calendar::Hebrew::_ShortKislev($year)) {
+                $date = $date + new DateTime::Duration(days => 1);
+            }
+
+            if ($h->{fast} && $date->dow_0 == 6 && $h->{name} !~ /kippur/) {
+                if ($h->{name} =~ /esther/) {
+                    $date = $date - new DateTime::Duration(days => 2);
+                    $holiday_cache{$date->year}->{$date->month}->{13} = { times => { 'megillah reading' => $h->{times}->{'megillah reading'} } };
+                    delete $h->{times}->{'megillah reading'};
+                }
+                else {
+                    $h->{fast_delayed} = 1;
+                    $date = $date + new DateTime::Duration(days => 1);
+                }
+            }
+
+            if ($h && exists $h->{name} && 
+                (($h->{name} eq 'yom hazikaron' && $date->dow_0 == 0) || 
+                 ($h->{name} eq 'yom haatzmaut' && $date->dow_0 == 1))) {
+                $date = $date + new DateTime::Duration(days => 1);
+            }
+
+            if ($h->{yomtov} && $h->{name} &&
+                (($date->dow_0 == 5 && $h->{name} !~ /rosh hashana/) || 
+                 ($date->dow_0 == 4 && $h->{name} =~ /rosh hashana/))) {
+                my $eruv_tavshilin_date = $date - new DateTime::Duration(days => 1);
+
+                $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month} = {} unless (exists $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month});
+                my $cache_eruv_tavshilin_month = $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month};
+                $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day} = {} unless exists $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day};
+                $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day} = { %{$cache_eruv_tavshilin_month->{$eruv_tavshilin_date->{day}}},
+                                                                             notice => 'eruv tavshilin',
+                                                                           };
+            }
+            if ($h && exists $h->{bottom_notice} && 
+                $h->{bottom_notice} eq 'erev chanukah' && $date->dow_0 == 6) {
+                $h->{bottom_notice}  = 'erev chanukah motzash';
+            }
+
+            for my $d (1..$duration) {
+                my $new_h = { %$h };
+                $new_h->{name} = gematria($d) . "' " . $new_h->{name} if ($duration > 1);
+
+                if ($date->dow_0 == 6) { # No shofar on Shabbat
+                    for my $k (grep(/shofar/, keys %{$h->{times}})) {
+                        delete $new_h->{times}->{$k};
+                    }
+                }
+
+                $holiday_cache{$date->year}->{$date->month}->{$date->day} = {} 
+                  unless exists $holiday_cache{$date->year}->{$date->month}->{$date->day};
+
+                $holiday_cache{$date->year}->{$date->month}->{$date->day} = {
+                                                                             %{$holiday_cache{$date->year}->{$date->month}->{$date->day}},
+                                                                             %$new_h,
+                                                                            };
+                $date = $date + new DateTime::Duration(days => 1);
+            }
         }
-      }
+    }
 
-      if (defined($h->{dow_times})) {
-          if ($date->dow_0 == $h->{dow_times}->{dow}) {
-              $h->{times} = $h->{dow_times}->{times};
-          }
-      }
+    my $rosh_hashana = DateTime->from_object(object => ShulCal::Day::get_rosh_hashana($year));
+    for my $dst_year ($rosh_hashana->year..$rosh_hashana->year + 1) {
+        my $dst_start_date = DateTime::Calendar::Hebrew->from_object(object => ShulCal::Day::dst_start_date($dst_year));
+        $holiday_cache{$dst_start_date->year}->{$dst_start_date->month}->{$dst_start_date->day}->{notice} = 'start summer time';
 
-      if ($h->{name} && $h->{name} eq 'zot chanukah' && DateTime::Calendar::Hebrew::_ShortKislev($year)) {
-        $date = $date + new DateTime::Duration(days => 1);
-      }
+        my $dst_end_date = DateTime::Calendar::Hebrew->from_object(object => ShulCal::Day::dst_end_date($dst_year));
+        $holiday_cache{$dst_end_date->year}->{$dst_end_date->month}->{$dst_end_date->day}->{notice} = 'end summer time';
+    }
 
-      if ($h->{fast} && $date->dow_0 == 6 && $h->{name} !~ /kippur/) {
-        if ($h->{name} =~ /esther/) {
-          $date = $date - new DateTime::Duration(days => 2);
-          $holiday_cache{$date->year}->{$date->month}->{13} = { times => { 'megillah reading' => $h->{times}->{'megillah reading'} } };
-          delete $h->{times}->{'megillah reading'};
-        } else {
-            $h->{fast_delayed} = 1;
-            $date = $date + new DateTime::Duration(days => 1);
-        }
-      }
+    # Compute all rosh chodeshes
+    my $last_month_30_day = 0;
+    for my $month (7..DateTime::Calendar::Hebrew::_LastMonthOfYear($year), 1..6) {
+        if ($month != 7) {
+            # No rosh chodesh in Tishrei
+            if ($holiday_cache{$year}->{$month}->{1}->{name} && !ref($holiday_cache{$year}->{$month}->{1}->{name})) {
+                $holiday_cache{$year}->{$month}->{1}->{name} = [ $holiday_cache{$year}->{$month}->{1}->{name} ];
+            }
 
-      if ($h && exists $h->{name} && 
-          (($h->{name} eq 'yom hazikaron' && $date->dow_0 == 0) || 
-           ($h->{name} eq 'yom haatzmaut' && $date->dow_0 == 1))) {
-        $date = $date + new DateTime::Duration(days => 1);
-      }
-
-      if ($h->{yomtov} && $h->{name} &&
-          (($date->dow_0 == 5 && $h->{name} !~ /rosh hashana/) || 
-           ($date->dow_0 == 4 && $h->{name} =~ /rosh hashana/))) {
-        my $eruv_tavshilin_date = $date - new DateTime::Duration(days => 1);
-
-        $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month} = {} unless (exists $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month});
-        my $cache_eruv_tavshilin_month = $holiday_cache{$eruv_tavshilin_date->year}->{$eruv_tavshilin_date->month};
-        $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day} = {} unless exists $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day};
-        $cache_eruv_tavshilin_month->{$eruv_tavshilin_date->day} = { %{$cache_eruv_tavshilin_month->{$eruv_tavshilin_date->{day}}},
-                                                                     notice => 'eruv tavshilin',
-                                                                   };
-      }
-      if ($h && exists $h->{bottom_notice} && 
-          $h->{bottom_notice} eq 'erev chanukah' && $date->dow_0 == 6) {
-          $h->{bottom_notice}  = 'erev chanukah motzash';
-      }
-
-      for my $d (1..$duration) {
-        my $new_h = { %$h };
-        $new_h->{name} = gematria($d) . "' " . $new_h->{name} if ($duration > 1);
-
-        if ($date->dow_0 == 6) { # No shofar on Shabbat
-          for my $k (grep(/shofar/, keys %{$h->{times}})) {
-            delete $new_h->{times}->{$k};
-          }
+            push(@{$holiday_cache{$year}->{$month}->{1}->{name}}, ($last_month_30_day ? 'rosh chodesh 2' : 'rosh chodesh'));
         }
 
-        $holiday_cache{$date->year}->{$date->month}->{$date->day} = {} 
-          unless exists $holiday_cache{$date->year}->{$date->month}->{$date->day};
-
-        $holiday_cache{$date->year}->{$date->month}->{$date->day} = {
-                                                                     %{$holiday_cache{$date->year}->{$date->month}->{$date->day}},
-                                                                     %$new_h,
-                                                                    };
-        $date = $date + new DateTime::Duration(days => 1);
-      }
+        if ($holiday_cache{$year}->{$month}->{30}->{name} && !ref($holiday_cache{$year}->{$month}->{30}->{name})) {
+            $holiday_cache{$year}->{$month}->{30}->{name} = [ $holiday_cache{$year}->{$month}->{30}->{name} ];
+        }
+        if (DateTime::Calendar::Hebrew::_LastDayOfMonth($year, $month) == 30) {
+            push(@{$holiday_cache{$year}->{$month}->{30}->{name}}, 'rosh chodesh 1');
+            $last_month_30_day = 1;
+        }
+        else {
+            $last_month_30_day = 0;
+        }
     }
-  }
-
-  my $rosh_hashana = DateTime->from_object(object => ShulCal::Day::get_rosh_hashana($year));
-  for my $dst_year ($rosh_hashana->year..$rosh_hashana->year + 1) {
-    my $dst_start_date = DateTime::Calendar::Hebrew->from_object(object => ShulCal::Day::dst_start_date($dst_year));
-    $holiday_cache{$dst_start_date->year}->{$dst_start_date->month}->{$dst_start_date->day}->{notice} = 'start summer time';
-
-    my $dst_end_date = DateTime::Calendar::Hebrew->from_object(object => ShulCal::Day::dst_end_date($dst_year));
-    $holiday_cache{$dst_end_date->year}->{$dst_end_date->month}->{$dst_end_date->day}->{notice} = 'end summer time';
-  }
-
-  # Compute all rosh chodeshes
-  my $last_month_30_day = 0;
-  for my $month (7..DateTime::Calendar::Hebrew::_LastMonthOfYear($year), 1..6) {
-    if ($month != 7) {
-      # No rosh chodesh in Tishrei
-      if ($holiday_cache{$year}->{$month}->{1}->{name} && !ref($holiday_cache{$year}->{$month}->{1}->{name})) {
-        $holiday_cache{$year}->{$month}->{1}->{name} = [ $holiday_cache{$year}->{$month}->{1}->{name} ];
-      }
-
-      push(@{$holiday_cache{$year}->{$month}->{1}->{name}}, ($last_month_30_day ? 'rosh chodesh 2' : 'rosh chodesh'));
-    }
-
-    if ($holiday_cache{$year}->{$month}->{30}->{name} && !ref($holiday_cache{$year}->{$month}->{30}->{name})) {
-      $holiday_cache{$year}->{$month}->{30}->{name} = [ $holiday_cache{$year}->{$month}->{30}->{name} ];
-    }
-    if (DateTime::Calendar::Hebrew::_LastDayOfMonth($year, $month) == 30) {
-      push(@{$holiday_cache{$year}->{$month}->{30}->{name}}, 'rosh chodesh 1');
-      $last_month_30_day = 1;
-    }
-    else {
-      $last_month_30_day = 0;
-    }
-  }
 }
 
 #--------------------------------------------------

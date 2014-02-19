@@ -52,7 +52,7 @@ sub gematria {
   my(@tens) = ('', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ');
   my(@hundreds) = ('', 'ק', 'ר', 'ש', 'ת');
   my $retval;
-  if ($num > 1000) {
+  if ($num >= 2000) {
     $retval = $ones[int($num / 1000)] . '"';
     $num %= 1000;
   }
@@ -60,7 +60,7 @@ sub gematria {
     $num -= 400;
     $retval .= $hundreds[4];
   }
-  if ($num > 100) {
+  if ($num >= 100) {
     $retval .= $hundreds[int($num / 100)];
     $num %= 100;
   }

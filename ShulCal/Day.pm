@@ -16,7 +16,7 @@ memoize 'get_pesach';
 memoize 'dst_start_date';
 memoize 'dst_end_date';
 
-my $DAF_YOMI_SHIUR_LENGTH = 45;
+my $DAF_YOMI_SHIUR_LENGTH = 40;
 
 our @weekday_start = map { new ShulCal::Time($_) } (qw(6:30 6:20 6:30 6:30 6:20 6:30));
 
@@ -346,7 +346,7 @@ sub get_times {
 
       if (compute_date_diff($next_rosh_hashana, $self) <= 11  && compute_date_diff($next_rosh_hashana, $self) > 4) {
 #      	$davening_times{"night selichot"} = ($chatzot_halayla) % 10;
-      	$davening_times{"sicha and selichot"} = (($chatzot_halayla) % 10) - 15;
+      	$davening_times{"sicha and selichot"} = ($chatzot_halayla - 15) % 5;
       }
 
       if ($tom_holiday && $tom_holiday->yomtov) {
@@ -381,7 +381,7 @@ sub get_times {
       }
 
 #      unless (($self->month == 1 && $self->day == 14) || $holiday->name =~ /kippur/) {
-##        $davening_times{'daf yomi'} ||= $davening_times{mincha} - $DAF_YOMI_SHIUR_LENGTH;
+####      $davening_times{'daf yomi'} ||= $davening_times{mincha} - $DAF_YOMI_SHIUR_LENGTH;
 #        if ($davening_times{mincha} =~ /^[\d:]+$/) {
 #          $davening_times{'daf yomi'} ||= $davening_times{mincha} - 30;
 #          if ($davening_times{'daf yomi'} lt '15:00') {
@@ -396,7 +396,7 @@ sub get_times {
 	  $davening_times{"mincha"} =  ($sunset - 25) % 5;
 	}
 	else {
-	  $davening_times{"mincha"} =  ($sunset - 18) % 5;
+	  $davening_times{"mincha"} =  ($sunset - 15) % 5;
 	}
       }
 
@@ -405,7 +405,7 @@ sub get_times {
         if ($tom_holiday && $tom_holiday->yomtov) {
           #        $davening_times{"kl arvit"} = $havdalah_time;
           $davening_times{"candle lighting"} = e2h("not before") . " " . ($time_calc->tzeit + 2);
-          $davening_times{"arvit"} = ($time_calc->tzeit + 7) % 5;
+          $davening_times{"arvit"} = ($time_calc->sunset + 25) % 5;
 #          $davening_times{"candle lighting"} = $time_calc->tzeit;
         }
         else {
@@ -522,7 +522,7 @@ sub get_times {
     else {
         if ($self->dow_0 != 5) {
             $davening_times{'end fast'} = $time_calc->tzeit;
-            $davening_times{arvit} = ($time_calc->tzeit - 5) % 5 if ($time_calc->tzeit gt '17:30');
+            $davening_times{arvit} = ($time_calc->tzeit) % 5 if ($time_calc->tzeit gt '17:30');
         }
     }
   }
@@ -532,12 +532,16 @@ sub get_times {
       if (exists $davening_times{'shacharit and siyum'}) {
           $shacharit_key = 'shacharit and siyum';
       }
-      my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
-      if ($shacharit_time !~ /,/ && $sunrise - $shacharit_time > 16 && !$holiday->fast && 
-          ! (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
-             && !grep(/chanukah/, @{$holiday->name}))) {
-          $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
-          $davening_times{netz} = $sunrise;
+      if (1) { # 5774: decided not to move shacharit time for neitz
+               # 5774 Tevet : decided to re-instate delay
+
+          my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
+          if ($shacharit_time !~ /,/ && $sunrise - $shacharit_time > 16 && !$holiday->fast && 
+              ! (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
+                 && !grep(/chanukah/, @{$holiday->name}))) {
+              $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
+              $davening_times{netz} = $sunrise;
+          }
       }
   }
 

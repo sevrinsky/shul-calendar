@@ -140,18 +140,16 @@
   month: 1
   name: erev pesach
   times:
-    shacharit and siyum: 6:30
-## changed from 7:00 for 5773 winter time
-    burn chometz: 10:28
-    end eating chometz: 9:12
+    shacharit and siyum: 7:00
+    burn chometz: 11:21
+    end eating chometz: 10:01
     chatzot halayla: chatzot
 - day: 15
   yomtov: 1
   month: 1
   name: pesach
   times:
-    shacharit: '6:45, 8:30'
-## changed from 6:45, 8:45 for 5773 winter time
+    shacharit: '7:00, 8:45'
 - day: 16
   duration: 5
   month: 1
@@ -418,5 +416,9 @@
 - year: 5774
   parsha: tazria
   bar_mitzva: אריאל דירובן
+- day: 12
+  month: 13
+  times:
+    siyum hashas: "20:45"
 
 

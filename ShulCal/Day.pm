@@ -249,7 +249,7 @@ sub get_times {
 
   if ($holiday->notice eq 'bedikat chometz') {
 #    $davening_times{'tzeit hacochavim'} = ShulCal::Time->new($time_calc->tzeit());
-    $davening_times{'arvit'} = ($time_calc->tzeit + 5) % 5;
+    $davening_times{'arvit'} = ($time_calc->tzeit + 5) % 15;
   }
 
   if ((!$self->is_shabbat && !$holiday->yomtov) &&

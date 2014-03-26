@@ -475,7 +475,8 @@ sub get_times {
         && (compute_date_diff($self, $next_rosh_hashana) < -5 ||
             compute_date_diff($self, $next_rosh_hashana) > 0)
        ) {
-      $davening_times{'early shabbos mincha'} ||= "$early_mincha_time ($plag_mincha_time)";
+      $davening_times{'plag hamincha'} ||= "$plag_mincha_time";
+      $davening_times{'early shabbos mincha'} ||= "$early_mincha_time";
     }
     # Add late shacharit
     if ($self->dow_0 != 5 && 

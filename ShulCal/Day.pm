@@ -75,6 +75,10 @@ sub print_cell {
                                   $q->td({-class => 'bar_mitzva tefillah_name'}, e2h('bar mitzva') . ":"),
                                   $q->td({-class => 'bar_mitzva tefillah_time'},$holiday->bar_mitzva)));
   }
+  if ($holiday->non_bar_mitzva) {
+      push(@davening_rows, $q->TR(
+                                  $q->td({-colspan => 2, -class => 'bar_mitzva tefillah_time'},$holiday->non_bar_mitzva)));
+  }
 
   my $has_extra_class = 0;
   if (%davening_times) {

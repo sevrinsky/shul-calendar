@@ -53,6 +53,7 @@ sub get_holiday {
 
       if ($holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}) {
           $retval->{bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{bar_mitzva};
+          $retval->{non_bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{non_bar_mitzva};
       }
     }
   }
@@ -251,35 +252,44 @@ sub get_parsha {
   my $pesach_time = DateTime->from_object(object => $pesach_date)->epoch;
   my @parshiot = @{LoadFile(find_package_path() . "/../parshiot.yaml")};
   my $parsha;
+  my $nitzavim_index = 50;
   # Hard coded fix for 5764 - joined parshiot - todo: write real code for this
   # Still needs real code, but for just don't join in leap years
   if (DateTime::Calendar::Hebrew::_LastMonthOfYear($date->year) == 12) {
     splice(@parshiot, 21, 2, $parshiot[21] . '-' . $parshiot[22]); # vayakhel-pekudei
     splice(@parshiot, 25, 2, $parshiot[25] . '-' . $parshiot[26]); # tazria-metzora
     splice(@parshiot, 26, 2, $parshiot[26] . '-' . $parshiot[27]); # acharei mot-kedoshim
+    $nitzavim_index -= 3;
 
     if ($pesach_date->dow_0 != 6) {
         # If Pesach falls on Shabbat, Behar-Bechukotai are separate
         splice(@parshiot, 28, 2, $parshiot[28] . '-' . $parshiot[29]); # behar-bechukotai
         splice(@parshiot, 37, 2, $parshiot[37] . '-' . $parshiot[38]); # matot-maasei
-        splice(@parshiot, 45, 2, $parshiot[45] . '-' . $parshiot[46]); # nitzavim-vayelech
+        $nitzavim_index -= 2;
     }
     else {
         splice(@parshiot, 38, 2, $parshiot[38] . '-' . $parshiot[39]); # matot-maasei
+        $nitzavim_index--;
     }
+  }
+
+  my $next_rosh_hashana = ShulCal::Day::get_rosh_hashana($date->year + 1);
+  if (DateTime::Calendar::Hebrew::_LastMonthOfYear($date->year) == 12 || $next_rosh_hashana->dow_0 > 2) {
+      # Joined in most years, including leap years
+      splice(@parshiot, $nitzavim_index, 2, $parshiot[$nitzavim_index] . '-' . $parshiot[$nitzavim_index + 1]); # nitzavim-vayelech
   }
 
   my $subparsha = undef;
   if ($date->day < 15 && $date->month == 7) {
-    my $rosh_hashana = ShulCal::Day::get_rosh_hashana($date->year);
-    if ($rosh_hashana->dow_0 <= 2 && $date->day <= 7) {
-      $parsha = "vayelech";
-    } else {
-      $parsha = "haazinu";
-    }
-    if ($date->day < 10) {
-      $subparsha = "shuva";
-    }
+      my $rosh_hashana = ShulCal::Day::get_rosh_hashana($date->year);
+      if ($rosh_hashana->dow_0 <= 2 && $date->day <= 7) {
+          $parsha = "vayelech";
+      } else {
+          $parsha = "haazinu";
+      }
+      if ($date->day < 10) {
+          $subparsha = "shuva";
+      }
   } else {
 
     my $date_time = DateTime->from_object(object => $date)->epoch;

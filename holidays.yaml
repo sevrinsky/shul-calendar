@@ -223,9 +223,9 @@
   month: 3
   name: shavuot
   times:
-    brachot and megillat ruth: 4:50
+    brachot and megillat ruth: 4:45
     netz: $sunrise
-    shacharit: '5:15, 8:30'
+    shacharit: '5:05, 8:30'
 - day: 17
   fast: 1
   month: 4
@@ -416,9 +416,23 @@
 - year: 5774
   parsha: tazria
   bar_mitzva: אריאל דירובן
+- year: 5774
+  parsha: emor
+  bar_mitzva: שי גולדרייך
 - day: 12
   month: 13
   times:
     siyum hashas: "20:45"
-
+- year: 5774
+  parsha: shlach
+  bar_mitzva: יהודה סינגר
+- year: 5774
+  parsha: balak
+  non_bar_mitzva: קידוש לכבוד בוגרי כיתה י"ב
+- year: 5774
+  parsha: vaetchanan
+  bar_mitzva: אליהו פרידמן
+- year: 5774
+  parsha: ki tetze
+  bar_mitzva: קובי בלוק
 

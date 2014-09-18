@@ -539,9 +539,11 @@ sub get_times {
       if (exists $davening_times{'shacharit and siyum'}) {
           $shacharit_key = 'shacharit and siyum';
       }
-      if (1) { # 5774: decided not to move shacharit time for neitz
-               # 5774 Tevet : decided to re-instate delay
-
+      # 5774: decided not to move shacharit time for neitz
+      # 5774 Tevet : decided to re-instate delay
+      # 5775 Tishrei: decided not to move shacharit time for neitz -- setting rule to exclude tishrei/marcheshvan
+      
+      if ($self->month != 7 && $self->month != 8) { 
           my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
           if ($shacharit_time !~ /,/ && $sunrise - $shacharit_time > 16 && !$holiday->fast && 
               ! (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})

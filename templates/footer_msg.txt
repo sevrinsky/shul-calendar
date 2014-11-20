@@ -41,14 +41,14 @@
  ימי שלישי, 20:45
 </li>
 -->
+<li><span style="font-weight: bold;">שיעור שבועי לנוער</span> (לכיתות י'-י"ב)<br>
+ ימי שני, 20:40
+</li>
 <li><span style="font-weight: bold;">שיעור גמרא - מסכת פסחים</span>, מפי ר' ג'רמי פין [לגברים]<br>
  ימי רביעי, 20:40
 </li>
 
 
-<li><span style="font-weight: bold;">שיעור שבועי לנוער</span> (לכיתות י'-י"ב)<br>
- ימי שני, 20:40
-</li>
 
 </ul>
 </div>

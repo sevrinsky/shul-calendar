@@ -71,9 +71,16 @@ sub print_cell {
 
   my @davening_rows = ();
   if ($holiday->bar_mitzva) {
-      push(@davening_rows, $q->TR(
-                                  $q->td({-class => 'bar_mitzva tefillah_name'}, e2h('bar mitzva') . ":"),
-                                  $q->td({-class => 'bar_mitzva tefillah_time'},$holiday->bar_mitzva)));
+      my @bar_mitzva = ($holiday->bar_mitzva);
+      if (ref($holiday->bar_mitzva)) {
+          @bar_mitzva = @{$holiday->bar_mitzva};
+      }
+
+      for my $bm (@bar_mitzva) {
+          push(@davening_rows, $q->TR(
+                                      $q->td({-class => 'bar_mitzva tefillah_name'}, e2h('bar mitzva') . ":"),
+                                      $q->td({-class => 'bar_mitzva tefillah_time'},$bm)));
+      }
   }
   if ($holiday->non_bar_mitzva) {
       push(@davening_rows, $q->TR(
@@ -185,7 +192,12 @@ sub get_times {
           if ($possible_time eq '-') {
             delete $davening_times{$k};
           } else {
-            $davening_times{$k} = new ShulCal::Time($possible_time);
+              if ($possible_time =~ /,/) {
+                  $davening_times{$k} = $possible_time;
+              }
+              else {
+                  $davening_times{$k} = new ShulCal::Time($possible_time);
+              }
           }
         }
       }
@@ -547,7 +559,7 @@ sub get_times {
           my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
           if ($shacharit_time !~ /,/ && $sunrise - $shacharit_time > 16 && !$holiday->fast && 
               ! (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
-                 && !grep(/chanukah/, @{$holiday->name}))) {
+                 && grep(/chanukah/, @{$holiday->name}))) {
               $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
               $davening_times{netz} = $sunrise;
           }

@@ -71,7 +71,7 @@
   month: 9
   name: chanukah
   times:
-    shacharit: 0-4/6:20//5/6:20
+    shacharit: 0-4/6:20//5/6:20,8:10
 - day: 2
   month: 10
   name: zot chanukah
@@ -435,4 +435,15 @@
 - year: 5774
   parsha: ki tetze
   bar_mitzva: קובי בלוק
+- year: 5775
+  parsha: noach
+  bar_mitzva: יונתן רום
+- year: 5775
+  parsha: chayei sarah
+  bar_mitzva: ארי ג'ייקובס
+- year: 5775
+  parsha: miketz
+  bar_mitzva: 
+    - גבי סנדי
+    - נתנאל סנדי
 

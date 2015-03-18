@@ -220,6 +220,8 @@ sub get_times {
   $self->{_sof_zman_kriat_shma} = $sof_zman_kriat_shma;
   my $sof_zman_tefillah = $sunrise + (4 * $shaa_zmanit);
   my $havdalah_time = $time_calc->havdalah;
+  my $burn_chametz = $time_calc->sunrise - 72  + (5 * (144 + $time_calc->sunset - $time_calc->sunrise) / 12);
+  my $eat_chametz = $time_calc->sunrise - 72  + (4 * (144 + $time_calc->sunset - $time_calc->sunrise) / 12);
 
   my $candle_time = $sunset - 20;
   my $mincha_time = ($candle_time + 8) % 5;
@@ -243,7 +245,13 @@ sub get_times {
   if ($davening_times{'chatzot halayla'}) {
     $davening_times{'chatzot halayla'} = $chatzot_halayla;
   }
-  
+  if ($davening_times{'end eating chometz'}) {
+      $davening_times{'end eating chometz'} = $eat_chametz;
+  }
+  if ($davening_times{'burn chometz'}) {
+      $davening_times{'burn chometz'} = $burn_chametz;
+  }
+
   if ($davening_times{'netz'}) {
     $davening_times{'netz'} = $sunrise;
   }
@@ -393,7 +401,7 @@ sub get_times {
 
       if (($self->month == 1 && $self->day == 7) || # Exception for Shabbat Hagadol drasha when Erev Pesach is on Shabbat
           ($holiday->subparsha =~ /(hagadol|shuva)/ && $self->day != 14)) { 
-	$davening_times{"drasha"} = (($sunset - 75) % 15);
+	$davening_times{"drasha"} = (($sunset - 75) % 5);
 	$davening_times{'mincha'} = $davening_times{drasha} - 20;
       }
 
@@ -554,14 +562,32 @@ sub get_times {
       # 5774: decided not to move shacharit time for neitz
       # 5774 Tevet : decided to re-instate delay
       # 5775 Tishrei: decided not to move shacharit time for neitz -- setting rule to exclude tishrei/marcheshvan
+      # 5775 Shvat: decided not to move Rosh Chodesh start time, or Mondays which wouldn't match the corresponding Thursday
       
       if ($self->month != 7 && $self->month != 8) { 
           my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
-          if ($shacharit_time !~ /,/ && $sunrise - $shacharit_time > 16 && !$holiday->fast && 
-              ! (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
-                 && grep(/chanukah/, @{$holiday->name}))) {
-              $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
-              $davening_times{netz} = $sunrise;
+          my $compare_sunrise = $sunrise;
+          if ($self->dow_0 < 3) {
+              my $time_calc = new Suntimes(day => $self->e_day + 3,
+                                           month => $self->e_month,
+                                           year => $self->e_year,
+                                           londeg => 34,
+                                           lonmin => 59.9172,
+                                           latdeg => 31,
+                                           latmin => 42.852,
+                                           timezone => 2 + ($self->is_dst ? 1 : 0),
+                                           time_constructor => sub { new ShulCal::Time($_[0]) } );
+              $compare_sunrise = $time_calc->sunrise;
+          }
+          if ($shacharit_time !~ /,/) {
+              if ($compare_sunrise - $shacharit_time > 14) {
+                  $davening_times{netz} = $sunrise;
+              }
+              if ($compare_sunrise - $shacharit_time > 16 &&
+                  ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
+
+                  $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
+              }
           }
       }
   }

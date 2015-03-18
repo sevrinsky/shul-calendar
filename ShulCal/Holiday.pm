@@ -35,6 +35,19 @@ sub AUTOLOAD {
 
 #----------------------------------------------------------------------
 
+sub contains {
+    my($self, $field) = @_;
+    my $name = $self->name();
+    if (ref($name) && ref($name) eq 'ARRAY') {
+        return grep { /$field/ } @$name;
+    }
+    else {
+        return $name =~ /$field/;
+    }
+}
+
+#----------------------------------------------------------------------
+
 sub get_holiday {
   my($date) = @_;
   unless ($holiday_cache{$date->year}) {

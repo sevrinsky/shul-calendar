@@ -534,7 +534,7 @@ sub get_times {
       # Changed for Tzom Gedalia 5772 - print mincha on fast regardless
       # Changed for 10 Tevet 5772 - do not print mincha
       if ((($sunset - 30) % 5) ge '17:00') {
-          $davening_times{mincha} = ($sunset - 30) % 5; 
+          $davening_times{mincha} = ($sunset - 25) % 5; 
       }
       if ($self->dow_0 == 5) {
           $davening_times{mincha} = ($candle_time - 5) % 5;

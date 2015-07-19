@@ -220,8 +220,9 @@ sub get_times {
   $self->{_sof_zman_kriat_shma} = $sof_zman_kriat_shma;
   my $sof_zman_tefillah = $sunrise + (4 * $shaa_zmanit);
   my $havdalah_time = $time_calc->havdalah;
-  my $burn_chametz = $time_calc->sunrise - 72  + (5 * (144 + $time_calc->sunset - $time_calc->sunrise) / 12);
-  my $eat_chametz = $time_calc->sunrise - 72  + (4 * (144 + $time_calc->sunset - $time_calc->sunrise) / 12);
+  my $MA_CONST = 90;
+  my $burn_chametz = $time_calc->sunrise - $MA_CONST  + (5 * ($MA_CONST * 2 + $time_calc->sunset - $time_calc->sunrise) / 12);
+  my $eat_chametz = $time_calc->sunrise - $MA_CONST  + (4 * ($MA_CONST * 2 + $time_calc->sunset - $time_calc->sunrise) / 12);
 
   my $candle_time = $sunset - 20;
   my $mincha_time = ($candle_time + 8) % 5;

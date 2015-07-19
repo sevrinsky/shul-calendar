@@ -82,6 +82,18 @@ sub print_cell {
                                       $q->td({-class => 'bar_mitzva tefillah_time'},$bm)));
       }
   }
+
+  if ($holiday->shabbat_chatan) {
+      my @shabbat_chatanim = ($holiday->shabbat_chatan);
+
+      for my $shabbat_chatan (@shabbat_chatanim) {
+          push(@davening_rows, $q->TR(
+                                      $q->td({-class => 'bar_mitzva tefillah_name'}, e2h('shabbat chatan') . ":"),
+                                      $q->td({-class => 'bar_mitzva tefillah_time'}, $shabbat_chatan)));
+      }
+  }
+
+
   if ($holiday->non_bar_mitzva) {
       push(@davening_rows, $q->TR(
                                   $q->td({-colspan => 2, -class => 'bar_mitzva tefillah_time'},$holiday->non_bar_mitzva)));

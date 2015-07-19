@@ -314,9 +314,9 @@ p { font-size: 100% }
 td { font-size: 100% }
 
 .entire_calendar {  background-color: #ffffff; direction: rtl; width: 100%; border: 1px solid black }
-	  .day_cell  { border: 1px solid black; height: 100%; vertical-align: top; }
+	  .day_cell  { border: 1px solid black; height: 100%; vertical-align: top;  }
 	  .general_tefillah_times { font-size: 0.62em; background: #bbffff; border: 1px solid black; padding: 1px 5px } 
-	  .general_tefillah_times table tr td { font-size: 0.62em; } 
+	  .general_tefillah_times table.regular_times tr td { font-size: 0.62em; white-space: nowrap; } 
 	  .general_tefillah_times_div { _height: 5em; min-height: 5em } 
 	  .days_of_week_header { border: 1px solid black; background: yellow; text-align: center;}
 	  .days_of_week_header div { width: 4em }

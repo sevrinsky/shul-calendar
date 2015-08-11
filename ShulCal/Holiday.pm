@@ -288,7 +288,7 @@ sub get_parsha {
   }
 
   my $next_rosh_hashana = ShulCal::Day::get_rosh_hashana($date->year + 1);
-  if (DateTime::Calendar::Hebrew::_LastMonthOfYear($date->year) == 12 || $next_rosh_hashana->dow_0 > 2) {
+  if ($next_rosh_hashana->dow_0 > 2) {
       # Joined in most years, including leap years
       splice(@parshiot, $nitzavim_index, 2, $parshiot[$nitzavim_index] . '-' . $parshiot[$nitzavim_index + 1]); # nitzavim-vayelech
   }

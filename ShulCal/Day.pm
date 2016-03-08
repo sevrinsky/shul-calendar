@@ -463,6 +463,15 @@ sub get_times {
       }
     }
   }
+  else {
+      if (((ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) ||
+          (!ref($holiday->name) && grep(/chanukah/, $holiday->name))) &&
+          $holiday->duration_instance > 1) {
+
+          $davening_times{shacharit} .= ', 8:45';
+      }
+
+  }
 
   if ($holiday->name eq 'erev yom kippur') {
     $davening_times{'kol nidre'} = ($candle_time + 5) % 5;
@@ -572,7 +581,7 @@ sub get_times {
       if (exists $davening_times{'shacharit and siyum'}) {
           $shacharit_key = 'shacharit and siyum';
       }
-      # 5774: decided not to move shacharit time for neitz
+      # 5774 Tishrei: decided not to move shacharit time for neitz
       # 5774 Tevet : decided to re-instate delay
       # 5775 Tishrei: decided not to move shacharit time for neitz -- setting rule to exclude tishrei/marcheshvan
       # 5775 Shvat: decided not to move Rosh Chodesh start time, or Mondays which wouldn't match the corresponding Thursday

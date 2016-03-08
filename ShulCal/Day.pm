@@ -93,6 +93,15 @@ sub print_cell {
       }
   }
 
+  if ($holiday->shabbat_sheva_brachot) {
+      my @shabbat_lines = ($holiday->shabbat_sheva_brachot);
+
+      for my $shabbat_line (@shabbat_lines) {
+          push(@davening_rows, $q->TR(
+                                      $q->td({-class => 'bar_mitzva tefillah_name'}, e2h('shabbat sheva brachot') . ":"),
+                                      $q->td({-class => 'bar_mitzva tefillah_time'}, $shabbat_line)));
+      }
+  }
 
   if ($holiday->non_bar_mitzva) {
       push(@davening_rows, $q->TR(

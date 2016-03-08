@@ -67,6 +67,7 @@ sub get_holiday {
       if ($holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}) {
           $retval->{bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{bar_mitzva};
           $retval->{shabbat_chatan} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{shabbat_chatan};
+          $retval->{shabbat_sheva_brachot} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{shabbat_sheva_brachot};
           $retval->{non_bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{non_bar_mitzva};
       }
     }
@@ -192,6 +193,7 @@ sub generate_cache {
             for my $d (1..$duration) {
                 my $new_h = { %$h };
                 $new_h->{name} = gematria($d) . "' " . $new_h->{name} if ($duration > 1);
+                $new_h->{duration_instance} = $d;
 
                 if ($date->dow_0 == 6) { # No shofar on Shabbat
                     for my $k (grep(/shofar/, keys %{$h->{times}})) {

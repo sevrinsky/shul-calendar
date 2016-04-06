@@ -373,11 +373,14 @@ sub get_times {
 
 
     if ($self->is_shabbat) {
-      $davening_times{mincha} ||= '13:15, ' . $sh_mincha_time;
+        $davening_times{mincha} = $sh_mincha_time;
+        if (! $self->is_dst) {
+            $davening_times{mincha} ||= '13:15, ' . $sh_mincha_time;
+        }
 
       if ($tom_holiday && ($tom_holiday->name =~ /chanukah/ || (ref($tom_holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$tom_holiday->name})))) {
-	# On motza"sh chanukah, daven arvit 10 minutes early.
-	$davening_times{"arvit"} = $havdalah_time - 10;
+          # On motza"sh chanukah, daven arvit 10 minutes early.
+          $davening_times{"arvit"} = $havdalah_time - 10;
       }
 
       if ($davening_times{"megillah reading"}) {

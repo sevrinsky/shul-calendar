@@ -192,7 +192,9 @@ sub generate_cache {
 
             for my $d (1..$duration) {
                 my $new_h = { %$h };
-                $new_h->{name} = gematria($d) . "' " . $new_h->{name} if ($duration > 1);
+                if ($new_h->{name}) {
+                    $new_h->{name} = gematria($d) . "' " . $new_h->{name} if ($duration > 1);
+                }
                 $new_h->{duration_instance} = $d;
 
                 if ($date->dow_0 == 6) { # No shofar on Shabbat

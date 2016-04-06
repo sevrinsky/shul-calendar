@@ -137,6 +137,10 @@
 #     end eating chometz: 9:57
 #     bitul chometz: 11:18
 #     chatzot halayla: chatzot
+- day: 5
+  month: 1
+  is_youth_minyan: 1
+  duration: 9
 - day: 13
   month: 1
   notice: bedikat chometz
@@ -144,7 +148,7 @@
   month: 1
   name: erev pesach
   times:
-    shacharit and siyum: 7:00
+    shacharit and siyum: 7:00, 8:10
     burn chometz: 'in code'
     end eating chometz: 'in code'
     chatzot halayla: chatzot
@@ -159,7 +163,7 @@
   month: 1
   name: chol hamoed pesach
   times:
-    shacharit: 7:00
+    shacharit: 7:00, 8:10
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach
@@ -504,3 +508,7 @@
 - year: 5776
   parsha: shmini
   bar_mitzva: ישראל ירס
+- year: 5776
+  month: 1
+  day: 21
+  bar_mitzva: אלי רוזנפילד

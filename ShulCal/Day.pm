@@ -630,12 +630,22 @@ sub get_times {
 #    unless ($davening_times{shacharit}) {
 #      $davening_times{shacharit} = '6:30';
 #    }
-    if ($davening_times{shacharit} && (!$holiday->name || ref($holiday->name))) {
-      $davening_times{shacharit} .= ', 8:10';
-    }
+      if ($davening_times{shacharit} && (!$holiday->name || ref($holiday->name))) {
+          $davening_times{shacharit} .= ', 8:10';
+      }
   }
 
-#  unless ($self->is_shabbat || $holiday->yomtov || $holiday->name eq '9 av') {
+  if (!$self->is_shabbat && $holiday->is_youth_minyan) {
+      if (! $davening_times{"shacharit"}) {
+          $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
+          if ($self->dow_0 == 5) {
+              $davening_times{"shacharit"} .= ', 8:10';
+          }
+      }
+      $davening_times{"shacharit"} .= ", 8:45";
+  }
+
+  #  unless ($self->is_shabbat || $holiday->yomtov || $holiday->name eq '9 av') {
 #    if ($davening_times{shacharit} && $davening_times{shacharit} !~ /,/) {
 #      $davening_times{'daf yomi'} ||= $davening_times{shacharit} - $DAF_YOMI_SHIUR_LENGTH;
 #    }

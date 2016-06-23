@@ -195,7 +195,7 @@
   name: yom haatzmaut
   disallow_dow: 0,1,5,6
   times:
-    shacharit: '7:00, 8:10'
+    shacharit chagigit: '7:00, 8:10'
 - day: 14
   month: 2
   name: pesach sheni
@@ -220,7 +220,7 @@
   month: 2
   name: yom yerushalayim
   times:
-    shacharit: 6:20
+    shacharit chagigit: 6:20
 - day: 5
   month: 3
   name: erev shavuot
@@ -231,9 +231,9 @@
   month: 3
   name: shavuot
   times:
-    brachot and megillat ruth: 4:45
+    brachot and megillat ruth: 4:40
     netz: $sunrise
-    shacharit: '5:05, 8:30'
+    shacharit: '5:00, 8:30'
 - day: 17
   fast: 1
   month: 4
@@ -512,3 +512,9 @@
   month: 1
   day: 21
   bar_mitzva: אלי רוזנפילד
+- year: 5776
+  parsha: emor
+  bar_mitzva: מתנאל הודס
+- year: 5776
+  parsha: behaalotcha
+  bar_mitzva: נועם לביא

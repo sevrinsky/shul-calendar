@@ -406,7 +406,8 @@ sub get_times {
         else {
 #          $davening_times{mincha} = ($sunset - 95) % 15; # todo: special request of the Rav for 5767
 #          $davening_times{"arvit"} = ($time_calc->tzeit() + 10) % 5; # Rav asked for Arvit at 19:10 on 1st day of RH (5770)
-            $davening_times{mincha} = ($sunset - 10) % 15; # Ironed out for Shavuot 5772
+#            $davening_times{mincha} = ($sunset - 10) % 15; # Ironed out for Shavuot 5772
+            $davening_times{mincha} = ($sunset - 17) % 10; # Ironed out for Shavuot 5776
             $davening_times{"arvit"} = ($time_calc->tzeit()) % 5; # Ironed out for Shavuot 5772
         }
         $davening_times{"candle lighting"} = e2h("not before") . " " . $havdalah_time;
@@ -645,6 +646,9 @@ sub get_times {
       $davening_times{"shacharit"} .= ", 8:45";
   }
 
+  if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $davening_times{shacharit} && $self->is_chofesh_hagadol) {
+      $davening_times{"shacharit"} .= ", 8:45";
+  }
   #  unless ($self->is_shabbat || $holiday->yomtov || $holiday->name eq '9 av') {
 #    if ($davening_times{shacharit} && $davening_times{shacharit} !~ /,/) {
 #      $davening_times{'daf yomi'} ||= $davening_times{shacharit} - $DAF_YOMI_SHIUR_LENGTH;
@@ -835,6 +839,20 @@ sub is_shabbat {
 sub is_erev_shabbat {
   my($self) = @_;
   return $self->dow_0 == 5;
+}
+
+#----------------------------------------------------------------------
+
+sub is_chofesh_hagadol {
+    my($self) = @_;
+    my $vacation_start_date = new DateTime(year => $self->e_year,
+                                           month => 6,
+                                           day => 21);
+    my $vacation_end_date = new DateTime(year => $self->e_year,
+                                           month => 9,
+                                           day => 1);
+    return (DateTime->from_object(object => $self) >= $vacation_start_date &&
+            DateTime->from_object(object => $self) < $vacation_end_date);
 }
 
 #----------------------------------------------------------------------

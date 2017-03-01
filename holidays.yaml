@@ -381,9 +381,9 @@
 #- day: 13
 #  month: 7
 #  bar_mitzva: יואב הכסטר
-- day: 3
-  month: 9
-  bar_mitzva: גדי ברנט
+#- day: 3
+#  month: 9
+#  bar_mitzva: גדי ברנט
 #- day: 22
 #  month: 11
 #  bar_mitzva: יונה אבלס
@@ -393,10 +393,10 @@
 #- day: 27
 #  month: 12
 #  bar_mitzva: קובי שכטרמן
-- day: 26
-  month: 12
-  times:
-    shacharit: '6:30, 8:10'
+#- day: 26
+#  month: 12
+#  times:
+#    shacharit: '6:30, 8:10'
   # for Election day 5773
 # - day: 5
 #   month: 1
@@ -519,3 +519,9 @@
 - year: 5776
   parsha: behaalotcha
   bar_mitzva: נועם לביא
+- year: 5776
+  parsha: ekev
+  bar_mitzva: בנימין קאופמן
+- year: 5776
+  parsha: ki tavo
+  bar_mitzva: אורי דדוביץ

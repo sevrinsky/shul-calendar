@@ -247,14 +247,14 @@
   times:
     'start fast': '$sunset'
     'arvit': "($sunset + 22) % 5"
-    mincha: 18:00
+    mincha: '18:00'
 - day: 9
   fast: 2
   month: 5
   name: 9 av
   times:
     arvit: 19:45
-    mincha: '13:20, 19:00'
+    mincha: '13:20, 18:50'
     shacharit: 8:00
 - day: 29
   month: 6

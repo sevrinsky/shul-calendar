@@ -389,9 +389,10 @@ sub get_times {
       }
 
       if ($tom_holiday && $tom_holiday->name eq '9 av') {
-	$davening_times{'mincha'} = $davening_times{mincha} - 30;
-	$davening_times{'start fast evening'} = $time_calc->sunset;
-	$davening_times{'arvit'} = ($havdalah_time + 20) % 5;
+          $davening_times{'mincha'} = $davening_times{mincha} - 30;
+          $davening_times{'start fast evening'} = $time_calc->sunset;
+          $davening_times{'arvit'} = ($havdalah_time + 20) % 5;
+          $davening_times{'additional megillat eicha'} = '21:30';
       }
 
       if (compute_date_diff($next_rosh_hashana, $self) <= 11  && compute_date_diff($next_rosh_hashana, $self) > 4) {

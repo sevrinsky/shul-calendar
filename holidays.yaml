@@ -24,8 +24,8 @@
   month: 7
   name: yom kippur
   times:
-    mincha: 16:10
-    neila: 17:25
+    mincha: '($sunset - 145) % 105'
+    neila: '($sunset - 72) % 5'
 #    shofar: 17:55
     shacharit: 7:45
     yizkor: לא לפני 10:30
@@ -43,7 +43,7 @@
   month: 7
   name: chol hamoed sukkot
   times:
-    shacharit: 7:00
+    shacharit: '7:00, 8:10'
 - day: 16 + 6
   month: 7
   name: shabbat chol hamoed sukkot

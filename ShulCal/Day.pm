@@ -323,7 +323,10 @@ sub get_times {
 	$days_to_rh > (7 - $self->dow_0)))) {
     # Selichot - for before Rosh HaShana
     $davening_times{"selichot"} = $weekday_start[$self->dow_0] - 25;
-  }
+    if ($self->dow_0 == 5) {
+        $davening_times{"selichot"} .= ', 8:10';
+    }
+}
 
   # Friday shacharit for the summer
   # Not being continued for summer 5768
@@ -529,7 +532,7 @@ sub get_times {
         && ! $holiday->yomtov # 5772 - no early minyan for Shabbat on Friday chag
         && $tom_holiday->name ne 'shavuot' 
         && $tom_holiday->name !~ / rosh hashana/ 
-        && $early_mincha_time ge '17:00'
+        && $early_mincha_time ge '17:15'
         && $self->month != 7
         && compute_date_diff($self, $this_pesach) > 0
         && (compute_date_diff($self, $next_rosh_hashana) < -5 ||

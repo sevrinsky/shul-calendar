@@ -42,8 +42,20 @@ sub subtract {
 }
 
 sub round {
-  my($self, $round_minutes) = @_;
-  return ShulCal::Time->new($self->{time} - $self->{time} % $round_minutes);
+    my($self, $round_minutes) = @_;
+    if ($round_minutes == 105) {
+        my $by_15 = ShulCal::Time->new($self->{time} - $self->{time} % 15);
+        my $by_10 = ShulCal::Time->new($self->{time} - $self->{time} % 10);
+        if ($by_15->{time} > $by_10->{time}) {
+            return $by_15;
+        }
+        else {
+            return $by_10;
+        }
+    }
+    else {
+        return ShulCal::Time->new($self->{time} - $self->{time} % $round_minutes);
+    }
 }
 
 sub print {

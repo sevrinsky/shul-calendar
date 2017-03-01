@@ -116,6 +116,8 @@
 - day: 15
   month: -1
   name: shushan purim
+  times:
+    shacharit: '6:20, 8:35'
   dow_times:
     dow: 5
     times:
@@ -541,3 +543,6 @@
     siyum hashas: 20:45
   day: 12
   month: 12
+- year: 5777
+  parsha: tetzaveh
+  shabbat_chatan: מני פביאן

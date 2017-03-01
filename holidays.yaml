@@ -104,6 +104,7 @@
 - day: 14
   month: -1
   name: purim
+  minor_holiday: 1
   times:
     morning megillah reading: 9:45
 #    shacharit: '6:15, 7:45'

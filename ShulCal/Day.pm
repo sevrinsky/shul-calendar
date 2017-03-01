@@ -480,15 +480,6 @@ sub get_times {
       }
     }
   }
-  else {
-      if (((ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) ||
-          (!ref($holiday->name) && grep(/chanukah/, $holiday->name))) &&
-          $holiday->duration_instance > 1) {
-
-          $davening_times{shacharit} .= ', 8:45';
-      }
-
-  }
 
   if ($holiday->name eq 'erev yom kippur') {
     $davening_times{'kol nidre'} = ($candle_time + 5) % 5;
@@ -618,13 +609,11 @@ sub get_times {
                                            time_constructor => sub { new ShulCal::Time($_[0]) } );
               $compare_sunrise = $time_calc->sunrise;
           }
-          if ($shacharit_time !~ /,/) {
+          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
               if ($compare_sunrise - $shacharit_time > 14) {
                   $davening_times{netz} = $sunrise;
               }
-              if ($compare_sunrise - $shacharit_time > 16 &&
-                  ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
-
+              if ($compare_sunrise - $shacharit_time > 18) {
                   $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
               }
           }
@@ -649,6 +638,22 @@ sub get_times {
       }
       $davening_times{"shacharit"} .= ", 8:45";
   }
+
+  if (!$self->is_shabbat) {
+      if (((ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) ||
+           (!ref($holiday->name) && grep(/chanukah/, $holiday->name))) &&
+          $holiday->duration_instance > 1) {
+
+          if ($self->dow_0 == 5) {
+              $davening_times{shacharit} .= ', 8:45*';
+              $self->{month_note} = e2h('at ramat shalom');
+          }
+          else {
+              $davening_times{shacharit} .= ', 8:45';
+          }
+      }
+  }
+
 
   if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $davening_times{shacharit} && $self->is_chofesh_hagadol) {
       $davening_times{"shacharit"} .= ", 8:45";

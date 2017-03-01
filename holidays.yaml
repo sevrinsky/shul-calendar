@@ -70,11 +70,13 @@
   duration: 7
   month: 9
   name: chanukah
+  minor_holiday: 1
   times:
-    shacharit: 0-4/6:20//5/6:20, 8:10
+    shacharit: 0-4/6:20//5/6:20
 - day: 2
   month: 10
   name: zot chanukah
+  minor_holiday: 1
   times:
     shacharit: 6:20, 8:45
 - day: 24

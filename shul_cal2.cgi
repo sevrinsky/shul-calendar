@@ -20,12 +20,15 @@ our @weekday_start;
 {
   my $printed_times = 0;
   sub maybe_tefillah_times {
-    my($days_remaining, $month) = @_;
+    my($days_remaining, $month, $month_note) = @_;
     if ($days_remaining < 3 || $printed_times) {
       return "&nbsp;";
     }
     $printed_times = 1;
     my $msg =  slurp("$FindBin::Bin/templates/weekday_times.txt", binmode => ':utf8');
+    if ($month_note) {
+        $msg .= "\n<br><br>\n$month_note";
+    }
     $msg .= maybe_month_message($month);
     return $msg;
   } 
@@ -187,32 +190,41 @@ sub month_cal {
   push(@weeks, join("",map($q->td({-class => 'days_of_week_header'},
                                   $q->div($_)), 
 			   map { e2h($_) } @days_of_week_e)));
-  
+
+  my $month_note = '';
+  my @print_day_output;
+  for my $d (@month) {
+      push(@print_day_output, $d->print_cell($q));
+      if (my $note = $d->get_month_note()) {
+          $month_note .= $note;
+      }
+  }
+
   if ($month[0]->dow_0) {
     push(@row, $q->td({-colspan => $month[0]->dow_0,
 		       -class => 'general_tefillah_times'},
 		      $q->div({-class => 'general_tefillah_times_div'},
-			      maybe_tefillah_times($month[0]->dow_0, $month_num))));
+            maybe_tefillah_times($month[0]->dow_0, $month_num, $month_note))));
   }
 
-  for my $d (@month) {
+  for my $i (0..$#month) {
 
-#    my %davening_times = compute_davening_times($holiday, $holiday_tomorrow, $date);
+      #    my %davening_times = compute_davening_times($holiday, $holiday_tomorrow, $date);
 
-    push(@row, $q->td({-class => 'day_cell'}, 
-		      $d->print_cell($q)) . "\n");
+      push(@row, $q->td({-class => 'day_cell'}, 
+                       $print_day_output[$i]) . "\n");
 
-    if ($d->dow_0 == 6) {
-      push(@weeks, join("",@row));
-      @row = ();
-    }
+      if ($month[$i]->dow_0 == 6) {
+          push(@weeks, join("",@row));
+          @row = ();
+      }
   }
 
   if ($month[-1]->dow_0 != 6) {
     push(@weeks, join("",@row, $q->td({-colspan => (7 - $month[-1]->dow),
                                        -class => 'general_tefillah_times'}, 
 				      $q->div({-class => 'general_tefillah_times_div'},
-					      maybe_tefillah_times(7- $month[-1]->dow, $month_num))
+                maybe_tefillah_times(7- $month[-1]->dow, $month_num, $month_note))
 				     )));
   }
 
@@ -345,7 +357,7 @@ td { font-size: 100% }
 .inner_day_bottom { font-size: 0.62em; text-align: center; vertical-align: bottom;  }
 .omer_div { font-size: 0.62em; margin: 2px; clear: both; vertical-align: bottom; text-align: center; }
 .matnas_cell { background: #ffccff;  font-size: 0.5em; font-weight: bold; border: 1px solid black }
-
+.all_day_div { min-height: 100px; }
 table, tr, td { border-collapse: collapse }
 EOFText
 }

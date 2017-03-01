@@ -338,7 +338,7 @@ sub get_times {
 #   }
   if (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
       && !$self->is_shabbat) {
-    $davening_times{shacharit} = ShulCal::Time->new('6:15');
+    $davening_times{shacharit} ||= ShulCal::Time->new('6:15');
   }
 
   if ($self->is_shabbat || $holiday->yomtov) {
@@ -375,7 +375,7 @@ sub get_times {
     if ($self->is_shabbat) {
         $davening_times{mincha} = $sh_mincha_time;
         if (! $self->is_dst) {
-            $davening_times{mincha} ||= '13:15, ' . $sh_mincha_time;
+            $davening_times{mincha} = '13:15, ' . $sh_mincha_time;
         }
 
       if ($tom_holiday && ($tom_holiday->name =~ /chanukah/ || (ref($tom_holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$tom_holiday->name})))) {
@@ -444,10 +444,10 @@ sub get_times {
     else {
       if (!$davening_times{'mincha'}) {
 	if ($holiday->name =~ /rosh hashana/) {
-	  $davening_times{"mincha"} =  ($sunset - 25) % 5;
+    $davening_times{"mincha"} =  ($sunset - 26) % 5;
 	}
 	else {
-	  $davening_times{"mincha"} =  ($sunset - 15) % 5;
+    $davening_times{"mincha"} =  ($sunset - 15) % 5;
 	}
       }
 

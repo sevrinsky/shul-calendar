@@ -435,8 +435,9 @@ sub get_times {
 
       if (($self->month == 1 && $self->day == 7) || # Exception for Shabbat Hagadol drasha when Erev Pesach is on Shabbat
           ($holiday->subparsha =~ /(hagadol|shuva)/ && $self->day != 14)) { 
-	$davening_times{"drasha"} = (($sunset - 75) % 5);
-	$davening_times{'mincha'} = $davening_times{drasha} - 20;
+
+          $davening_times{"drasha"} = (($sunset - 75) % 5);
+          $davening_times{'mincha'} = $davening_times{drasha} - 20;
       }
 
 #      unless (($self->month == 1 && $self->day == 14) || $holiday->name =~ /kippur/) {
@@ -451,12 +452,12 @@ sub get_times {
     } 
     else {
       if (!$davening_times{'mincha'}) {
-	if ($holiday->name =~ /rosh hashana/) {
-    $davening_times{"mincha"} =  ($sunset - 26) % 5;
-	}
-	else {
-    $davening_times{"mincha"} =  ($sunset - 15) % 5;
-	}
+          if ($holiday->name =~ /rosh hashana/) {
+              $davening_times{"mincha"} =  ($sunset - 26) % 5;
+          }
+          else {
+              $davening_times{"mincha"} =  ($sunset - 15) % 5;
+          }
       }
 
       if (!$self->is_erev_shabbat) {
@@ -698,12 +699,17 @@ sub get_times {
         # $davening_times{'sof zman kriat shma'} = $sof_zman_kriat_shma;
 
   for my $k (keys %davening_times) {
-    if ($davening_times{$k} =~ /\$\w+/) {
-      my $time_string = $davening_times{$k};
-      $time_string =~ s/\$/\$time_calc->/g;
-      $davening_times{$k} = eval($time_string);
-    }
-  }
+      if ($davening_times{$k} =~ /\$\w+/) {
+          my $time_string = $davening_times{$k};
+          $time_string =~ s/\$/\$time_calc->/g;
+          $davening_times{$k} = eval($time_string);
+      }
+      if ($davening_times{$k} =~ /\&/) {
+          my $time_string = $davening_times{$k};
+          $time_string =~ s/\&(.*?\))/eval($1)/e;
+          $davening_times{$k} = $time_string;
+      }
+}
   
   return %davening_times;
 }

@@ -165,7 +165,11 @@
   month: 1
   name: pesach
   times:
-    shacharit: '6:45, 8:45'
+    shacharit: '7:00, 8:45'
+  dow_times:
+    dow: 6
+    times:
+      shacharit: '6:45, 8:45'
 - day: 16
   duration: 5
   month: 1
@@ -192,12 +196,9 @@
   name: yom hazikaron
   disallow_dow: 0,4,5,6
   times:
-#    mincha and festive arvit: '($sunset)'
-#    mincha: '($sunset - 12) % 5'
-#    festive arvit: '($sunset + 8) % 5'
-    mincha: 18:45
-    tekes yom hazikaron: 19:00
-    festive arvit: 19:35
+    mincha: '($sunset - 37) % 5'
+    tekes yom hazikaron: '($sunset - 22) % 5'
+    festive arvit: '($tzeit - 8) % 105'
 - day: 5
   month: 2
   name: yom haatzmaut
@@ -222,8 +223,8 @@
     times:
       motzash and festive arvit: '$havdalah'
   times:
-    mincha: '($sunset - 10) % 5'
-    festive arvit: '($tzeit - 4) % 5'
+#    mincha: '($sunset - 10) % 5'
+    festive arvit: '20:30 &e2h(q{at ramat shalom})'
 - day: 28
   month: 2
   name: yom yerushalayim
@@ -239,9 +240,12 @@
   month: 3
   name: shavuot
   times:
-    brachot and megillat ruth: 4:40
+    brachot and megillat ruth: 4:45
     netz: $sunrise
-    shacharit: '5:00, 8:30'
+    shacharit: '5:05, 8:30'
+- day: 7
+  month: 3
+  is_youth_minyan: 1
 - day: 17
   fast: 1
   month: 4
@@ -260,8 +264,7 @@
   month: 5
   name: 9 av
   times:
-    arvit: 19:45
-    mincha: '13:20, 18:50'
+    mincha: '13:20, 19:00'
     shacharit: 8:00
 - day: 29
   month: 6
@@ -516,10 +519,10 @@
 - year: 5776
   parsha: shmini
   bar_mitzva: ישראל ירס
-- year: 5776
-  month: 1
-  day: 21
-  bar_mitzva: אלי רוזנפילד
+#- year: 5776
+#  month: 1
+#  day: 21
+#  bar_mitzva: אלי רוזנפילד
 - year: 5776
   parsha: emor
   bar_mitzva: מתנאל הודס
@@ -549,3 +552,21 @@
 - year: 5777
   parsha: tetzaveh
   shabbat_chatan: מני פביאן
+- year: 5777
+  parsha: shmini
+  bar_mitzva: אהרבם אמת
+- year: 5777
+  parsha: naso
+  shabbat_chatan: משה קלומפס
+- year: 5777
+  parsha: chukat
+  shabbat_chatan: עזי הורביץ
+- year: 5777
+  parsha: ekev
+  bar_mitzva: משה ראשי
+- year: 5777
+  day: 25
+  month: 6
+  bar_mitzva: גלעד הולנדר
+
+

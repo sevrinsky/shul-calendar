@@ -568,5 +568,10 @@
   day: 25
   month: 6
   bar_mitzva: גלעד הולנדר
-
+- year: 5778
+  day: 5
+  month: 7
+  times:
+    sicha: 22:20
+    musical selichot: 22:45
 

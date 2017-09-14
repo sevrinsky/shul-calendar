@@ -453,7 +453,7 @@ sub get_times {
     else {
       if (!$davening_times{'mincha'}) {
           if ($holiday->name =~ /rosh hashana/) {
-              $davening_times{"mincha"} =  ($sunset - 26) % 5;
+              $davening_times{"mincha"} =  ($sunset - 30) % 5;
           }
           else {
               $davening_times{"mincha"} =  ($sunset - 15) % 5;
@@ -493,10 +493,10 @@ sub get_times {
     $davening_times{mincha} ||= $mincha_time;
     if ($self->is_erev_shabbat) {
       # Friday RH 
-      $davening_times{'shofar2'} = $davening_times{'mincha'} - 30;
+      $davening_times{'shofar2'} = $davening_times{'mincha'} - 25;
     }
     elsif (!$self->is_shabbat) {
-      $davening_times{'shofar2'} = $davening_times{'mincha'} - 30;
+      $davening_times{'shofar2'} = $davening_times{'mincha'} - 25;
     }
   }
   if (($tom_holiday && $tom_holiday->yomtov) || $self->is_erev_shabbat) {

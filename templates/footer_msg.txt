@@ -45,19 +45,6 @@
 
 
 
-<!--
-        <li><span style="font-weight: bold;">בית
-מדרש ערב<br>
-          </span>ימי ראשון, 20:45</li>
-         -->
-<!--
-<li><span style="font-weight: bold;">שיעור הלכה שבועי</span><br>
- ימי שלישי, 20:45
-</li>
--->
-<li><span style="font-weight: bold;">שיעור שבועי לבנות</span>, מפי הרב קופרמן (לכיתות י'-י"ב)<br>
- ימי שני, 20:40
-</li>
 <li><span style="font-weight: bold;">שיעור גמרא - מסכת פסחים</span>, מפי ר' ג'רמי פין [לגברים]<br>
  ימי רביעי, 20:40
 </li>

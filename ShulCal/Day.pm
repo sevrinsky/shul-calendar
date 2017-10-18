@@ -423,7 +423,7 @@ sub get_times {
         $davening_times{"motzei shabbat and chag"} = $havdalah_time;
       }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:30' && ! ($tom_holiday && $tom_holiday->minor_holiday)) {
+        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35' && ! ($tom_holiday && $tom_holiday->minor_holiday)) {
             $davening_times{'horim vyeladim'} = ($davening_times{motzash} + 60) % 15;
         }
 

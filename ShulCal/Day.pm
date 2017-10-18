@@ -426,6 +426,9 @@ sub get_times {
         if ($davening_times{motzash} && $davening_times{motzash} lt '18:35' && ! ($tom_holiday && $tom_holiday->minor_holiday)) {
             $davening_times{'horim vyeladim'} = ($davening_times{motzash} + 60) % 15;
         }
+        elsif ($self->month == 8) {
+            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
+        }
 
       if ($holiday->subparsha eq "zachor") {
 	$davening_times{"second reading"} = e2h("after musaf") . ", " . ($sh_mincha_time - 15);

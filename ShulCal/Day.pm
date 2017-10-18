@@ -16,8 +16,6 @@ memoize 'get_pesach';
 memoize 'dst_start_date';
 memoize 'dst_end_date';
 
-my $DAF_YOMI_SHIUR_LENGTH = 40;
-
 our @weekday_start = map { new ShulCal::Time($_) } (qw(6:30 6:20 6:30 6:30 6:20 6:30));
 
 #==================================================
@@ -440,16 +438,20 @@ sub get_times {
           $davening_times{'mincha'} = $davening_times{drasha} - 20;
       }
 
-#      unless (($self->month == 1 && $self->day == 14) || $holiday->name =~ /kippur/) {
-####      $davening_times{'daf yomi'} ||= $davening_times{mincha} - $DAF_YOMI_SHIUR_LENGTH;
-#        if ($davening_times{mincha} =~ /^[\d:]+$/) {
-#          $davening_times{'daf yomi'} ||= $davening_times{mincha} - 30;
-#          if ($davening_times{'daf yomi'} lt '15:00') {
-#            $davening_times{'daf yomi'} = ShulCal::Time->new('15:00');
-#          }
-#        }
-#      }
-    } 
+        if ($self->month == 8) {
+            my $mincha = $davening_times{mincha};
+            if ($mincha =~ /,\s*(\S+)/) {
+                $mincha = ShulCal::Time->new($1);
+            }
+            if ($self->is_dst) {
+                $davening_times{'daf yomi'} ||= $mincha - 70;
+            }
+            else {
+                $davening_times{'daf yomi'} ||= $mincha - 30;
+            }
+        }
+    }
+
     else {
       if (!$davening_times{'mincha'}) {
           if ($holiday->name =~ /rosh hashana/) {

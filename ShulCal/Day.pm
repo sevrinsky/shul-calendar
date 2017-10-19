@@ -424,7 +424,11 @@ sub get_times {
       }
 
         if ($davening_times{motzash} && $davening_times{motzash} lt '18:35' && ! ($tom_holiday && $tom_holiday->minor_holiday)) {
-            $davening_times{'horim vyeladim'} = ($davening_times{motzash} + 60) % 15;
+            my $minimum_gap = 60;
+            if ($davening_times{motzash} gt '18:00') {
+                $minimum_gap = 58;
+            }
+            $davening_times{'horim vyeladim'} = ($davening_times{motzash} + $minimum_gap) % 15;
         }
         elsif ($self->month == 8) {
             $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
@@ -446,7 +450,7 @@ sub get_times {
             if ($mincha =~ /,\s*(\S+)/) {
                 $mincha = ShulCal::Time->new($1);
             }
-            if ($self->is_dst) {
+            if ($davening_times{motzash} gt '18:35') {
                 $davening_times{'daf yomi'} ||= $mincha - 70;
             }
             else {

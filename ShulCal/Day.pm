@@ -438,17 +438,15 @@ sub get_times {
           $davening_times{'mincha'} = $davening_times{drasha} - 20;
       }
 
-        if ($self->month == 8) {
-            my $mincha = $davening_times{mincha};
-            if ($mincha =~ /,\s*(\S+)/) {
-                $mincha = ShulCal::Time->new($1);
-            }
-            if ($davening_times{motzash} gt '18:35') {
-                $davening_times{'daf yomi'} ||= $mincha - 70;
-            }
-            else {
-                $davening_times{'daf yomi'} ||= $mincha - 30;
-            }
+        my $mincha = $davening_times{mincha};
+        if ($mincha =~ /,\s*(\S+)/) {
+            $mincha = ShulCal::Time->new($1);
+        }
+        if ($davening_times{motzash} gt '18:35') {
+            $davening_times{'daf yomi'} ||= $mincha - 70;
+        }
+        else {
+            $davening_times{'daf yomi'} ||= $mincha - 30;
         }
     }
 

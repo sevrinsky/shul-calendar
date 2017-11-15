@@ -576,9 +576,15 @@
     musical selichot: 22:45
 - year: 5778
   parsha: noach
-  bar_mitzva: אמיתי מרצ'נט
+  bar_mitzva: "אמיתי מרצ'נט"
 - year: 5778
   parsha: vayera
   bar_mitzva: אילן עטיה
+- year: 5778
+  parsha: vayishlach
+  bar_mitzva: ישראל ברוק
+- year: 5778
+  parsha: miketz
+  bar_mitzva: דניאל רום
 
 

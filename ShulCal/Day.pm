@@ -343,24 +343,17 @@ sub get_times {
   }
 
   if ($self->is_shabbat || $holiday->yomtov) {
-        
-    if (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})) {
-      if (ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) {
-
-        $davening_times{'shacharit'} ||= "6:35, 8:30";
+      if ($holiday->is_chanukah) {
+          if ($holiday->is_rosh_chodesh) {
+              $davening_times{'shacharit'} ||= "6:35, 8:30";
+          }
+          else {
+              $davening_times{'shacharit'} ||= "6:40, 8:30";
+          }
       }
       else {
-        $davening_times{'shacharit'} ||= "6:40, 8:30";
+          $davening_times{'shacharit'} ||= "6:45, 8:30";
       }
-    }
-    elsif ((ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) ||
-           (!ref($holiday->name) && grep(/chanukah/, $holiday->name))) {
-      $davening_times{'shacharit'} ||= "6:40, 8:30";
-      # Changed from 6:35 -> 6:40 for 5773 request
-    }
-    else {
-      $davening_times{'shacharit'} ||= "6:45, 8:30";
-    }
 
     if (!$holiday->name || $holiday->name !~ /rosh hashana/) {
       my $last_minyan = $davening_times{shacharit};
@@ -379,10 +372,10 @@ sub get_times {
             $davening_times{mincha} = '13:15, ' . $sh_mincha_time;
         }
 
-      if ($tom_holiday && ($tom_holiday->name =~ /chanukah/ || (ref($tom_holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$tom_holiday->name})))) {
-          # On motza"sh chanukah, daven arvit 10 minutes early.
-          $davening_times{"arvit"} = $havdalah_time - 10;
-      }
+        if ($tom_holiday && $tom_holiday->is_chanukah) {
+            # On motza"sh chanukah, daven arvit 10 minutes early.
+            $davening_times{"arvit"} = $havdalah_time - 10;
+        }
 
       if ($davening_times{"megillah reading"}) {
 	$davening_times{"arvit"} = ($havdalah_time + 32) % 5;
@@ -524,7 +517,7 @@ sub get_times {
 	}
       }      
     }
-    if ((ref($holiday->name) && grep(/chanukah/, @{$holiday->name})) || $holiday->name =~ /chanukah/) {
+    if ($holiday->is_chanukah) {
       # On erev shabbos chanukah, add early mincha
         # As per Rav Menachem's request (5770), make mincha 10 minutes earlier
       $davening_times{mincha} = "12:30, " . ($sunset - 20) % 5;
@@ -638,7 +631,7 @@ sub get_times {
 #    unless ($davening_times{shacharit}) {
 #      $davening_times{shacharit} = '6:30';
 #    }
-      if ($davening_times{shacharit} && (!$holiday->name || ref($holiday->name))) {
+      if ($davening_times{shacharit}) {
           $davening_times{shacharit} .= ', 8:10';
       }
   }
@@ -654,16 +647,19 @@ sub get_times {
   }
 
   if (!$self->is_shabbat) {
-      if (((ref($holiday->name) eq 'ARRAY' && grep(/chanukah/, @{$holiday->name})) ||
-           (!ref($holiday->name) && grep(/chanukah/, $holiday->name))) &&
-          $holiday->duration_instance > 1) {
-
-          if ($self->dow_0 == 5) {
-              $davening_times{shacharit} .= ', 8:45*';
-              $self->{month_note} = e2h('at ramat shalom');
+      if ($holiday->is_chanukah) {
+          if ($holiday->is_rosh_chodesh) {
+              $davening_times{shacharit} -= 5;
           }
-          else {
-              $davening_times{shacharit} .= ', 8:45';
+          if ($holiday->duration_instance > 1) {
+
+              if ($self->dow_0 == 5) {
+                  $davening_times{shacharit} .= ', 8:45*';
+                  $self->{month_note} = e2h('at ramat shalom');
+              }
+              else {
+                  $davening_times{shacharit} .= ', 8:45';
+              }
           }
       }
   }

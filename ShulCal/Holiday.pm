@@ -35,6 +35,20 @@ sub AUTOLOAD {
 
 #----------------------------------------------------------------------
 
+sub is_rosh_chodesh {
+    my($self) = @_;
+    return $self->contains('rosh chodesh');
+}
+
+#----------------------------------------------------------------------
+
+sub is_chanukah {
+    my($self) = @_;
+    return $self->contains('chanukah');
+}
+
+#----------------------------------------------------------------------
+
 sub contains {
     my($self, $field) = @_;
     my $name = $self->name();

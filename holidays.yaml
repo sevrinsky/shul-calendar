@@ -100,9 +100,10 @@
   fast: 1
   month: -1
   name: taanit esther
+  is_youth_minyan: 1
   times:
-    arvit: '18:15'
-    megillah reading: '18:25, 19:45'
+    arvit: '18:00'
+    megillah reading: '18:10, 19:20'
 - day: 14
   month: -1
   name: purim
@@ -122,6 +123,7 @@
     dow: 5
     times:
       shacharit: '6:30, 8:10, 8:45'
+      oneg and siyum: 20:45
 #- day: 16
 #  month: -1
 #  name: purim meshulash
@@ -544,11 +546,11 @@
 - year: 5777
   parsha: ki tisa
   shabbat_chatan: אורי הולנדר
-- year: 5777
-  times:
-    siyum hashas: 20:45
-  day: 12
-  month: 12
+#- year: 5777
+#  times:
+#    siyum hashas: 20:45
+#  day: 12
+#  month: 12
 - year: 5777
   parsha: tetzaveh
   shabbat_chatan: מני פביאן

@@ -629,7 +629,7 @@ sub get_times {
 #    unless ($davening_times{shacharit}) {
 #      $davening_times{shacharit} = '6:30';
 #    }
-      if ($davening_times{shacharit}) {
+      if ($davening_times{shacharit} && (ref($davening_times{shacharit}) || $davening_times{shacharit} !~ /8:10/)) {
           $davening_times{shacharit} .= ', 8:10';
       }
   }

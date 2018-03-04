@@ -355,9 +355,10 @@ td { font-size: 100% }
 .inner_day { height: 100%; width: 100% }
 .inner_day_top { vertical-align: top }
 .inner_day_bottom { font-size: 0.62em; text-align: center; vertical-align: bottom;  }
-.omer_div { font-size: 0.62em; margin: 2px; clear: both; vertical-align: bottom; text-align: center; }
+.preomer_div { padding: 5px }
+.omer_div { font-size: 0.62em; padding: 2px; clear: both; text-align: center; position: absolute; bottom: 0; width: 100% }
 .matnas_cell { background: #ffccff;  font-size: 0.5em; font-weight: bold; border: 1px solid black }
-.all_day_div { min-height: 100px; }
+.all_day_div { min-height: 100px; position: relative }
 table, tr, td { border-collapse: collapse }
 EOFText
 }

@@ -153,6 +153,8 @@ sub print_cell {
 
   if ($self->get_omer()) {
     push(@inside_rows,
+         $q->div({-class => 'preomer_div'},
+                 ''),
          $q->div({-class => 'omer_div'},
                  $self->get_omer));
   }

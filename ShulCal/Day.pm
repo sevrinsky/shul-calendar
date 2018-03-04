@@ -416,7 +416,7 @@ sub get_times {
         $davening_times{"motzei shabbat and chag"} = $havdalah_time;
       }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35' && ! ($tom_holiday && $tom_holiday->minor_holiday)) {
+        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
             my $minimum_gap = 60;
             if ($davening_times{motzash} gt '18:00') {
                 $minimum_gap = 58;

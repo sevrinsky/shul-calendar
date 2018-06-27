@@ -419,16 +419,6 @@ sub get_times {
         $davening_times{"motzei shabbat and chag"} = $havdalah_time;
       }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
-            my $minimum_gap = 60;
-            if ($davening_times{motzash} gt '18:00') {
-                $minimum_gap = 58;
-            }
-            $davening_times{'horim vyeladim'} = ($davening_times{motzash} + $minimum_gap) % 15;
-        }
-        elsif ($self->month == 8) {
-            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
-        }
 
       if ($holiday->subparsha eq "zachor") {
 	$davening_times{"second reading"} = e2h("after musaf") . ", " . ($sh_mincha_time - 15);
@@ -445,11 +435,27 @@ sub get_times {
         if ($mincha =~ /,\s*(\S+)/) {
             $mincha = ShulCal::Time->new($1);
         }
-        if ($davening_times{motzash} gt '18:35') {
+
+        my($motzash_time) = grep { /^motzash/ } keys %davening_times;
+        if ($motzash_time gt '18:35') {
+            $davening_times{'daf yomi'} ||= $mincha - 70;
+        }
+        elsif ($tom_holiday && $tom_holiday->yomtov) {
             $davening_times{'daf yomi'} ||= $mincha - 70;
         }
         else {
             $davening_times{'daf yomi'} ||= $mincha - 30;
+        }
+
+        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
+            my $minimum_gap = 60;
+            if ($davening_times{motzash} gt '18:00') {
+                $minimum_gap = 58;
+            }
+            $davening_times{'horim vyeladim'} = ($davening_times{motzash} + $minimum_gap) % 15;
+        }
+        elsif (! $holiday->yomtov) {
+            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
         }
     }
 
@@ -487,6 +493,10 @@ sub get_times {
         $davening_times{'arvit'} = ($time_calc->sunset + 22) % 5;
       }
     }
+  }
+  if ($holiday->name eq 'shavuot' && $self->dow_0 < 6) {
+      $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
+      $davening_times{'daf yomi'} = $davening_times{mincha} - 70;
   }
 
   if ($holiday->name eq 'erev yom kippur') {

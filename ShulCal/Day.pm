@@ -345,17 +345,18 @@ sub get_times {
   }
 
   if ($self->is_shabbat || $holiday->yomtov) {
+      my $early_minyan = ShulCal::Time->new('6:45');
+
       if ($holiday->is_chanukah) {
-          if ($holiday->is_rosh_chodesh) {
-              $davening_times{'shacharit'} ||= "6:35, 8:30";
-          }
-          else {
-              $davening_times{'shacharit'} ||= "6:40, 8:30";
+          $early_minyan -= 5;
+      }
+      if ($holiday->is_rosh_chodesh) {
+          $early_minyan -= 5;
+          if ($holiday->subparsha) {
+              $early_minyan -= 5;
           }
       }
-      else {
-          $davening_times{'shacharit'} ||= "6:45, 8:30";
-      }
+      $davening_times{'shacharit'} ||= "$early_minyan, 8:30";
 
     if (!$holiday->name || $holiday->name !~ /rosh hashana/) {
       my $last_minyan = $davening_times{shacharit};

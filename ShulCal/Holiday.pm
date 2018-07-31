@@ -97,6 +97,9 @@ sub generate_cache {
     my($year) = @_;
 
     for my $h (@{holiday_list()}) {
+        if ($h->{year} && $h->{year} != $year) {
+            next;
+        }
 
         if ($h->{parsha}) {
             $holiday_cache{$h->{year}}->{parsha}->{$h->{parsha}} = $h;

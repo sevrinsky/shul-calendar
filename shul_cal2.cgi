@@ -30,6 +30,11 @@ our @weekday_start;
         $msg .= "\n<br><br>\n$month_note";
     }
     $msg .= maybe_month_message($month);
+
+    my $month_preamble_filename = "$FindBin::Bin/templates/weekday_times_preamble_$month.txt";
+    if (-f $month_preamble_filename) {
+        $msg = slurp($month_preamble_filename, binmode => ':utf8') . $msg;
+    }
     return $msg;
   } 
 }

@@ -576,7 +576,7 @@
   month: 7
   times:
     sicha: 22:20
-    musical selichot: 22:45
+    selichot: 22:45
 - year: 5778
   parsha: noach
   bar_mitzva: "אמיתי מרצ'נט"
@@ -624,4 +624,7 @@
   parsha: chukat
   bar_mitzva: יוסף לוין
   shabbat_chatan: צבי דוידס
+- year: 5778
+  parsha: ki tetze
+  bar_mitzva: אשי בסרבי
 

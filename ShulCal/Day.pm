@@ -511,6 +511,7 @@ sub get_times {
     elsif (!$self->is_shabbat) {
       $davening_times{'shofar2'} = $davening_times{'mincha'} - 25;
     }
+    $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
   }
   if (($tom_holiday && $tom_holiday->yomtov) || $self->is_erev_shabbat) {
     if ($self->dow_0 == 6) {
@@ -638,6 +639,10 @@ sub get_times {
       }
   }
 
+  if ($self->month == 7 && $self->day == 11) {
+      $davening_times{"shacharit"} ||= $weekday_start[$self->dow_0] - 5;
+  }
+
   if ($self->is_erev_shabbat && !$holiday->yomtov) {
 #    unless ($davening_times{shacharit}) {
 #      $davening_times{shacharit} = '6:30';
@@ -647,7 +652,7 @@ sub get_times {
       }
   }
 
-  if (!$self->is_shabbat && $holiday->is_youth_minyan) {
+  if (!$self->is_shabbat && ($holiday->is_youth_minyan || $self->other_youth_vacation)) {
       if (! $davening_times{"shacharit"}) {
           $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
           if ($self->dow_0 == 5) {
@@ -688,10 +693,6 @@ sub get_times {
 #      $davening_times{'daf yomi'} ||= $davening_times{shacharit} - $DAF_YOMI_SHIUR_LENGTH;
 #    }
 #  }
-
-  if ($self->month == 7 && $self->day == 11) {
-     $davening_times{"shacharit"} ||= $weekday_start[$self->dow_0] - 5;
-  }
 
   # if ($self->day == 14) {
   #   $davening_times{alot} = $time_calc->alot;
@@ -892,6 +893,30 @@ sub is_chofesh_hagadol {
                                            day => 1);
     return (DateTime->from_object(object => $self) >= $vacation_start_date &&
             DateTime->from_object(object => $self) < $vacation_end_date);
+}
+
+#----------------------------------------------------------------------
+
+sub other_youth_vacation {
+    my($self) = @_;
+
+    my $yom_kippur = DateTime->from_object(object => new DateTime::Calendar::Hebrew(year => $self->year,
+                                                                                    month => 7,
+                                                                                    day => 10));
+    my $sukkot = DateTime->from_object(object => new DateTime::Calendar::Hebrew(year => $self->year,
+                                                                                month => 7,
+                                                                                day => 15));
+    if (DateTime->from_object(object => $self) > $yom_kippur &&
+        DateTime->from_object(object => $self) < $sukkot) {
+        return 1;
+    }
+    my $isru_chag = DateTime->from_object(object => new DateTime::Calendar::Hebrew(year => $self->year,
+                                                                                   month => 7,
+                                                                                   day => 23));
+    if (DateTime->from_object(object => $self) == $isru_chag) {
+        return 1;
+    }
+    return;
 }
 
 #----------------------------------------------------------------------

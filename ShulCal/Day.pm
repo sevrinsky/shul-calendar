@@ -372,7 +372,7 @@ sub get_times {
     if ($self->is_shabbat) {
         $davening_times{mincha} ||= $sh_mincha_time;
         if (! $self->is_dst) {
-            $davening_times{mincha} = '13:15, ' . $sh_mincha_time;
+            $davening_times{mincha} = '13:30, ' . $sh_mincha_time;
         }
 
         if ($tom_holiday && $tom_holiday->is_chanukah) {

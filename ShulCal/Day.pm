@@ -436,8 +436,9 @@ sub get_times {
             $mincha = ShulCal::Time->new($1);
         }
 
-        my($motzash_time) = grep { /^motzash/ } keys %davening_times;
-        if ($motzash_time gt '18:35') {
+        my($motzash_time_key) = grep { /^motzash/ } keys %davening_times;
+
+        if ($davening_times{$motzash_time_key} gt '18:30') {
             $davening_times{'daf yomi'} ||= $mincha - 70;
         }
         elsif ($tom_holiday && $tom_holiday->yomtov) {
@@ -447,7 +448,7 @@ sub get_times {
             $davening_times{'daf yomi'} ||= $mincha - 30;
         }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
+        if ($davening_times{motzash} && $davening_times{motzash} lt '18:30') {
             my $minimum_gap = 60;
             if ($davening_times{motzash} gt '18:00') {
                 $minimum_gap = 58;

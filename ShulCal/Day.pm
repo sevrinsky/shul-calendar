@@ -581,11 +581,7 @@ sub get_times {
             $davening_times{shacharit} = '6:10, 8:10';
         }
       }
-      # Changed for Tzom Gedalia 5772 - print mincha on fast regardless
-      # Changed for 10 Tevet 5772 - do not print mincha
-      if ((($sunset - 30) % 5) ge '17:00') {
-          $davening_times{mincha} = ($sunset - 25) % 5; 
-      }
+      $davening_times{mincha} = ($sunset - 25) % 5; 
       if ($self->dow_0 == 5) {
           $davening_times{mincha} = ($candle_time - 5) % 5;
       }
@@ -599,7 +595,7 @@ sub get_times {
     else {
         if ($self->dow_0 != 5) {
             $davening_times{'end fast'} = $time_calc->tzeit;
-            $davening_times{arvit} = ($time_calc->tzeit - 2) % 5 if ($time_calc->tzeit gt '17:30');
+            $davening_times{arvit} = ($time_calc->tzeit - 2) % 5;
         }
     }
   }

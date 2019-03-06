@@ -532,8 +532,7 @@ sub get_times {
     }
     if ($holiday->is_chanukah) {
       # On erev shabbos chanukah, add early mincha
-        # As per Rav Menachem's request (5770), make mincha 10 minutes earlier
-      $davening_times{mincha} = "12:30, " . ($sunset - 20) % 5;
+      $davening_times{mincha} = "13:30, " . ($sunset - 20) % 5;
     }
     if (!grep(/mincha/, keys %davening_times)) {
       $davening_times{'mincha'} =  $mincha_time;
@@ -628,8 +627,6 @@ sub get_times {
           if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
               if ($compare_sunrise - $shacharit_time > 14) {
                   $davening_times{netz} = $sunrise;
-              }
-              if ($compare_sunrise - $shacharit_time > 18) {
                   $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
               }
           }

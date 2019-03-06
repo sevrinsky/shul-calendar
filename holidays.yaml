@@ -117,13 +117,7 @@
 - day: 15
   month: -1
   name: shushan purim
-  times:
-    shacharit: '6:20, 8:35'
-  dow_times:
-    dow: 5
-    times:
-      shacharit: '6:30, 8:10, 8:45'
-#      oneg and siyum: 20:45
+  is_youth_minyan: 1
 #- day: 16
 #  month: -1
 #  name: purim meshulash

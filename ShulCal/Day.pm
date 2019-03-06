@@ -654,10 +654,12 @@ sub get_times {
           }
       }
       my $youth_minyan_time = '8:45';
-      if ($sof_zman_kriat_shma lt ShulCal::Time->new('8:45')) {
+      if ($sof_zman_kriat_shma lt ShulCal::Time->new('8:55')) {
           $youth_minyan_time = '8:30';
       }
-      $davening_times{"shacharit"} .= ", $youth_minyan_time";
+      if ($self->dow_0 != 5 || $youth_minyan_time ne '8:30') {
+          $davening_times{"shacharit"} .= ", $youth_minyan_time";
+      }
   }
 
   if (!$self->is_shabbat) {

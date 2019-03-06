@@ -102,8 +102,8 @@
   name: taanit esther
   is_youth_minyan: 1
   times:
-    arvit: '18:00'
-    megillah reading: '18:10, 19:20'
+    arvit: '($sunset + 20) % 5'
+    megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
 - day: 14
   month: -1
   name: purim
@@ -123,7 +123,7 @@
     dow: 5
     times:
       shacharit: '6:30, 8:10, 8:45'
-      oneg and siyum: 20:45
+#      oneg and siyum: 20:45
 #- day: 16
 #  month: -1
 #  name: purim meshulash

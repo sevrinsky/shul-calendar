@@ -448,7 +448,7 @@ sub get_times {
             $davening_times{'daf yomi'} ||= $mincha - 30;
         }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:30') {
+        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
             my $minimum_gap = 60;
             if ($davening_times{motzash} gt '18:00') {
                 $minimum_gap = 58;

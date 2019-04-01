@@ -400,11 +400,11 @@
 #- day: 27
 #  month: 12
 #  bar_mitzva: קובי שכטרמן
-#- day: 26
-#  month: 12
-#  times:
-#    shacharit: '6:30, 8:10'
-  # for Election day 5773
+- day: 4
+  month: 1
+  times:
+    shacharit: '6:30, 8:10, 8:45'
+ # for Election day 5779
 # - day: 5
 #   month: 1
 #   bar_mitzva: נתנאל רום
@@ -633,5 +633,7 @@
 - year: 5779
   parsha: shmini
   bar_mitzva: אריאל וולף
-
+- year: 5779
+  parsha: kedoshim
+  bar_mitzva: גלעד ריי
 

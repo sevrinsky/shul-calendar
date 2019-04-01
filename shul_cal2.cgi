@@ -4,18 +4,19 @@ use FindBin;
 use lib $FindBin::Bin;
 
 use strict;
-use CGI::Pretty;
+use CGI;
 use ShulCal::Day;
 use ShulCal::Util qw(gematria e2h eng_month heb_month);
 use DateTime::Calendar::Hebrew;
 use Getopt::Long;
-use File::Slurp qw(slurp);
+use File::Slurper qw(read_text);
 use Encode;
 
 our @tefillot;
 our %tef_order_lookup;
 our @weekday_start;
 
+binmode STDOUT, ":utf8";
 
 {
   my $printed_times = 0;
@@ -25,7 +26,7 @@ our @weekday_start;
       return "&nbsp;";
     }
     $printed_times = 1;
-    my $msg =  slurp("$FindBin::Bin/templates/weekday_times.txt", binmode => ':utf8');
+    my $msg =  read_text("$FindBin::Bin/templates/weekday_times.txt");
     if ($month_note) {
         $msg .= "\n<br><br>\n$month_note";
     }
@@ -33,7 +34,7 @@ our @weekday_start;
 
     my $month_preamble_filename = "$FindBin::Bin/templates/weekday_times_preamble_$month.txt";
     if (-f $month_preamble_filename) {
-        $msg = slurp($month_preamble_filename, binmode => ':utf8') . $msg;
+        $msg = read_text($month_preamble_filename) . $msg;
     }
     return $msg;
   } 
@@ -61,7 +62,7 @@ unless (@months) {
 
 $current_year ||= 5765;
 
-our $q = new CGI::Pretty("");
+our $q = new CGI("");
 
 # Page header
 if ($fullpage) {
@@ -82,8 +83,7 @@ table, tr, td { border-collapse: collapse }
 EOFText
 
   print $q->div({-class => "calendar_header"},
-                "קהילת אהבת ציון רמת בית שמש (ע\"ר)");
-
+                e2h("kehillat ahavat tzion"));
 }
 
 for my $month (@months) {
@@ -109,7 +109,7 @@ for my $month (@months) {
 
 
 if ($fullpage) {
-  print slurp("$FindBin::Bin/templates/footer_msg.txt");
+  print read_text("$FindBin::Bin/templates/footer_msg.txt");
   print $q->end_html;
 }
 
@@ -243,13 +243,13 @@ sub month_cal {
 sub maybe_month_message {
   my($month) = @_;
   if ($month == 7) {
-    return slurp("$FindBin::Bin/templates/tishrei_msg.txt");
+    return read_text("$FindBin::Bin/templates/tishrei_msg.txt");
   }
   if ($month == 3) {
-    return slurp("$FindBin::Bin/templates/sivan_msg.txt");
+    return read_text("$FindBin::Bin/templates/sivan_msg.txt");
   }
 #  if ($month == 2) {
-#    return slurp("$FindBin::Bin/templates/iyar_msg.txt");
+#    return read_text("$FindBin::Bin/templates/iyar_msg.txt");
 #  }
   return "";
 }

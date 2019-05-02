@@ -192,15 +192,15 @@
   name: yom hazikaron
   disallow_dow: 0,4,5,6
   times:
-    mincha: '($sunset - 37) % 5'
-    tekes yom hazikaron: '($sunset - 22) % 5'
-    festive arvit: '($tzeit - 5) % 105'
+    mincha: '($sunset - 52) % 5'
+    tekes yom hazikaron: '($sunset - 37) % 5'
+    festive arvit: '($tzeit - 20) % 105'
 - day: 5
   month: 2
   name: yom haatzmaut
   disallow_dow: 0,1,5,6
   times:
-    shacharit chagigit: '7:30'
+    shacharit chagigit: '7:00, 8:10'
 - day: 14
   month: 2
   name: pesach sheni
@@ -636,4 +636,7 @@
 - year: 5779
   parsha: kedoshim
   bar_mitzva: גלעד ריי
+- year: 5779
+  parsha: bechukotai
+  bar_mitzva: מאיר ירס
 

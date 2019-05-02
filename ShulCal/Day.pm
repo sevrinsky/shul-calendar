@@ -262,6 +262,18 @@ sub get_times {
 #    if ($self->{holiday}->{subparsha} && $self->{holiday}->{subparsha} =~ /(hagadol|shuva)/); 
   $sh_mincha_time->set("18:00") if ($sh_mincha_time gt '18:00');
 
+  for my $k (keys %davening_times) {
+      if ($davening_times{$k} =~ /\$\w+/) {
+          my $time_string = $davening_times{$k};
+          $time_string =~ s/\$/\$time_calc->/g;
+          $davening_times{$k} = eval($time_string);
+      }
+      if ($davening_times{$k} =~ /\&/) {
+          my $time_string = $davening_times{$k};
+          $time_string =~ s/\&(.*?\))/eval($1)/e;
+          $davening_times{$k} = $time_string;
+      }
+  }
 
   # TODO: move these to holiday
   if ($davening_times{'chatzot halayla'}) {
@@ -715,19 +727,6 @@ sub get_times {
         # $davening_times{'3 hours'} = 'in minutes: ' . sprintf('%.4f', $shaa_zmanit * 3);
         # $davening_times{'sof zman kriat shma'} = $sof_zman_kriat_shma;
 
-  for my $k (keys %davening_times) {
-      if ($davening_times{$k} =~ /\$\w+/) {
-          my $time_string = $davening_times{$k};
-          $time_string =~ s/\$/\$time_calc->/g;
-          $davening_times{$k} = eval($time_string);
-      }
-      if ($davening_times{$k} =~ /\&/) {
-          my $time_string = $davening_times{$k};
-          $time_string =~ s/\&(.*?\))/eval($1)/e;
-          $davening_times{$k} = $time_string;
-      }
-}
-  
   return %davening_times;
 }
 

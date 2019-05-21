@@ -237,9 +237,9 @@
   month: 3
   name: shavuot
   times:
-    brachot and megillat ruth: 4:45
+    brachot and megillat ruth: '($sunrise - 51) % 5'
     netz: $sunrise
-    shacharit: '5:05, 8:30'
+    shacharit: '($sunrise - 30) % 5 . ", 8:30"'
 - day: 7
   month: 3
   is_youth_minyan: 1

@@ -658,13 +658,28 @@ sub get_times {
       }
   }
 
-  if (!$self->is_shabbat && ($holiday->is_youth_minyan || $self->other_youth_vacation)) {
-      if (! $davening_times{"shacharit"}) {
-          $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
-          if ($self->dow_0 == 5) {
-              $davening_times{"shacharit"} .= ', 8:10';
-          }
+  my $include_youth_minyan = 0;
+  my $include_weekday_shacharit = 0;
+  if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $self->is_chofesh_hagadol) {
+      $include_youth_minyan = 1;
+      if ($self->month == 3) {
+          $include_weekday_shacharit = 1;
       }
+  }
+
+  if (!$self->is_shabbat && ($holiday->is_youth_minyan || $self->other_youth_vacation)) {
+      $include_weekday_shacharit = 1;
+      $include_youth_minyan = 1;
+  }
+
+  if ($include_weekday_shacharit && ! $davening_times{"shacharit"}) {
+      $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
+      if ($self->dow_0 == 5) {
+          $davening_times{"shacharit"} .= ', 8:10';
+      }
+  }
+
+  if ($include_youth_minyan && $davening_times{"shacharit"}) {
       my $youth_minyan_time = '8:45';
       if ($sof_zman_kriat_shma lt ShulCal::Time->new('8:55')) {
           $youth_minyan_time = '8:30';
@@ -691,41 +706,6 @@ sub get_times {
           }
       }
   }
-
-
-  if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $davening_times{shacharit} && $self->is_chofesh_hagadol) {
-      $davening_times{"shacharit"} .= ", 8:45";
-  }
-  #  unless ($self->is_shabbat || $holiday->yomtov || $holiday->name eq '9 av') {
-#    if ($davening_times{shacharit} && $davening_times{shacharit} !~ /,/) {
-#      $davening_times{'daf yomi'} ||= $davening_times{shacharit} - $DAF_YOMI_SHIUR_LENGTH;
-#    }
-#  }
-
-  # if ($self->day == 14) {
-  #   $davening_times{alot} = $time_calc->alot;
-  #   $davening_times{tzeit} = $time_calc->tzeit;
-  #   my $shaa_zmanit_ma = (($time_calc->tzeit - $time_calc->alot) / 12);
-  #   $davening_times{hour} = "aaa $shaa_zmanit_ma";
-  #   $davening_times{test_eat} = $time_calc->alot + ( 3 * $shaa_zmanit_ma);
-  #   $davening_times{test_eat1} = $time_calc->alot + ( 4 * $shaa_zmanit_ma);
-  #   $davening_times{test_eat2} = $time_calc->alot + ( 5 * $shaa_zmanit_ma);
-  #   $davening_times{test_eat3} = $time_calc->alot + ( 6 * $shaa_zmanit_ma);
-  # }
-
-#  my $combined_date = sprintf("%2.2d/%2.2d", $self->e_month, $self->e_day);
-#  if ($combined_date gt "03/31" && $combined_date lt "04/28") {
-#    for my $k (%davening_times) {
-#      my $orig_time = $davening_times{$k};
-#      $davening_times{$k} = time_oper($orig_time, -60) . " (קיץ: " . $orig_time . ")" if ($orig_time && $orig_time =~ /^\d+:\d+$/);
-#    }
-#  }
-  # Friday Shacharit for the summer
-
-        # $davening_times{'sunrise'} = $sunrise;
-        # $davening_times{'shaa zmanit'} = 'in minutes: ' . sprintf('%.4f', $shaa_zmanit);
-        # $davening_times{'3 hours'} = 'in minutes: ' . sprintf('%.4f', $shaa_zmanit * 3);
-        # $davening_times{'sof zman kriat shma'} = $sof_zman_kriat_shma;
 
   return %davening_times;
 }
@@ -883,6 +863,11 @@ sub is_chofesh_hagadol {
     my $vacation_start_date = new DateTime(year => $self->e_year,
                                            month => 6,
                                            day => 21);
+    if ($vacation_start_date->dow == 5) {
+        $vacation_start_date = new DateTime(year => $self->e_year,
+                                            month => 6,
+                                            day => 23);
+    }
     my $vacation_end_date = new DateTime(year => $self->e_year,
                                            month => 9,
                                            day => 1);

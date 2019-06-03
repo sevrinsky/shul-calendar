@@ -418,7 +418,7 @@ sub get_times {
 #          $davening_times{"arvit"} = ($time_calc->tzeit() + 10) % 5; # Rav asked for Arvit at 19:10 on 1st day of RH (5770)
 #            $davening_times{mincha} = ($sunset - 10) % 15; # Ironed out for Shavuot 5772
             $davening_times{mincha} = ($sunset - 17) % 10; # Ironed out for Shavuot 5776
-            $davening_times{"arvit"} = ($time_calc->tzeit()) % 5; # Ironed out for Shavuot 5772
+            $davening_times{"arvit"} = ($time_calc->tzeit() + 10) % 5;
         }
         $davening_times{"candle lighting"} = e2h("not before") . " " . $havdalah_time;
       } elsif ($holiday->name eq 'yom kippur') {

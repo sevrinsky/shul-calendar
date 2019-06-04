@@ -642,3 +642,8 @@
 - year: 5779
   parsha: shlach
   bar_mitzva: עזרא הילר
+- year: 5779
+  day: 5
+  month: 3
+  times:
+    siyum: לאחר מוסף

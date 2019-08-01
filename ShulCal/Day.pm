@@ -401,7 +401,7 @@ sub get_times {
           $davening_times{'mincha'} = $davening_times{mincha} - 30;
           $davening_times{'start fast evening'} = $time_calc->sunset;
           $davening_times{'arvit'} = ($havdalah_time + 25) % 5;
-          $davening_times{'additional megillat eicha'} = '21:45';
+          $davening_times{'additional megillat eicha'} = ($havdalah_time + 89) % 105;
       }
 
       if (compute_date_diff($next_rosh_hashana, $self) <= 11  && compute_date_diff($next_rosh_hashana, $self) > 4) {

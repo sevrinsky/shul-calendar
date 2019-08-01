@@ -261,7 +261,7 @@
   month: 5
   name: 9 av
   times:
-    mincha: '13:20, 19:00'
+    mincha: '"13:20, " . ($sunset - 35) % 105'
     shacharit: 8:00
 - day: 29
   month: 6
@@ -647,3 +647,7 @@
   month: 3
   times:
     siyum: לאחר מוסף
+- year: 5779
+  parsha: vaetchanan
+  bar_mitzva: ישי מרצ'נט, מתן טברסקי
+

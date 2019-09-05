@@ -405,6 +405,11 @@
   times:
     shacharit: '6:30, 8:10, 8:45'
  # for Election day 5779
+- day: 17
+  month: 6
+  times:
+    shacharit: '6:30, 8:10, 8:45'
+ # for Election day II 5779
 # - day: 5
 #   month: 1
 #   bar_mitzva: נתנאל רום
@@ -650,4 +655,7 @@
 - year: 5779
   parsha: vaetchanan
   bar_mitzva: ישי מרצ'נט, מתן טברסקי
+- year: 5779
+  parsha: shoftim
+  shabbat_chatan: אבישי קלומפס
 

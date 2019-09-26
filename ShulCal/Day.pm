@@ -449,7 +449,7 @@ sub get_times {
 
         my($motzash_time_key) = grep { /^motzash/ } keys %davening_times;
 
-        if ($motzash_time_key && $davening_times{$motzash_time_key} gt '18:30') {
+        if ($motzash_time_key && $davening_times{$motzash_time_key} gt '18:35') {
             $davening_times{'daf yomi'} ||= $mincha - 70;
         }
         elsif ($tom_holiday && $tom_holiday->yomtov) {

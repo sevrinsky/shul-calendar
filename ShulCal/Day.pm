@@ -446,10 +446,11 @@ sub get_times {
         if ($mincha =~ /,\s*(\S+)/) {
             $mincha = ShulCal::Time->new($1);
         }
+        my $earliest_summer_time_motzash = '18:30';
 
         my($motzash_time_key) = grep { /^motzash/ } keys %davening_times;
 
-        if ($motzash_time_key && $davening_times{$motzash_time_key} gt '18:35') {
+        if ($motzash_time_key && $davening_times{$motzash_time_key} gt $earliest_summer_time_motzash) {
             $davening_times{'daf yomi'} ||= $mincha - 70;
         }
         elsif ($tom_holiday && $tom_holiday->yomtov) {
@@ -459,7 +460,7 @@ sub get_times {
             $davening_times{'daf yomi'} ||= $mincha - 30;
         }
 
-        if ($davening_times{motzash} && $davening_times{motzash} lt '18:35') {
+        if ($davening_times{motzash} && $davening_times{motzash} lt $earliest_summer_time_motzash) {
             my $minimum_gap = 60;
             if ($davening_times{motzash} gt '18:00') {
                 $minimum_gap = 58;
@@ -474,7 +475,24 @@ sub get_times {
     else {
       if (!$davening_times{'mincha'}) {
           if ($holiday->name =~ /rosh hashana/) {
-              $davening_times{"mincha"} =  ($sunset - 30) % 5;
+              my $rh_sunset = $sunset;
+              if ($self->day == 1) {
+                  # Calculate based on second day's sunset
+                  my $rh2_datetime = DateTime->from_object(object => $self);
+                  $rh2_datetime->add_duration(DateTime::Duration->new(days => 1));
+                  my $rh2_time_calc = new Suntimes(day => $rh2_datetime->day,
+                                                   month => $rh2_datetime->month,
+                                                   year => $rh2_datetime->year,
+                                                   londeg => 34,
+                                                   lonmin => 59.9172,
+                                                   latdeg => 31,
+                                                   latmin => 42.852,
+                                                   timezone => 2 + ($self->is_dst ? 1 : 0),
+                                                   time_constructor => sub { new ShulCal::Time($_[0]) } );
+                  $rh_sunset = $rh2_time_calc->sunset;
+              }
+
+              $davening_times{"mincha"} =  ($rh_sunset - 30) % 5;
           }
           else {
               $davening_times{"mincha"} =  ($sunset - 15) % 5;

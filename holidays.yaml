@@ -59,8 +59,8 @@
   month: 7
   name: simchat torah
   times:
-    hakafot: 8:20 (משוער)
-    shacharit: 7:30
+    hakafot: 8:30 (משוער)
+    shacharit: 7:45
 #    shacharit vatikin: 5:15
     mincha: לאחר מוסף
 - day: 6
@@ -658,4 +658,8 @@
 - year: 5779
   parsha: shoftim
   shabbat_chatan: אבישי קלומפס
+- year: 5780
+  month: 7
+  day: 20
+  bar_mitzva: צבי טננבוים
 

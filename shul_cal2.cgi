@@ -48,12 +48,18 @@ my @months;
 my $fullpage;
 my $ical_mode;
 my $finish_week;
+my $include_shiurim = undef;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
            'fullpage!' => \$fullpage,
            'ical!' => \$ical_mode,
            'finish-week!' => \$finish_week,
-          );
+           'include-shiurim!' => \$include_shiurim,
+    );
+
+if ($fullpage && ! defined($include_shiurim)) {
+    $include_shiurim = 1;
+}
 
 @months = split(/,/, join(",", @months));
 unless (@months) {
@@ -107,9 +113,11 @@ for my $month (@months) {
   }
 }
 
+if ($include_shiurim) {
+    print read_text("$FindBin::Bin/templates/footer_msg.txt");
+}
 
 if ($fullpage) {
-  print read_text("$FindBin::Bin/templates/footer_msg.txt");
   print $q->end_html;
 }
 

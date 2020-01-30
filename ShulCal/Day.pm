@@ -17,6 +17,8 @@ memoize 'dst_start_date';
 memoize 'dst_end_date';
 
 our @weekday_start = map { new ShulCal::Time($_) } (qw(6:30 6:20 6:30 6:30 6:20 6:30));
+our $DAF_YOMI_DURATION = 40;
+our $HORIM_VYELADIM_DURATION = 40;
 
 #==================================================
 
@@ -451,13 +453,13 @@ sub get_times {
         my($motzash_time_key) = grep { /^motzash/ } keys %davening_times;
 
         if ($motzash_time_key && $davening_times{$motzash_time_key} gt $earliest_summer_time_motzash) {
-            $davening_times{'daf yomi'} ||= $mincha - 70;
+            $davening_times{'daf yomi'} ||= $mincha - ($HORIM_VYELADIM_DURATION + $DAF_YOMI_DURATION);
         }
         elsif ($tom_holiday && $tom_holiday->yomtov) {
-            $davening_times{'daf yomi'} ||= $mincha - 70;
+            $davening_times{'daf yomi'} ||= $mincha - ($HORIM_VYELADIM_DURATION + $DAF_YOMI_DURATION);
         }
         else {
-            $davening_times{'daf yomi'} ||= $mincha - 35;
+            $davening_times{'daf yomi'} ||= $mincha - $DAF_YOMI_DURATION;
         }
 
         if ($davening_times{motzash} && $davening_times{motzash} lt $earliest_summer_time_motzash) {
@@ -468,7 +470,7 @@ sub get_times {
             $davening_times{'horim vyeladim'} = ($davening_times{motzash} + $minimum_gap) % 15;
         }
         elsif (! $holiday->yomtov) {
-            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
+            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - $HORIM_VYELADIM_DURATION);
         }
     }
 
@@ -525,8 +527,8 @@ sub get_times {
     }
   }
   if ($holiday->name eq 'shavuot' && $self->dow_0 < 6) {
-      $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
-      $davening_times{'daf yomi'} = $davening_times{mincha} - 70;
+      $davening_times{'horim vyeladim'} = ($davening_times{mincha} - $HORIM_VYELADIM_DURATION);
+      $davening_times{'daf yomi'} = $davening_times{mincha} - ($HORIM_VYELADIM_DURATION + $DAF_YOMI_DURATION);
   }
 
   if ($holiday->name eq 'erev yom kippur') {
@@ -541,7 +543,7 @@ sub get_times {
     elsif (!$self->is_shabbat) {
       $davening_times{'shofar2'} = $davening_times{'mincha'} - 25;
     }
-    $davening_times{'horim vyeladim'} = ($davening_times{mincha} - 40);
+    $davening_times{'horim vyeladim'} = ($davening_times{mincha} - $HORIM_VYELADIM_DURATION);
   }
   if (($tom_holiday && $tom_holiday->yomtov) || $self->is_erev_shabbat) {
     if ($self->dow_0 == 6) {

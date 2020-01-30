@@ -457,7 +457,7 @@ sub get_times {
             $davening_times{'daf yomi'} ||= $mincha - 70;
         }
         else {
-            $davening_times{'daf yomi'} ||= $mincha - 30;
+            $davening_times{'daf yomi'} ||= $mincha - 35;
         }
 
         if ($davening_times{motzash} && $davening_times{motzash} lt $earliest_summer_time_motzash) {

@@ -1,0 +1,14 @@
+
+MONTH="11"
+PADDED_MONTH="11"
+YEAR=5780
+
+$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
+$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR   > $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html
+wkhtmltopdf $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf
+cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf  $HOME/web/ahavat-tzion.com/calendar/current.pdf
+cp  $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current.html
+cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current_include.html
+$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year ${YEAR}  --fullpage --noinclude-shiurim > $HOME/web/ahavat-tzion.com/calendar/current_simple.html
+wkhtmltopdf -O landscape  $HOME/web/ahavat-tzion.com/calendar/current_simple.html $HOME/web/ahavat-tzion.com/calendar/current_simple.pdf
+rsync  -avz $HOME/web/ahavat-tzion.com/ m:kat.mamash.com

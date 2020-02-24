@@ -410,6 +410,11 @@
   times:
     shacharit: '6:30, 8:10, 8:45'
  # for Election day II 5779
+- day: 6
+  month: 12
+  times:
+    shacharit: '6:30, 8:10'
+ # for Election day III 5780
 # - day: 5
 #   month: 1
 #   bar_mitzva: נתנאל רום

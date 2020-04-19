@@ -1,6 +1,6 @@
 
-MONTH="12"
-PADDED_MONTH="12"
+MONTH="1"
+PADDED_MONTH="01"
 YEAR=5780
 
 $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html

@@ -400,11 +400,11 @@
 #- day: 27
 #  month: 12
 #  bar_mitzva: קובי שכטרמן
-- day: 4
-  month: 1
-  times:
-    shacharit: '6:30, 8:10, 8:45'
- # for Election day 5779
+#- day: 4
+#  month: 1
+#  times:
+#    shacharit: '6:30, 8:10, 8:45'
+# # for Election day 5779
 - day: 17
   month: 6
   times:

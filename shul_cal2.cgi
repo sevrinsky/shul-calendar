@@ -21,8 +21,8 @@ binmode STDOUT, ":utf8";
 {
   my $printed_times = 0;
   sub maybe_tefillah_times {
-    my($days_remaining, $month, $month_note) = @_;
-    if ($days_remaining < 3 || $printed_times) {
+    my($days_remaining, $month, $month_note, $include_shul_times) = @_;
+    if ($days_remaining < 3 || $printed_times || ! $include_shul_times) {
       return "&nbsp;";
     }
     $printed_times = 1;
@@ -49,12 +49,14 @@ my $fullpage;
 my $ical_mode;
 my $finish_week;
 my $include_shiurim = undef;
+my $include_shul_times = 1;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
            'fullpage!' => \$fullpage,
            'ical!' => \$ical_mode,
            'finish-week!' => \$finish_week,
            'include-shiurim!' => \$include_shiurim,
+           'include-shul-times!' => \$include_shul_times,
     );
 
 if ($fullpage && ! defined($include_shiurim)) {
@@ -96,7 +98,9 @@ for my $month (@months) {
   my @month = make_month(year => $current_year,
                          month => $month,
                          finish_week => $finish_week,
-			 is_not_first_month => ($month ne $months[0]));
+                         is_not_first_month => ($month ne $months[0]),
+                         include_shul_times => $include_shul_times,
+      );
   
   if ($month == 7) {
     unshift(@month, new ShulCal::Day(year => $current_year - 1,
@@ -109,7 +113,10 @@ for my $month (@months) {
   }
   else {
     print month_header(@month);
-    print month_cal($month, @month);
+    print month_cal(month_num => $month,
+                    month_days => \@month,
+                    include_shul_times => $include_shul_times,
+        );
   }
 }
 
@@ -181,14 +188,18 @@ sub make_month {
       while (1) {
           my $next_day = new ShulCal::Day(%day_params, 
                                           month => ($day_params{month} % DateTime::Calendar::Hebrew::_LastMonthOfYear($day_params{year})) + 1, 
-                                          day => $extra_day);
+                                          day => $extra_day,
+              );
           last if ($next_day->dow_0 == 0);
           $extra_day++;
           push(@month, $next_day);
           $month[-2]->{tomorrow} = $month[-1];
       }
   }
-  $month[-1]->{tomorrow} = new ShulCal::Day(%day_params, month => ($day_params{month} % DateTime::Calendar::Hebrew::_LastMonthOfYear($day_params{year})) + 1, day => $extra_day);
+  $month[-1]->{tomorrow} = new ShulCal::Day(%day_params,
+                                            month => ($day_params{month} % DateTime::Calendar::Hebrew::_LastMonthOfYear($day_params{year})) + 1,
+                                            day => $extra_day,
+      );
 
   return @month;
 }
@@ -196,7 +207,11 @@ sub make_month {
 #--------------------------------------------------
 
 sub month_cal {
-  my($month_num, @month) = @_;
+  my(%params) = @_;
+  my $month_num = $params{month_num};
+  my @month = @{$params{month_days}};
+  my $include_shul_times = $params{include_shul_times};
+
   my @row;
   my @weeks;
   my @days_of_week_e = ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Shabbat');
@@ -207,7 +222,10 @@ sub month_cal {
   my $month_note = '';
   my @print_day_output;
   for my $d (@month) {
-      push(@print_day_output, $d->print_cell($q));
+      push(@print_day_output, $d->print_cell(html_page => $q,
+                                             include_shul_times => $include_shul_times,
+
+           ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;
       }
@@ -217,7 +235,7 @@ sub month_cal {
     push(@row, $q->td({-colspan => $month[0]->dow_0,
 		       -class => 'general_tefillah_times'},
 		      $q->div({-class => 'general_tefillah_times_div'},
-            maybe_tefillah_times($month[0]->dow_0, $month_num, $month_note))));
+            maybe_tefillah_times($month[0]->dow_0, $month_num, $month_note, $include_shul_times))));
   }
 
   for my $i (0..$#month) {
@@ -237,7 +255,7 @@ sub month_cal {
     push(@weeks, join("",@row, $q->td({-colspan => (7 - $month[-1]->dow),
                                        -class => 'general_tefillah_times'}, 
 				      $q->div({-class => 'general_tefillah_times_div'},
-                maybe_tefillah_times(7- $month[-1]->dow, $month_num, $month_note))
+                maybe_tefillah_times(7- $month[-1]->dow, $month_num, $month_note, $include_shul_times))
 				     )));
   }
 

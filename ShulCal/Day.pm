@@ -37,10 +37,25 @@ sub init {
 #--------------------------------------------------
 
 sub print_cell {
-  my($self, $q) = @_;
+  my($self, %params) = @_;
+  my $q = $params{html_page};
+  my $include_shul_times = defined $params{include_shul_times} ? $params{include_shul_times} : 1;
+
   my @inside_rows = ();
   my $holiday = $self->holiday;
   my %davening_times = $self->get_times();
+  if (! $include_shul_times) {
+      my %nonshul_times = map { ($_ => 1) } ('candle lighting',
+                                             'motzash',
+                                             'plag hamincha',
+                                            );
+      for my $k (keys %davening_times) {
+          if (! $nonshul_times{$k}) {
+              delete $davening_times{$k};
+          }
+      }
+  }
+
   push(@inside_rows, $q->div({-class => 'day_number_row'},
                             $q->span({-class => 'heb_day_number'}, 
                                    gematria($self->day)),

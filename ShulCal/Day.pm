@@ -40,6 +40,7 @@ sub print_cell {
   my($self, %params) = @_;
   my $q = $params{html_page};
   my $include_shul_times = defined $params{include_shul_times} ? $params{include_shul_times} : 1;
+  my $include_shiur_times = defined $params{include_shiur_times} ? $params{include_shiur_times} : 1;
 
   my @inside_rows = ();
   my $holiday = $self->holiday;
@@ -52,6 +53,16 @@ sub print_cell {
                                             );
       for my $k (keys %davening_times) {
           if (! $nonshul_times{$k}) {
+              delete $davening_times{$k};
+          }
+      }
+  }
+  if (! $include_shiur_times) {
+      my %shiur_times = map { ($_ => 1) } ('horim vyeladim',
+                                           'daf yomi',
+                                          );
+      for my $k (keys %shiur_times) {
+          if (exists $davening_times{$k}) {
               delete $davening_times{$k};
           }
       }

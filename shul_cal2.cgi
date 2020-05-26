@@ -49,6 +49,7 @@ my $fullpage;
 my $ical_mode;
 my $finish_week;
 my $include_shiurim = undef;
+my $include_shiur_times = 1;
 my $include_shul_times = 1;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
@@ -56,6 +57,7 @@ GetOptions('year=i' => \$current_year,
            'ical!' => \$ical_mode,
            'finish-week!' => \$finish_week,
            'include-shiurim!' => \$include_shiurim,
+           'include-shiur-times!' => \$include_shiur_times,
            'include-shul-times!' => \$include_shul_times,
     );
 
@@ -100,6 +102,7 @@ for my $month (@months) {
                          finish_week => $finish_week,
                          is_not_first_month => ($month ne $months[0]),
                          include_shul_times => $include_shul_times,
+                         include_shiur_times => $include_shiur_times,
       );
   
   if ($month == 7) {
@@ -116,6 +119,7 @@ for my $month (@months) {
     print month_cal(month_num => $month,
                     month_days => \@month,
                     include_shul_times => $include_shul_times,
+                    include_shiur_times => $include_shiur_times,
         );
   }
 }
@@ -211,6 +215,7 @@ sub month_cal {
   my $month_num = $params{month_num};
   my @month = @{$params{month_days}};
   my $include_shul_times = $params{include_shul_times};
+  my $include_shiur_times = $params{include_shiur_times};
 
   my @row;
   my @weeks;
@@ -224,7 +229,7 @@ sub month_cal {
   for my $d (@month) {
       push(@print_day_output, $d->print_cell(html_page => $q,
                                              include_shul_times => $include_shul_times,
-
+                                             include_shiur_times => $include_shiur_times,
            ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;

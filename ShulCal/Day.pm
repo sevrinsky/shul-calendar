@@ -605,7 +605,8 @@ sub get_times {
     }
     if ($self->is_dst && $tom_holiday 
         && $tom_holiday->name !~ /pesach/  # 5772 - no early minyan for 7th day pesach
-        && ! $holiday->yomtov # 5772 - no early minyan for Shabbat on Friday chag
+#        && ! $holiday->yomtov # 5772 - no early minyan for Shabbat on Friday chag
+        # 5780 - added early minyan on Shavuot for Shabbat Naso, not sure what will be in the future
         && $tom_holiday->name ne 'shavuot' 
         && $tom_holiday->name !~ / rosh hashana/ 
         && $early_mincha_time ge '17:15'

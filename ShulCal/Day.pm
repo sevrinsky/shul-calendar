@@ -369,9 +369,15 @@ sub get_times {
 #       $davening_times{'shacharit'} = ShulCal::Time->new('7:30');
 #     }
 #   }
+
+  my $include_late_workweek_shacharit = 1;
   if (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
       && !$self->is_shabbat) {
-    $davening_times{shacharit} ||= ShulCal::Time->new('6:15');
+
+      $davening_times{shacharit} ||= ShulCal::Time->new('6:15');
+      if ($self->dow_0 < 5 && $include_late_workweek_shacharit) {
+          $davening_times{"shacharit"} .= ', 7:30';
+      }
   }
 
   if ($self->is_shabbat || $holiday->yomtov) {
@@ -685,9 +691,6 @@ sub get_times {
   }
 
   if ($self->is_erev_shabbat && !$holiday->yomtov) {
-#    unless ($davening_times{shacharit}) {
-#      $davening_times{shacharit} = '6:30';
-#    }
       if ($davening_times{shacharit} && (ref($davening_times{shacharit}) || $davening_times{shacharit} !~ /8:10/)) {
           $davening_times{shacharit} .= ', 8:10';
       }
@@ -707,12 +710,20 @@ sub get_times {
       $include_youth_minyan = 1;
   }
 
+  if ($include_late_workweek_shacharit && $self->dow_0 < 5) {
+      $include_weekday_shacharit = 1;
+  }
+
   if ($include_weekday_shacharit && ! $davening_times{"shacharit"}) {
       $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
       if ($self->dow_0 == 5) {
           $davening_times{"shacharit"} .= ', 8:10';
       }
+      elsif ($self->dow_0 < 5 && $include_late_workweek_shacharit) {
+          $davening_times{"shacharit"} .= ', 7:30';
+      }
   }
+
 
   if ($include_youth_minyan && $davening_times{"shacharit"}) {
       my $youth_minyan_time = '8:45';

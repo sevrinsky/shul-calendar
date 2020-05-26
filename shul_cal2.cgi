@@ -51,6 +51,7 @@ my $finish_week;
 my $include_shiurim = undef;
 my $include_shiur_times = 1;
 my $include_shul_times = 1;
+my $include_chofesh_hagadol = 1;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
            'fullpage!' => \$fullpage,
@@ -59,6 +60,7 @@ GetOptions('year=i' => \$current_year,
            'include-shiurim!' => \$include_shiurim,
            'include-shiur-times!' => \$include_shiur_times,
            'include-shul-times!' => \$include_shul_times,
+           'include-chofesh-hagadol!' => \$include_chofesh_hagadol,
     );
 
 if ($fullpage && ! defined($include_shiurim)) {
@@ -103,6 +105,7 @@ for my $month (@months) {
                          is_not_first_month => ($month ne $months[0]),
                          include_shul_times => $include_shul_times,
                          include_shiur_times => $include_shiur_times,
+                         include_chofesh_hagadol => $include_chofesh_hagadol,
       );
   
   if ($month == 7) {
@@ -120,6 +123,7 @@ for my $month (@months) {
                     month_days => \@month,
                     include_shul_times => $include_shul_times,
                     include_shiur_times => $include_shiur_times,
+                    include_chofesh_hagadol => $include_chofesh_hagadol,
         );
   }
 }
@@ -167,6 +171,7 @@ sub make_month {
   my(%params) = @_;
   my @month;
   my %day_params = (year => $params{year}, month => $params{month});
+  
   push(@month, new ShulCal::Day(%day_params, day => 1));
 
   if ($month[0]->dow_0 == 6 && !$params{is_not_first_month} && $params{month} != 7) {
@@ -216,6 +221,7 @@ sub month_cal {
   my @month = @{$params{month_days}};
   my $include_shul_times = $params{include_shul_times};
   my $include_shiur_times = $params{include_shiur_times};
+  my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
 
   my @row;
   my @weeks;
@@ -230,6 +236,7 @@ sub month_cal {
       push(@print_day_output, $d->print_cell(html_page => $q,
                                              include_shul_times => $include_shul_times,
                                              include_shiur_times => $include_shiur_times,
+                                             include_chofesh_hagadol => $include_chofesh_hagadol,
            ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;

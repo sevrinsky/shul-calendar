@@ -41,10 +41,11 @@ sub print_cell {
   my $q = $params{html_page};
   my $include_shul_times = defined $params{include_shul_times} ? $params{include_shul_times} : 1;
   my $include_shiur_times = defined $params{include_shiur_times} ? $params{include_shiur_times} : 1;
+  my $include_chofesh_hagadol = defined $params{include_chofesh_hagadol} ? $params{include_chofesh_hagadol} : 1;
 
   my @inside_rows = ();
   my $holiday = $self->holiday;
-  my %davening_times = $self->get_times();
+  my %davening_times = $self->get_times(include_chofesh_hagadol => $include_chofesh_hagadol);
   if (! $include_shul_times) {
       my %nonshul_times = map { ($_ => 1) } ('candle lighting',
                                              'motzash',
@@ -214,7 +215,8 @@ sub is_matnas {
 #--------------------------------------------------
 
 sub get_times {
-  my($self) = @_;
+  my($self, %params) = @_;
+  my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
   my $holiday = $self->holiday;
   my $tom_holiday;
   if ($self->{tomorrow}) {
@@ -709,7 +711,7 @@ sub get_times {
 
   my $include_youth_minyan = 0;
   my $include_weekday_shacharit = 0;
-  if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $self->is_chofesh_hagadol) {
+  if (!$self->is_shabbat && (! $holiday->name || $holiday->name ne '9 av') && $self->is_chofesh_hagadol && $include_chofesh_hagadol) {
       $include_youth_minyan = 1;
       if ($self->month == 3) {
           $include_weekday_shacharit = 1;

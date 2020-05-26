@@ -48,6 +48,7 @@ sub print_cell {
       my %nonshul_times = map { ($_ => 1) } ('candle lighting',
                                              'motzash',
                                              'plag hamincha',
+                                             'early shabbos mincha',
                                             );
       for my $k (keys %davening_times) {
           if (! $nonshul_times{$k}) {

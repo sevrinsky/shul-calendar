@@ -383,7 +383,7 @@ sub get_times {
 #     }
 #   }
 
-  my $include_late_workweek_shacharit = 1;
+  my $include_late_workweek_shacharit = 0;
   if (ref($holiday->name) eq 'ARRAY' && grep(/rosh chodesh/, @{$holiday->name})
       && !$self->is_shabbat) {
 

@@ -53,6 +53,8 @@ my $include_corona_footer = undef;
 my $include_shiur_times = 1;
 my $include_shul_times = 1;
 my $include_chofesh_hagadol = 1;
+my $include_late_friday = 1;
+my $include_youth_minyan = 1;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
            'fullpage!' => \$fullpage,
@@ -63,6 +65,8 @@ GetOptions('year=i' => \$current_year,
            'include-shiur-times!' => \$include_shiur_times,
            'include-shul-times!' => \$include_shul_times,
            'include-chofesh-hagadol!' => \$include_chofesh_hagadol,
+           'include-late-friday!' => \$include_late_friday,
+           'include-youth-minyan!' => \$include_youth_minyan,
     );
 
 if ($fullpage && ! defined($include_shiurim)) {
@@ -108,6 +112,8 @@ for my $month (@months) {
                          include_shul_times => $include_shul_times,
                          include_shiur_times => $include_shiur_times,
                          include_chofesh_hagadol => $include_chofesh_hagadol,
+                         include_late_friday => $include_late_friday,
+                         include_youth_minyan => $include_youth_minyan,
       );
   
   if ($month == 7) {
@@ -126,6 +132,8 @@ for my $month (@months) {
                     include_shul_times => $include_shul_times,
                     include_shiur_times => $include_shiur_times,
                     include_chofesh_hagadol => $include_chofesh_hagadol,
+                    include_late_friday => $include_late_friday,
+                    include_youth_minyan => $include_youth_minyan,
         );
   }
 }
@@ -228,6 +236,8 @@ sub month_cal {
   my $include_shul_times = $params{include_shul_times};
   my $include_shiur_times = $params{include_shiur_times};
   my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
+  my $include_late_friday = $params{include_late_friday};
+  my $include_youth_minyan = $params{include_youth_minyan};
 
   my @row;
   my @weeks;
@@ -243,6 +253,8 @@ sub month_cal {
                                              include_shul_times => $include_shul_times,
                                              include_shiur_times => $include_shiur_times,
                                              include_chofesh_hagadol => $include_chofesh_hagadol,
+                                             include_late_friday => $include_late_friday,
+                                             include_youth_minyan => $include_youth_minyan,
            ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;

@@ -1,3 +1,5 @@
+<table class="regular_times" width="60%" border=0 cellpadding=0 cellspacing=0>
+<tr><td>
 
 <b>זמני תפילה רגילים:</b>
 <br>
@@ -10,3 +12,17 @@
 </table>
 <!-- &nbsp;&nbsp;נא לעיין ביוצאי דופן, נרשמים בלוח לעיל <br> -->
 ערבית בחול: 20:30 
+
+</td>
+<td>
+
+<b>זמני תפילה רגילים - נחל שמשון 18-20:</b>
+<br>
+<table class="regular_times" border=0 cellpadding=0 cellspacing=0>
+<tr><td>שחרית בחול:</td><td>7:35 (ישתבח)</td></tr>
+<tr><td>מנחה בחול:</td><td>13:00</td></tr>
+<tr><td>ערבית בחול:</td><td>20:30</td></tr>
+</table>
+
+</tr>
+</table>

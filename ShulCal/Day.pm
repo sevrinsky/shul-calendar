@@ -294,7 +294,9 @@ sub get_times {
   }
   my $sh_mincha_time = ($sunset - 51) % 5; # Changed from 15 for winter 5771
   my $chatzot_halayla = $sunrise + (($sunset - $sunrise) / 2) + 12*60;
-  $sh_mincha_time->set("15:40") if ($sh_mincha_time lt '15:45');
+  #  $sh_mincha_time->set("15:40") if ($sh_mincha_time lt '15:45');
+  # Earliest winter Shabbat minyan time set to 16:00, for Corona winter 5781
+  $sh_mincha_time->set("16:00") if ($sh_mincha_time lt '16:00');
 #  $sh_mincha_time = '17:00'
 #    if ($self->{holiday}->{subparsha} && $self->{holiday}->{subparsha} =~ /(hagadol|shuva)/); 
   $sh_mincha_time->set("18:00") if ($sh_mincha_time gt '18:00');

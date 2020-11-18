@@ -1,7 +1,7 @@
 
-MONTH="5"
-PADDED_MONTH="05"
-YEAR=5780
+MONTH=$1
+PADDED_MONTH=`printf %02d $MONTH`
+YEAR=$2
 EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --include-corona"
 
 $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html

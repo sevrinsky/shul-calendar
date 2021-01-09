@@ -607,7 +607,7 @@ sub get_times {
 	}
       }      
     }
-    if ($holiday->is_chanukah) {
+    if ($tom_holiday && $tom_holiday->is_chanukah) {
       # On erev shabbos chanukah, add early mincha
       $davening_times{mincha} = "13:30, " . ($sunset - 20) % 5;
     }

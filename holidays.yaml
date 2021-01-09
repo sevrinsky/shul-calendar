@@ -78,7 +78,8 @@
   name: zot chanukah
   minor_holiday: 1
   times:
-    shacharit: 6:20, 8:45
+    shacharit: 6:20
+#    shacharit: 6:20, 8:45
 - day: 24
   month: 9
   bottom_notice: erev chanukah

@@ -698,23 +698,29 @@ sub get_times {
       
       if ($self->month != 7 && $self->month != 8) { 
           my $shacharit_time = $davening_times{$shacharit_key} || $weekday_start[$self->dow_0];
-          my $compare_sunrise = $sunrise;
-          if ($self->dow_0 < 3) {
-              my $time_calc = new Suntimes(day => $self->e_day + 3,
-                                           month => $self->e_month,
-                                           year => $self->e_year,
-                                           londeg => 34,
-                                           lonmin => 59.9172,
-                                           latdeg => 31,
-                                           latmin => 42.852,
-                                           timezone => 2 + ($self->is_dst ? 1 : 0),
-                                           time_constructor => sub { new ShulCal::Time($_[0]) } );
-              $compare_sunrise = $time_calc->sunrise;
+
+          my $compare_sunrise_day_diff = 3;
+          if ($self->dow_0 >= 3) {
+              $compare_sunrise_day_diff = -3;
           }
+          my $time_calc = new Suntimes(day => $self->e_day + $compare_sunrise_day_diff,
+                                       month => $self->e_month,
+                                       year => $self->e_year,
+                                       londeg => 34,
+                                       lonmin => 59.9172,
+                                       latdeg => 31,
+                                       latmin => 42.852,
+                                       timezone => 2 + ($self->is_dst ? 1 : 0),
+                                       time_constructor => sub { new ShulCal::Time($_[0]) } );
+          my $compare_sunrise = $time_calc->sunrise;
+          if ($compare_sunrise - $sunrise < 0) {
+              $compare_sunrise = $sunrise;
+          }
+
           if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
               if ($compare_sunrise - $shacharit_time > 14) {
                   $davening_times{netz} = $sunrise;
-                  $davening_times{$shacharit_key} = ($sunrise - 12) % 5;
+                  $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5;
               }
           }
       }

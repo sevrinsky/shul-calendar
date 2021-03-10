@@ -214,6 +214,11 @@ sub generate_cache {
                 $h->{bottom_notice}  = 'erev chanukah motzash';
             }
 
+            if ($h && exists $h->{notice} &&
+                $h->{notice} eq 'bedikat chometz' && $date->dow_0 == 5) {
+                $date = $date - new DateTime::Duration(days => 1);
+            }
+
             for my $d (1..$duration) {
                 my $new_h = { %$h };
                 if ($new_h->{name}) {

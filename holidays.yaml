@@ -154,6 +154,11 @@
 - day: 13
   month: 1
   notice: bedikat chometz
+# Added temporary note for Corona Nissan 5781
+  dow_times:
+    - dow: 5
+      times:
+        siyum bechorot: 'יפורסם בהמשך'
 - day: 14
   month: 1
   name: erev pesach
@@ -166,7 +171,8 @@
         chatzot halayla: chatzot
     - dow: 6
       times:
-        shacharit: 7:00
+# Commented out Corona Nissan 5781
+#        shacharit: 7:00
         burn chometz: 'in code'
         end eating chometz: 'in code'
         chatzot halayla: chatzot
@@ -174,29 +180,33 @@
   yomtov: 1
   month: 1
   name: pesach
-  times:
-    shacharit: '7:00, 8:45'
-  dow_times:
-    dow: 6
-    times:
-      shacharit: '6:45, 8:45'
+# Commented out Corona Nissan 5781
+#  times:
+#    shacharit: '7:00, 8:45'
+#  dow_times:
+#    dow: 6
+#    times:
+#      shacharit: '6:45, 8:45'
 - day: 16
   duration: 5
   month: 1
   name: chol hamoed pesach
-  times:
-    shacharit: 7:00, 8:10
+# Commented out Corona Nissan 5781
+#  times:
+#    shacharit: 7:00, 8:10
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach
-  times:
-    shacharit: '6:35, 8:30'
+# Commented out Corona Nissan 5781
+#  times:
+#    shacharit: '6:35, 8:30'
 - day: 21
   yomtov: 1
   month: 1
   name: acharon pesach
-  times:
-    shacharit: '6:40, 8:30'
+# Commented out Corona Nissan 5781
+#  times:
+#    shacharit: '6:40, 8:30'
 - day: 27
   month: 1
   name: yom hashoah
@@ -711,3 +721,6 @@
 - year: 5781
   parsha: tetzaveh
   bar_mitzva: עקיבא הילר
+- year: 5781
+  parsha: shmini
+  bar_mitzva: אוריאל קורן

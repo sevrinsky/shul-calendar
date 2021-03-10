@@ -224,6 +224,7 @@ sub get_times {
   my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
   my $include_late_friday = $params{include_late_friday};
   my $global_include_youth_minyan = $params{include_youth_minyan};
+  my $include_holiday_times = 0;
   my $holiday = $self->holiday;
   my $tom_holiday;
   if ($self->{tomorrow}) {
@@ -349,7 +350,7 @@ sub get_times {
 #    $davening_times{'bitul chometz'} = $sunrise + 5 * $shaa_zmanit;
 #  }
 
-  if ($holiday->notice eq 'bedikat chometz') {
+  if ($include_holiday_times && $holiday->notice eq 'bedikat chometz') {
 #    $davening_times{'tzeit hacochavim'} = ShulCal::Time->new($time_calc->tzeit());
     $davening_times{'arvit'} = ($time_calc->tzeit + 5) % 105;
   }
@@ -797,6 +798,12 @@ sub get_times {
               }
           }
       }
+  }
+
+  if (! $include_holiday_times && ($tom_holiday && $tom_holiday->name =~ /pesach/) ||
+      ($holiday && $holiday->name =~ /pesach/)) {
+      delete $davening_times{shacharit};
+      delete $davening_times{mincha};
   }
 
   return %davening_times;

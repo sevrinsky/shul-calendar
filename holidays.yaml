@@ -157,11 +157,19 @@
 - day: 14
   month: 1
   name: erev pesach
-  times:
-    shacharit and siyum: 7:00, 8:10
-    burn chometz: 'in code'
-    end eating chometz: 'in code'
-    chatzot halayla: chatzot
+  dow_times:
+    - dow: 0,1,2,3,4,5
+      times:
+        shacharit and siyum: 7:00, 8:10
+        burn chometz: 'in code'
+        end eating chometz: 'in code'
+        chatzot halayla: chatzot
+    - dow: 6
+      times:
+        shacharit: 7:00
+        burn chometz: 'in code'
+        end eating chometz: 'in code'
+        chatzot halayla: chatzot
 - day: 15
   yomtov: 1
   month: 1

@@ -223,6 +223,7 @@ sub get_times {
   my($self, %params) = @_;
   my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
   my $include_late_friday = $params{include_late_friday};
+  my $global_include_youth_minyan = $params{include_youth_minyan};
   my $holiday = $self->holiday;
   my $tom_holiday;
   if ($self->{tomorrow}) {
@@ -633,7 +634,8 @@ sub get_times {
     if ($self->dow_0 != 5 && 
         !grep(/shacharit/, keys %davening_times) &&
         $tom_holiday->name !~ / rosh hashana/  &&
-        $tom_holiday->name !~ /yom kippur/ 
+        $tom_holiday->name !~ /yom kippur/ &&
+        $include_late_friday
        ) {
       $davening_times{'shacharit'} =  $weekday_start[$self->dow_0] . ", 8:10";
     }
@@ -644,37 +646,44 @@ sub get_times {
   }
 
   if ($holiday->fast && !$holiday->yomtov) {
-    if ($holiday->name ne '9 av') {
-      $davening_times{'start fast'} ||= $time_calc->alot;
-#      $davening_times{'alot later'} = $time_calc->alot_later;
-#      $davening_times{'regular 72'} = $time_calc->sunrise - 72;
-#      $davening_times{'adjusted 72'} = $time_calc->sunrise - (72/60 * $shaa_zmanit);
-#      $davening_times{'regular 90'} = $time_calc->sunrise - 90;
-#      $davening_times{'adjusted 90'} = $time_calc->sunrise - (90/60 * $shaa_zmanit);
-
-      if ($holiday->name !~ /gedalia/) { # not printed when we have selichot
-        $davening_times{shacharit} = ShulCal::Time->new('6:10');
-        if ($self->dow_0 == 5 && $include_late_friday) {
-            $davening_times{shacharit} = '6:10, 8:10';
-        }
+      if (! $include_late_friday) {
+          $davening_times{'start fast'} ||= $time_calc->alot;
+          $davening_times{'end fast'} = $time_calc->tzeit;
       }
-      $davening_times{mincha} = ($sunset - 25) % 5; 
-      if ($self->dow_0 == 5) {
-          $davening_times{mincha} = ($candle_time - 5) % 5;
-      }
-  }
+      else {
 
-    if ($holiday->name eq 'taanit esther' && $self->dow_0 != 4) {
-        # end fast not wanted for taanit esther - 5772
-#        $davening_times{'end fast'} = $time_calc->tzeit;
-#        $davening_times{arvit} ||= $time_calc->tzeit;
-    }
-    else {
-        if ($self->dow_0 != 5) {
-            $davening_times{'end fast'} = $time_calc->tzeit;
-            $davening_times{arvit} = ($time_calc->tzeit - 2) % 5;
-        }
-    }
+          if ($holiday->name ne '9 av') {
+              $davening_times{'start fast'} ||= $time_calc->alot;
+              #      $davening_times{'alot later'} = $time_calc->alot_later;
+              #      $davening_times{'regular 72'} = $time_calc->sunrise - 72;
+              #      $davening_times{'adjusted 72'} = $time_calc->sunrise - (72/60 * $shaa_zmanit);
+              #      $davening_times{'regular 90'} = $time_calc->sunrise - 90;
+              #      $davening_times{'adjusted 90'} = $time_calc->sunrise - (90/60 * $shaa_zmanit);
+
+              if ($holiday->name !~ /gedalia/) { # not printed when we have selichot
+                  $davening_times{shacharit} = ShulCal::Time->new('6:10');
+                  if ($self->dow_0 == 5 && $include_late_friday) {
+                      $davening_times{shacharit} = '6:10, 8:10';
+                  }
+              }
+              $davening_times{mincha} = ($sunset - 25) % 5; 
+              if ($self->dow_0 == 5) {
+                  $davening_times{mincha} = ($candle_time - 5) % 5;
+              }
+          }
+
+          if ($holiday->name eq 'taanit esther' && $self->dow_0 != 4) {
+              # end fast not wanted for taanit esther - 5772
+              #        $davening_times{'end fast'} = $time_calc->tzeit;
+              #        $davening_times{arvit} ||= $time_calc->tzeit;
+          }
+          else {
+              if ($self->dow_0 != 5) {
+                  $davening_times{'end fast'} = $time_calc->tzeit;
+                  $davening_times{arvit} = ($time_calc->tzeit - 2) % 5;
+              }
+          }
+      }
   }
 
   if (!$self->is_shabbat) {
@@ -739,7 +748,7 @@ sub get_times {
       $include_weekday_shacharit = 1;
   }
 
-  if ($include_weekday_shacharit && ! $davening_times{"shacharit"}) {
+  if ($global_include_youth_minyan && $include_weekday_shacharit && ! $davening_times{"shacharit"}) {
       $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
       if ($self->dow_0 == 5 && $include_late_friday) {
           $davening_times{"shacharit"} .= ', 8:10';
@@ -750,7 +759,7 @@ sub get_times {
   }
 
 
-  if ($include_youth_minyan && $davening_times{"shacharit"}) {
+  if ($global_include_youth_minyan && $include_youth_minyan && $davening_times{"shacharit"}) {
       my $youth_minyan_time = '8:45';
       if ($sof_zman_kriat_shma lt ShulCal::Time->new('8:55')) {
           $youth_minyan_time = '8:30';

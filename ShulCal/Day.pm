@@ -293,7 +293,11 @@ sub get_times {
   else {
     $early_mincha_time = ($plag_mincha_time - 15) % 5;
   }
-  my $sh_mincha_time = ($sunset - 51) % 5; # Changed from 15 for winter 5771
+
+  # my $shabbat_post_mincha_shiur_duration = 10;
+  #   No post-mincha shiur during Corona winter 5781
+  my $shabbat_post_mincha_shiur_duration = 0;
+  my $sh_mincha_time = ($sunset - 41 - $shabbat_post_mincha_shiur_duration) % 5;
   my $chatzot_halayla = $sunrise + (($sunset - $sunrise) / 2) + 12*60;
   #  $sh_mincha_time->set("15:40") if ($sh_mincha_time lt '15:45');
   # Earliest winter Shabbat minyan time set to 16:00, for Corona winter 5781
@@ -717,7 +721,9 @@ sub get_times {
               $compare_sunrise = $sunrise;
           }
 
-          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
+          # Removed Rosh Chodesh as a non-delayed tefillah for Corona winter 5781
+          # ! $holiday->contains('rosh chodesh')
+          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('chanukah')) {
               if ($compare_sunrise - $shacharit_time > 14) {
                   $davening_times{netz} = $sunrise;
                   $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5;

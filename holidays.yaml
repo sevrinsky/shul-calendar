@@ -101,20 +101,25 @@
   fast: 1
   month: -1
   name: taanit esther
-  is_youth_minyan: 1
-  times:
-    arvit: '($sunset + 20) % 5'
-    megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
+  # is_youth_minyan: 1
+  # times:
+  #   arvit: '($sunset + 20) % 5'
+  #   megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
+  bottom_notice: times to be posted
 - day: 14
   month: -1
   name: purim
   minor_holiday: 1
-  times:
-    morning megillah reading: 9:45
-#    shacharit: '6:15, 7:45'
-#    morning megillah reading: 9:30
-    shacharit: '6:30, 8:00'
-    mincha: 13:30
+  # times:
+  #   morning megillah reading: 9:45
+  #   shacharit: '6:30, 8:00'
+  #   mincha: 13:30
+  # dow_times:
+  #   dow: 5
+  #   times:
+  #     morning megillah reading: 9:45
+  #     shacharit: '6:30, 8:00'
+  bottom_notice: times to be posted
 - day: 15
   month: -1
   name: shushan purim
@@ -692,3 +697,9 @@
 - year: 5781
   parsha: vayishlach
   bar_mitzva: דיין בסארבי, יאיר ליבר
+- year: 5781
+  parsha: beshalach
+  bar_mitzva: ג'ייקי זטמן
+- year: 5781
+  parsha: tetzaveh
+  bar_mitzva: עקיבא הילר

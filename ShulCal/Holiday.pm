@@ -215,7 +215,7 @@ sub generate_cache {
             }
 
             if ($h && exists $h->{notice} &&
-                $h->{notice} eq 'bedikat chometz' && $date->dow_0 == 5) {
+                $h->{notice} =~ 'bedikat chometz' && $date->dow_0 == 5) {
                 $date = $date - new DateTime::Duration(days => 1);
             }
 

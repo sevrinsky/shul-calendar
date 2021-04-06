@@ -93,7 +93,7 @@ sub print_cell {
 
   }
   if ($holiday->notice) {
-    push(@inside_rows, $q->div({-class => 'holiday_notice'}, $q->span({-class => 'holiday_notice_inner'}, "&nbsp;" . e2h($holiday->notice) . "&nbsp;")));
+    push(@inside_rows, $q->div({-class => 'holiday_notice'}, $q->div({-class => 'holiday_notice_inner'}, "&nbsp;" . e2h($holiday->notice) . "&nbsp;")));
   }
 
   if ($holiday->parsha) {
@@ -174,7 +174,7 @@ sub print_cell {
   }
 
   if ($holiday->bottom_notice) {
-    push(@inside_rows, $q->div({-class => 'holiday_notice'}, $q->span({-class => 'holiday_notice_inner'}, "&nbsp;" . e2h($holiday->bottom_notice) . "&nbsp;")));
+    push(@inside_rows, $q->div({-class => 'holiday_notice'}, $q->div({-class => 'holiday_notice_inner'}, "&nbsp;" . e2h($holiday->bottom_notice) . "&nbsp;")));
   }
 #   if ($self->get_omer()) {
 #     return $q->table({-class => 'inner_day', -cellpadding=> 0, -cellspacing=> 0, -border => 0}, 

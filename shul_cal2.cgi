@@ -400,7 +400,7 @@ td { font-size: 100% }
           .holiday_notice { margin: 2px }
 	  .holiday_name { font-weight: bold }
 	  .holiday_notice { clear: both; }
-	  .holiday_notice_inner { white-space: nowrap; font-size:0.88em; font-weight: bold; border: 1px solid black; background: #cccccc }
+	  .holiday_notice_inner { white-space: nowrap; font-size:0.88em; font-weight: bold; border: 1px solid black; background: #cccccc; width: fit-content; margin: auto; }
 	  .parsha_name { text-align: right; clear: both; font-family: cursive }
 	  .bar_mitzva { text-align: right; font-size: 0.75em; white-space: nowrap; clear: both; font-family: Arial; vertical-align: top }
 	  .subparsha_name { font-size: 0.62em }

@@ -153,12 +153,16 @@
   is_youth_minyan: 1
 - day: 13
   month: 1
-  notice: bedikat chometz
 # Added temporary note for Corona Nissan 5781
-  dow_times:
-    - dow: 5
-      times:
-        siyum bechorot: 'יפורסם בהמשך'
+  notice: taanit bechorot and bedikat chometz
+  times:
+    tzeit hacochavim: '$tzeit'
+#  notice: bedikat chometz
+- day: 13
+  month: 1
+# Added temporary burning time for Corona Nissan 5781
+  times:
+    burn chometz: 'in code'
 - day: 14
   month: 1
   name: erev pesach

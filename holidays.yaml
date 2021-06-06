@@ -247,9 +247,9 @@
     dow: 6
     times:
       motzash and festive arvit: '$havdalah'
-  times:
+#  times:
 #    mincha: '($sunset - 10) % 5'
-    festive arvit: '20:30 &e2h(q{at ramat shalom})'
+#    festive arvit: '20:30 &e2h(q{at ramat shalom})'
 - day: 28
   month: 2
   name: yom yerushalayim

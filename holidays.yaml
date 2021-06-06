@@ -169,7 +169,7 @@
   dow_times:
     - dow: 0,1,2,3,4,5
       times:
-        shacharit and siyum: 7:00, 8:10
+        shacharit and siyum: 7:00, 8:00
         burn chometz: 'in code'
         end eating chometz: 'in code'
         chatzot halayla: chatzot
@@ -197,7 +197,7 @@
   name: chol hamoed pesach
 # Commented out Corona Nissan 5781
 #  times:
-#    shacharit: 7:00, 8:10
+#    shacharit: 7:00, 8:00
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach

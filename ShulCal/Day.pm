@@ -450,7 +450,7 @@ sub get_times {
       }
 
       if ($tom_holiday && $tom_holiday->name eq '9 av') {
-          $davening_times{'mincha'} = $davening_times{mincha} - 30;
+          $davening_times{'mincha'} = ($time_calc->sunset - 100) % 15;
           $davening_times{'start fast evening'} = $time_calc->sunset;
           $davening_times{'arvit'} = ($havdalah_time + 25) % 5;
           $davening_times{'additional megillat eicha'} = ($havdalah_time + 89) % 105;

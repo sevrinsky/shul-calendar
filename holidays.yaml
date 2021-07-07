@@ -278,7 +278,7 @@
 - day: 8
   month: 5
   dow_times:
-    dow: 5
+    dow: 6
     times:
   times:
     'start fast': '$sunset'

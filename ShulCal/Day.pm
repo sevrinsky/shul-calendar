@@ -416,7 +416,7 @@ sub get_times {
       }
       if ($holiday->is_rosh_chodesh) {
           $early_minyan -= 5;
-          if ($holiday->subparsha) {
+          if ($holiday->subparsha || ($holiday->parsha && $holiday->parsha eq 'matot-maasei')) {
               $early_minyan -= 5;
           }
       }

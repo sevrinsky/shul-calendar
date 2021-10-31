@@ -1,15 +1,28 @@
+#!/bin/bash
 
-MONTH=$1
+DO_PUBLISH=0
+
+while getopts "p" flag; do
+case "$flag" in
+    p) DO_PUBLISH=1;
+esac
+done
+
+MONTH=${@:$OPTIND:1}
+YEAR=${@:$OPTIND+1:1}
 PADDED_MONTH=`printf %02d $MONTH`
-YEAR=$2
-EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan "
+EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan --include-corona "
 
 $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
-$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR  $EXTRA_OPTS > $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html
-wkhtmltopdf $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf
-cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf  $HOME/web/ahavat-tzion.com/calendar/current.pdf
-cp  $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current.html
-cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current_include.html
-$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year ${YEAR}  --fullpage $EXTRA_OPTS --noinclude-shiurim > $HOME/web/ahavat-tzion.com/calendar/current_simple.html
-wkhtmltopdf -O landscape  $HOME/web/ahavat-tzion.com/calendar/current_simple.html $HOME/web/ahavat-tzion.com/calendar/current_simple.pdf
-rsync  -avz $HOME/web/ahavat-tzion.com/ m:kat.mamash.com
+rsync  -avz $HOME/web/mamash.com m:
+
+if [ $DO_PUBLISH == 1 ] ; then
+    $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR  $EXTRA_OPTS > $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html
+    wkhtmltopdf $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf
+    cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.pdf  $HOME/web/ahavat-tzion.com/calendar/current.pdf
+    cp  $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current.html
+    cp $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html  $HOME/web/ahavat-tzion.com/calendar/current_include.html
+    $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year ${YEAR}  --fullpage $EXTRA_OPTS --noinclude-shiurim > $HOME/web/ahavat-tzion.com/calendar/current_simple.html
+    wkhtmltopdf -O landscape  $HOME/web/ahavat-tzion.com/calendar/current_simple.html $HOME/web/ahavat-tzion.com/calendar/current_simple.pdf
+    rsync  -avz $HOME/web/ahavat-tzion.com/ m:kat.mamash.com
+fi

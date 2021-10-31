@@ -639,6 +639,7 @@ sub get_times {
     # Add late shacharit
     if (($self->dow_0 != 5 || $force_include_late_friday) &&
         !grep(/shacharit/, keys %davening_times) &&
+        ! $davening_times{selichot} &&
         $tom_holiday->name !~ / rosh hashana/  &&
         $tom_holiday->name !~ /yom kippur/ &&
         $include_late_friday
@@ -738,7 +739,7 @@ sub get_times {
       $davening_times{"shacharit"} ||= $weekday_start[$self->dow_0] - 5;
   }
 
-  if ($self->is_erev_shabbat && !$holiday->yomtov) {
+  if ($self->is_erev_shabbat && !$holiday->yomtov && (! $holiday->name || $holiday->name !~ /chol hamoed/)) {
       if ($include_late_friday && $davening_times{shacharit} && (ref($davening_times{shacharit}) || $davening_times{shacharit} !~ /8:00/)) {
           $davening_times{shacharit} .= ', 8:00';
       }
@@ -762,7 +763,7 @@ sub get_times {
       $include_weekday_shacharit = 1;
   }
 
-  if ($global_include_youth_minyan && $include_weekday_shacharit && ! $davening_times{"shacharit"}) {
+  if ($global_include_youth_minyan && $include_weekday_shacharit && ! $davening_times{"shacharit"} && ! $davening_times{selichot}) {
       $davening_times{"shacharit"} = $weekday_start[$self->dow_0];
       if ($self->dow_0 == 5 && $include_late_friday) {
           $davening_times{"shacharit"} .= ', 8:00';

@@ -724,9 +724,7 @@ sub get_times {
               $compare_sunrise = $sunrise;
           }
 
-          # Removed Rosh Chodesh as a non-delayed tefillah for Corona winter 5781
-          # ! $holiday->contains('rosh chodesh')
-          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('chanukah')) {
+          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
               if ($compare_sunrise - $shacharit_time > 14) {
                   $davening_times{netz} = $sunrise;
                   $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5;

@@ -11,7 +11,7 @@ done
 MONTH=${@:$OPTIND:1}
 YEAR=${@:$OPTIND+1:1}
 PADDED_MONTH=`printf %02d $MONTH`
-EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan --include-corona "
+EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan "
 
 $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
 rsync  -avz $HOME/web/mamash.com m:

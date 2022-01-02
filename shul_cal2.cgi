@@ -188,7 +188,8 @@ sub make_month {
   
   push(@month, new ShulCal::Day(%day_params, day => 1));
 
-  if ($month[0]->dow_0 == 6 && !$params{is_not_first_month} && $params{month} != 7) {
+  my $sunday_tevet = ($month[0]->dow_0 == 0 && $day_params{month} == 10);
+  if (($month[0]->dow_0 == 6 && !$params{is_not_first_month} && $params{month} != 7) || $sunday_tevet) {
       my $prev_month = $day_params{month} - 1;
       if (! $prev_month) {
           $prev_month = DateTime::Calendar::Hebrew::_LastMonthOfYear($day_params{year});
@@ -199,6 +200,14 @@ sub make_month {
                                        day => DateTime::Calendar::Hebrew::_LastDayOfMonth($day_params{year}, $prev_month),
                                       ));
       $month[0]->{tomorrow} = $month[1];
+
+      if ($sunday_tevet) {
+          unshift(@month, new ShulCal::Day(%day_params,
+                                           month => $prev_month,
+                                           day => DateTime::Calendar::Hebrew::_LastDayOfMonth($day_params{year} - 1, $prev_month),
+                                          ));
+          $month[0]->{tomorrow} = $month[1];
+      }
   }
 
   for my $i (2..DateTime::Calendar::Hebrew::_LastDayOfMonth($day_params{year}, $day_params{month})) {

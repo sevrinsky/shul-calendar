@@ -629,7 +629,7 @@ sub get_times {
         && $tom_holiday->name !~ / rosh hashana/ 
         && $early_mincha_time ge '17:15'
         && $self->month != 7
-        && compute_date_diff($self, $this_pesach) > 0
+        && compute_date_diff($self, $this_pesach) > 7
         && (compute_date_diff($self, $next_rosh_hashana) < -5 ||
             compute_date_diff($self, $next_rosh_hashana) > 0)
        ) {

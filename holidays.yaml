@@ -101,25 +101,24 @@
   fast: 1
   month: -1
   name: taanit esther
-  # is_youth_minyan: 1
-  # times:
-  #   arvit: '($sunset + 20) % 5'
-  #   megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
-  bottom_notice: times to be posted
+  is_youth_minyan: 1
+  times:
+    mincha: '17:00'
+    arvit: '($sunset + 20) % 5'
+    megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
 - day: 14
   month: -1
   name: purim
   minor_holiday: 1
-  # times:
-  #   morning megillah reading: 9:45
-  #   shacharit: '6:30, 8:00'
-  #   mincha: 13:30
-  # dow_times:
-  #   dow: 5
-  #   times:
-  #     morning megillah reading: 9:45
-  #     shacharit: '6:30, 8:00'
-  bottom_notice: times to be posted
+  times:
+    morning megillah reading: 9:45
+    shacharit: '6:30, 8:00'
+    mincha: 13:30
+  dow_times:
+    dow: 5
+    times:
+      morning megillah reading: 9:45
+      shacharit: '6:30, 8:00'
 - day: 15
   month: -1
   name: shushan purim

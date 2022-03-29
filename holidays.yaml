@@ -152,16 +152,9 @@
   is_youth_minyan: 1
 - day: 13
   month: 1
-# Added temporary note for Corona Nissan 5781
-  notice: taanit bechorot and bedikat chometz
   times:
     tzeit hacochavim: '$tzeit'
-#  notice: bedikat chometz
-- day: 13
-  month: 1
-# Added temporary burning time for Corona Nissan 5781
-  times:
-    burn chometz: 'in code'
+  notice: bedikat chometz
 - day: 14
   month: 1
   name: erev pesach
@@ -174,8 +167,7 @@
         chatzot halayla: chatzot
     - dow: 6
       times:
-# Commented out Corona Nissan 5781
-#        shacharit: 7:00
+        shacharit: 7:00
         burn chometz: 'in code'
         end eating chometz: 'in code'
         chatzot halayla: chatzot
@@ -183,33 +175,29 @@
   yomtov: 1
   month: 1
   name: pesach
-# Commented out Corona Nissan 5781
-#  times:
-#    shacharit: '7:00, 8:45'
-#  dow_times:
-#    dow: 6
-#    times:
-#      shacharit: '6:45, 8:45'
+  times:
+    shacharit: '7:00, 8:45'
+  dow_times:
+    - dow: 6
+      times:
+        shacharit: '6:45, 8:45'
 - day: 16
   duration: 5
   month: 1
   name: chol hamoed pesach
-# Commented out Corona Nissan 5781
-#  times:
-#    shacharit: 7:00, 8:00
+  times:
+    shacharit: 7:00, 8:10
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach
-# Commented out Corona Nissan 5781
-#  times:
-#    shacharit: '6:35, 8:30'
+  times:
+    shacharit: '6:35, 8:30'
 - day: 21
   yomtov: 1
   month: 1
   name: acharon pesach
-# Commented out Corona Nissan 5781
-#  times:
-#    shacharit: '6:40, 8:30'
+  times:
+    shacharit: '6:40, 8:30'
 - day: 27
   month: 1
   name: yom hashoah

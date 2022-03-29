@@ -225,7 +225,7 @@ sub get_times {
   my $include_late_friday = $params{include_late_friday};
   my $force_include_late_friday = 1;
   my $global_include_youth_minyan = $params{include_youth_minyan};
-  my $include_holiday_times = 0;
+  my $include_holiday_times = 1;
   my $holiday = $self->holiday;
   my $tom_holiday;
   if ($self->{tomorrow}) {
@@ -673,7 +673,7 @@ sub get_times {
                       $davening_times{shacharit} = '6:10, 8:00';
                   }
               }
-              $davening_times{mincha} = ($sunset - 25) % 5; 
+              $davening_times{mincha} ||= ($sunset - 25) % 5;
               if ($self->dow_0 == 5) {
                   $davening_times{mincha} = ($candle_time - 5) % 5;
               }
@@ -798,12 +798,6 @@ sub get_times {
               }
           }
       }
-  }
-
-  if (! $include_holiday_times && ($tom_holiday && $tom_holiday->name =~ /pesach/) ||
-      ($holiday && $holiday->name =~ /pesach/)) {
-      delete $davening_times{shacharit};
-      delete $davening_times{mincha};
   }
 
   return %davening_times;

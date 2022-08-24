@@ -209,7 +209,7 @@
   times:
     mincha: '($sunset - 52) % 5'
     tekes yom hazikaron: '($sunset - 37) % 5'
-    festive arvit: '($tzeit - 20) % 105'
+    festive arvit: '($tzeit - 20) % 5'
 - day: 5
   month: 2
   name: yom haatzmaut
@@ -265,7 +265,7 @@
 - day: 8
   month: 5
   dow_times:
-    dow: 6
+    dow: 5,6
     times:
   times:
     'start fast': '$sunset'

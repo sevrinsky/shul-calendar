@@ -457,7 +457,7 @@ sub get_times {
       }
 
       if (compute_date_diff($next_rosh_hashana, $self) <= 11  && compute_date_diff($next_rosh_hashana, $self) > 4) {
-          $davening_times{"sicha and selichot"} = e2h('tbd');
+          $davening_times{"sicha and selichot"} = ($chatzot_halayla - 15) % 5;
       }
 
       if ($tom_holiday && $tom_holiday->yomtov) {

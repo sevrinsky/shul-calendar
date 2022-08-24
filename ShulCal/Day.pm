@@ -471,7 +471,7 @@ sub get_times {
 #          $davening_times{mincha} = ($sunset - 95) % 15; # todo: special request of the Rav for 5767
 #          $davening_times{"arvit"} = ($time_calc->tzeit() + 10) % 5; # Rav asked for Arvit at 19:10 on 1st day of RH (5770)
 #            $davening_times{mincha} = ($sunset - 10) % 15; # Ironed out for Shavuot 5772
-            $davening_times{mincha} = ($sunset - 17) % 10; # Ironed out for Shavuot 5776
+            $davening_times{mincha} = '13:30, ' . ($sunset - 17) % 10;
             $davening_times{"arvit"} = ($time_calc->tzeit() + 10) % 5;
         }
         $davening_times{"candle lighting"} = e2h("not before") . " " . $havdalah_time;
@@ -523,7 +523,12 @@ sub get_times {
             $davening_times{'horim vyeladim'} = ($davening_times{motzash} + $minimum_gap) % 15;
         }
         elsif (! $holiday->yomtov) {
-            $davening_times{'horim vyeladim'} = ($davening_times{mincha} - $HORIM_VYELADIM_DURATION);
+            my $mincha = $davening_times{mincha};
+            if (!ref($mincha)) {
+                $mincha =~ /^(.*?),/;
+                $mincha = ShulCal::Time->new($1);
+            }
+            $davening_times{'horim vyeladim'} = ($mincha - $HORIM_VYELADIM_DURATION);
         }
     }
 

@@ -223,7 +223,7 @@ sub get_times {
   my($self, %params) = @_;
   my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
   my $include_late_friday = $params{include_late_friday};
-  my $force_include_late_friday = 1;
+  my $force_include_late_friday = 0;
   my $global_include_youth_minyan = $params{include_youth_minyan};
   my $include_holiday_times = 1;
   my $holiday = $self->holiday;

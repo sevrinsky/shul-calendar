@@ -204,7 +204,7 @@ sub make_month {
       if ($sunday_tevet) {
           unshift(@month, new ShulCal::Day(%day_params,
                                            month => $prev_month,
-                                           day => DateTime::Calendar::Hebrew::_LastDayOfMonth($day_params{year} - 1, $prev_month),
+                                           day => DateTime::Calendar::Hebrew::_LastDayOfMonth($day_params{year}, $prev_month) - 1,
                                           ));
           $month[0]->{tomorrow} = $month[1];
       }

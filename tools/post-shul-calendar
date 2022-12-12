@@ -1,10 +1,12 @@
 #!/bin/bash
 
 DO_PUBLISH=0
+DO_DEBUG=0
 
-while getopts "p" flag; do
+while getopts "pd" flag; do
 case "$flag" in
-    p) DO_PUBLISH=1;
+    p) DO_PUBLISH=1;;
+    d) DO_DEBUG=1;;
 esac
 done
 
@@ -13,8 +15,12 @@ YEAR=${@:$OPTIND+1:1}
 PADDED_MONTH=`printf %02d $MONTH`
 EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan "
 
-$HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
-rsync  -avz $HOME/web/mamash.com m:
+if [ $DO_DEBUG == 1 ] ; then
+    perl -d $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
+else
+    $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
+    rsync  -avz $HOME/web/mamash.com m:
+fi
 
 if [ $DO_PUBLISH == 1 ] ; then
     $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR  $EXTRA_OPTS > $HOME/web/ahavat-tzion.com/calendar/${YEAR}_$MONTH.html

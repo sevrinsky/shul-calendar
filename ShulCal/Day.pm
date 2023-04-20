@@ -351,7 +351,7 @@ sub get_times {
 #    $davening_times{'bitul chometz'} = $sunrise + 5 * $shaa_zmanit;
 #  }
 
-  if ($include_holiday_times && $holiday->notice eq 'bedikat chometz') {
+  if ($include_holiday_times && $holiday->notice && $holiday->notice eq 'bedikat chometz') {
 #    $davening_times{'tzeit hacochavim'} = ShulCal::Time->new($time_calc->tzeit());
     $davening_times{'arvit'} = ($time_calc->tzeit + 5) % 105;
   }

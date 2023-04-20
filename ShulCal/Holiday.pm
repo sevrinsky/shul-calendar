@@ -79,6 +79,7 @@ sub get_holiday {
       $retval->{subparsha} = $parsha[1] if ($#parsha > 0 && $parsha[1]);
 
       if ($holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}) {
+          $retval->{notice} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{notice};
           $retval->{bar_mitzva} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{bar_mitzva};
           $retval->{shabbat_chatan} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{shabbat_chatan};
           $retval->{shabbat_sheva_brachot} = $holiday_cache{$date->year}->{parsha}->{$retval->{parsha}}->{shabbat_sheva_brachot};

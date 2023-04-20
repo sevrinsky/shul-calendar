@@ -763,3 +763,25 @@
   times:
     shacharit: '6:30, 8:00'
 # for Election day V 5783
+- year: 5783
+  parsha: vayechi
+  bar_mitzva: גבריאל שפירא
+- year: 5783
+  parsha: yitro
+  bar_mitzva: בנציון סוקול
+- year: 5783
+  parsha: tetzaveh
+  bar_mitzva: הלל צור
+- year: 5783
+  parsha: ki tisa
+  shabbat_chatan: בנצי ספרשטיין
+- year: 5783
+  parsha: vayakhel-pekudei
+  notice: shabbaton
+  shabbat_chatan: שלמה הרמן
+- year: 5783
+  parsha: terumah
+  shabbat_chatan: דניאל גלזר
+- year: 5783
+  parsha: tzav
+  bar_mitzva: איתן בלומנפלד

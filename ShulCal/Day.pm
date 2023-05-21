@@ -742,7 +742,7 @@ sub get_times {
       $davening_times{"shacharit"} ||= $weekday_start[$self->dow_0] - 5;
   }
 
-  if ($self->is_erev_shabbat && !$holiday->yomtov && (! $holiday->name || $holiday->name !~ /chol hamoed/)) {
+  if ($self->is_erev_shabbat && !$holiday->yomtov && (! $holiday->name || $holiday->name !~ /chol hamoed/) && !$holiday->times) {
       if ($include_late_friday && $davening_times{shacharit} && (ref($davening_times{shacharit}) || $davening_times{shacharit} !~ /8:00/)) {
           $davening_times{shacharit} .= ', 8:00';
       }

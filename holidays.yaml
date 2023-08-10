@@ -276,6 +276,7 @@
     'start fast': '$sunset'
     'arvit': "($sunset + 22) % 5"
     mincha: '18:00'
+    additional megillat eicha: "($sunset + 90) % 105"
 - day: 9
   fast: 2
   month: 5
@@ -283,6 +284,7 @@
   times:
     mincha: '"13:20, " . ($sunset - 35) % 105'
     shacharit: 8:00
+    arvit: '($tzeit - 5) % 5'
 - day: 29
   month: 6
   name: erev rosh hashana

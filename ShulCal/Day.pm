@@ -581,7 +581,7 @@ sub get_times {
         $davening_times{mincha} = ShulCal::Time->new("18:00");
         $davening_times{'start fast evening'} = $time_calc->sunset;
         $davening_times{'arvit'} = ($time_calc->sunset + 22) % 5;
-      }
+    }
     }
   }
   if ($holiday->name eq 'shavuot' && $self->dow_0 < 6) {
@@ -692,7 +692,7 @@ sub get_times {
           else {
               if ($self->dow_0 != 5) {
                   $davening_times{'end fast'} = $time_calc->tzeit;
-                  $davening_times{arvit} = $time_calc->tzeit;
+                  $davening_times{arvit} ||= $time_calc->tzeit;
               }
           }
       }

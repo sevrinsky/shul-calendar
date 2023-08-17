@@ -635,7 +635,7 @@ sub get_times {
         && $early_mincha_time ge '17:15'
         && $self->month != 7
         && compute_date_diff($self, $this_pesach) > 7
-        && (compute_date_diff($self, $next_rosh_hashana) < -5 ||
+        && (compute_date_diff($self, $next_rosh_hashana) < -7 ||
             compute_date_diff($self, $next_rosh_hashana) > 0)
        ) {
       $davening_times{'plag hamincha'} ||= "$plag_mincha_time";

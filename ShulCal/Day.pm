@@ -693,7 +693,7 @@ sub get_times {
           else {
               if ($self->dow_0 != 5) {
                   $davening_times{'end fast'} = $time_calc->tzeit;
-                  $davening_times{arvit} ||= $time_calc->tzeit;
+                  $davening_times{arvit} ||= $time_calc->tzeit - 2;
               }
           }
       }

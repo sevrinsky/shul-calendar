@@ -466,6 +466,7 @@ sub get_times {
         }
         elsif ($tom_holiday->name =~ /' rosh hashana/)  {
             $davening_times{mincha} = ($sunset - 30) % 5;
+            $davening_times{"arvit"} = ($time_calc->tzeit() + 5) % 5;
         }
         else {
 #          $davening_times{mincha} = ($sunset - 95) % 15; # todo: special request of the Rav for 5767

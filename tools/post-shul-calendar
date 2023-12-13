@@ -13,7 +13,7 @@ done
 MONTH=${@:$OPTIND:1}
 YEAR=${@:$OPTIND+1:1}
 PADDED_MONTH=`printf %02d $MONTH`
-EXTRA_OPTS="--noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan "
+EXTRA_OPTS="--include-current-situation --noinclude-shiur-times --noinclude-chofesh-hagadol --noinclude-shiurim --noinclude-youth-minyan "
 
 if [ $DO_DEBUG == 1 ] ; then
     perl -d $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html

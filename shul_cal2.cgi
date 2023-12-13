@@ -54,7 +54,7 @@ my $fullpage;
 my $ical_mode;
 my $finish_week;
 my $include_shiurim = undef;
-my $include_corona_footer = undef;
+my $include_current_situation_footer = undef;
 my $include_shiur_times = 1;
 my $include_shul_times = 1;
 my $include_chofesh_hagadol = 1;
@@ -66,7 +66,7 @@ GetOptions('year=i' => \$current_year,
            'ical!' => \$ical_mode,
            'finish-week!' => \$finish_week,
            'include-shiurim!' => \$include_shiurim,
-           'include-corona!' => \$include_corona_footer,
+           'include-current-situation!' => \$include_current_situation_footer,
            'include-shiur-times!' => \$include_shiur_times,
            'include-shul-times!' => \$include_shul_times,
            'include-chofesh-hagadol!' => \$include_chofesh_hagadol,
@@ -148,8 +148,8 @@ if ($include_shiurim) {
     print read_text("$FindBin::Bin/templates/shiurim_footer_msg.txt");
 }
 
-if ($include_corona_footer) {
-    print read_text("$FindBin::Bin/templates/corona_footer_msg.txt");
+if ($include_current_situation_footer) {
+    print read_text("$FindBin::Bin/templates/current_situation_footer_msg.txt");
 }
 
 if ($fullpage) {

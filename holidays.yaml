@@ -765,11 +765,11 @@
 - year: 5783
   parsha: noach
   bar_mitzva: יואב ג'קובסון
-- day: 7
-  month: 8
-  times:
-    shacharit: '6:30, 8:00'
-# for Election day V 5783
+#- day: 7
+#  month: 8
+#  times:
+#    shacharit: '6:30, 8:00'
+## for Election day V 5783
 - year: 5783
   parsha: vayechi
   bar_mitzva: גבריאל שפירא

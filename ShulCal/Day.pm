@@ -676,7 +676,7 @@ sub get_times {
               if ($holiday->name !~ /gedalia/) { # not printed when we have selichot
                   $davening_times{shacharit} = ShulCal::Time->new('6:10');
                   if ($self->dow_0 == 5 && $include_late_friday) {
-                      $davening_times{shacharit} = '6:10, 8:00';
+                      $davening_times{shacharit} = '6:20, 8:00';
                   }
               }
               $davening_times{mincha} ||= ($sunset - 25) % 5;

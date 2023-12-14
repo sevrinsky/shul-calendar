@@ -163,6 +163,10 @@ sub generate_cache {
                 }
             }
 
+            if ($h->{name} && $h->{name} eq 'zot chanukah' && DateTime::Calendar::Hebrew::_ShortKislev($year)) {
+                $date = $date + new DateTime::Duration(days => 1);
+            }
+
             if (defined($h->{dow_times})) {
                 my $all_dow_times = $h->{dow_times};
                 if (ref($all_dow_times) ne 'ARRAY') {
@@ -174,10 +178,6 @@ sub generate_cache {
                         $h->{times} = $dow_times->{times};
                     }
                 }
-            }
-
-            if ($h->{name} && $h->{name} eq 'zot chanukah' && DateTime::Calendar::Hebrew::_ShortKislev($year)) {
-                $date = $date + new DateTime::Duration(days => 1);
             }
 
             if ($h->{fast} && $date->dow_0 == 6 && $h->{name} !~ /kippur/) {

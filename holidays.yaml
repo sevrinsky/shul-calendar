@@ -79,7 +79,10 @@
   minor_holiday: 1
   times:
     shacharit: 6:20
-#    shacharit: 6:20, 8:45
+  dow_times:
+    dow: 5
+    times:
+      shacharit: 6:20, 8:00
 - day: 24
   month: 9
   bottom_notice: erev chanukah

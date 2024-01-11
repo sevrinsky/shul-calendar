@@ -2,11 +2,13 @@
 
 DO_PUBLISH=0
 DO_DEBUG=0
+DO_LOCAL=0
 
-while getopts "pd" flag; do
+while getopts "pdl" flag; do
 case "$flag" in
     p) DO_PUBLISH=1;;
     d) DO_DEBUG=1;;
+    l) DO_LOCAL=1;;
 esac
 done
 
@@ -19,7 +21,9 @@ if [ $DO_DEBUG == 1 ] ; then
     perl -d $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
 else
     $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR --fullpage $EXTRA_OPTS > $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html
-    rsync  -avz $HOME/web/mamash.com m:
+    if [ $DO_LOCAL == 0 ] ; then
+        rsync  -avz $HOME/web/mamash.com m:
+    fi
 fi
 
 if [ $DO_PUBLISH == 1 ] ; then

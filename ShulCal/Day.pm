@@ -44,12 +44,14 @@ sub print_cell {
   my $include_chofesh_hagadol = defined $params{include_chofesh_hagadol} ? $params{include_chofesh_hagadol} : 1;
   my $include_late_friday = defined $params{include_late_friday} ? $params{include_late_friday} : 1;
   my $include_youth_minyan = defined $params{include_youth_minyan} ? $params{include_youth_minyan} : 1;
+  my $include_bezman_mincha = defined $params{include_bezman_mincha} ? $params{include_bezman_mincha} : 1;
 
   my @inside_rows = ();
   my $holiday = $self->holiday;
   my %davening_times = $self->get_times(include_chofesh_hagadol => $include_chofesh_hagadol,
                                         include_late_friday => $include_late_friday,
                                         include_youth_minyan => $include_youth_minyan,
+                                        include_bezman_mincha => $include_bezman_mincha,
                                        );
   if (! $include_shul_times) {
       my %nonshul_times = map { ($_ => 1) } ('candle lighting',
@@ -225,6 +227,7 @@ sub get_times {
   my $include_late_friday = $params{include_late_friday};
   my $force_include_late_friday = 0;
   my $global_include_youth_minyan = $params{include_youth_minyan};
+  my $include_bezman_mincha = $params{include_bezman_mincha};
   my $include_holiday_times = 1;
   my $holiday = $self->holiday;
   my $tom_holiday;
@@ -786,6 +789,11 @@ sub get_times {
       if ($self->dow_0 != 5 || $youth_minyan_time ne '8:30') {
           $davening_times{"shacharit"} .= ", $youth_minyan_time";
       }
+  }
+
+  if ($include_bezman_mincha && (($self->month != 11 && $self->day == 1 && $self->dow_0 < 5) || (! $holiday->name && $self->dow_0 == 0))) {
+      $davening_times{"mincha"} ||= ($sunset - 14) % 5;
+      $davening_times{"arvit"} ||= (($sunset + 26) % 5) . ", 20:30";
   }
 
   if (!$self->is_shabbat) {

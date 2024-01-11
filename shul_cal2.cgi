@@ -60,6 +60,7 @@ my $include_shul_times = 1;
 my $include_chofesh_hagadol = 1;
 my $include_late_friday = 1;
 my $include_youth_minyan = 1;
+my $include_bezman_mincha = 1;
 GetOptions('year=i' => \$current_year,
            'month=s' => \@months,
            'fullpage!' => \$fullpage,
@@ -72,7 +73,8 @@ GetOptions('year=i' => \$current_year,
            'include-chofesh-hagadol!' => \$include_chofesh_hagadol,
            'include-late-friday!' => \$include_late_friday,
            'include-youth-minyan!' => \$include_youth_minyan,
-    );
+           'include-bezman-mincha!' => \$include_bezman_mincha,
+          );
 
 if ($fullpage && ! defined($include_shiurim)) {
     $include_shiurim = 1;
@@ -253,6 +255,7 @@ sub month_cal {
   my $include_chofesh_hagadol = $params{include_chofesh_hagadol};
   my $include_late_friday = $params{include_late_friday};
   my $include_youth_minyan = $params{include_youth_minyan};
+  my $include_bezman_mincha = $params{include_bezman_mincha};
   my $year = $params{year};
 
   my @row;
@@ -271,6 +274,7 @@ sub month_cal {
                                              include_chofesh_hagadol => $include_chofesh_hagadol,
                                              include_late_friday => $include_late_friday,
                                              include_youth_minyan => $include_youth_minyan,
+                                             include_bezman_mincha => $include_bezman_mincha,
            ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;

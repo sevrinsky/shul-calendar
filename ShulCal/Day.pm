@@ -734,7 +734,7 @@ sub get_times {
           }
 
           if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
-              if ($compare_sunrise - $shacharit_time > 14) {
+              if ($compare_sunrise - $shacharit_time > 15) {
                   $davening_times{netz} = $sunrise;
                   $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5;
               }

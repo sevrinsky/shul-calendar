@@ -791,7 +791,11 @@ sub get_times {
       }
   }
 
-  if ($include_bezman_mincha && (($self->month != 11 && $self->day == 1 && $self->dow_0 < 5) || (! $holiday->name && $self->dow_0 == 0))) {
+  if ($include_bezman_mincha &&
+      (($self->day == 1 && $self->dow_0 < 5) ||
+       (! $holiday->yomtov && ! $holiday->minor_holiday && ! $self->{tomorrow}->holiday->yomtov && $self->dow_0 == 0) ||
+      (($self->{yesterday}->holiday->yomtov ||  $self->{yesterday}->holiday->minor_holiday) && ($self->dow_0 == 1 || $self->dow_0 == 2)))) {
+
       $davening_times{"mincha"} ||= ($sunset - 14) % 5;
       $davening_times{"arvit"} ||= (($sunset + 26) % 5) . ", 20:30";
   }

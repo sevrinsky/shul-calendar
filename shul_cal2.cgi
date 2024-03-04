@@ -222,7 +222,8 @@ sub make_month {
     push(@month, new ShulCal::Day(%day_params,
                                   day => $i));
     $month[-2]->{tomorrow} = $month[-1];
-  }
+    $month[-1]->{yesterday} = $month[-2];
+}
   my $extra_day = 1;
   if ($params{finish_week}) {
       while (1) {

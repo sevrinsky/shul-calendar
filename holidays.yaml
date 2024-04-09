@@ -106,15 +106,17 @@
   name: taanit esther
   is_youth_minyan: 1
   times:
-    mincha: '17:00'
-    arvit: '($sunset + 20) % 5'
     megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
+  dow_times:
+    - dow: 0,1,2,3
+      times:
+        arvit: '($sunset + 20) % 5'
 - day: 14
   month: -1
   name: purim
   minor_holiday: 1
   times:
-    morning megillah reading: 9:45
+    morning megillah reading: 9:45, 10:30
     shacharit: '6:30, 8:00'
     mincha: 13:30
   dow_times:

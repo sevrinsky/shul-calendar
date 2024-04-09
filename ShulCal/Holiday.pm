@@ -176,6 +176,7 @@ sub generate_cache {
                     my(@all_days) = split(/,/,$dow_times->{dow});
                     if (grep { $date->dow_0 == $_ } @all_days) {
                         $h->{times} = $dow_times->{times};
+                        $h->{low_priority_times} = $dow_times->{low_priority_times};
                     }
                 }
             }

@@ -823,6 +823,12 @@ sub get_times {
       }
   }
 
+  if ($holiday->low_priority_times) {
+      for my $k (keys %{$holiday->low_priority_times}) {
+          $davening_times{$k} ||= $holiday->low_priority_times->{$k};
+      }
+  }
+
   return %davening_times;
 }
 

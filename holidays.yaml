@@ -158,7 +158,6 @@
 - day: 13
   month: 1
   times:
-    mincha: 19:00
     tzeit hacochavim: '$tzeit'
   notice: bedikat chometz
 - day: 14
@@ -197,8 +196,6 @@
     - dow: 0,1,2,3,4
       times:
         shacharit: 7:00, 8:10
-      low_priority_times:
-        mincha: 19:00
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach

@@ -269,13 +269,19 @@ sub get_times {
   }
 
   my $time_calc = new Suntimes(day => $self->e_day,
-			       month => $self->e_month,
-			       year => $self->e_year,
-			       londeg => 34,
-			       lonmin => 59.9172,
-			       latdeg => 31,
-			       latmin => 42.852,
-			       timezone => 2 + ($self->is_dst ? 1 : 0),
+                               month => $self->e_month,
+                               year => $self->e_year,
+                               londeg => 34,
+                               lonmin => 59.9172,
+                               latdeg => 31,
+                               latmin => 42.852,
+                               # Lon/lat at center of Beit Shemesh
+#                               # 31.744918788613344, 34.98822908437604
+#                               londeg => 34,
+#                               lonmin => 59.29373,
+#                               latdeg => 31,
+#                               latmin => 44.69513,
+                               timezone => 2 + ($self->is_dst ? 1 : 0),
 			       time_constructor => sub { new ShulCal::Time($_[0]) } );
   my $sunrise = $time_calc->sunrise;
   my $sunset = $time_calc->sunset;
@@ -668,7 +674,10 @@ sub get_times {
       }
       else {
 
-          if ($holiday->name ne '9 av') {
+          if ($holiday->name eq '9 av') {
+              $davening_times{'end fast'} = $time_calc->tzeit;
+          }
+          else {
               $davening_times{'start fast'} ||= $time_calc->alot;
               #      $davening_times{'alot later'} = $time_calc->alot_later;
               #      $davening_times{'regular 72'} = $time_calc->sunrise - 72;
@@ -686,6 +695,15 @@ sub get_times {
               if ($self->dow_0 == 5) {
                   $davening_times{mincha} = ($candle_time - 5) % 5;
               }
+
+              # Fast end time based on 18 minute principle of Rav Melamed
+              # https://www.yeshiva.org.il/calendar/timeprinciples
+              my $fast_end_tzeit_interval = int(($shaa_zmanit / 3.3333333) + 0.5);
+#              if ($fast_end_tzeit_interval < 18) {
+#                  $fast_end_tzeit_interval = 18;
+#              }
+
+              $davening_times{'end fast'} = $sunset + $fast_end_tzeit_interval;
           }
 
           if ($holiday->name eq 'taanit esther' && $self->dow_0 != 4) {
@@ -695,8 +713,7 @@ sub get_times {
           }
           else {
               if ($self->dow_0 != 5) {
-                  $davening_times{'end fast'} = $time_calc->tzeit;
-                  $davening_times{arvit} ||= $time_calc->tzeit - 2;
+                  $davening_times{arvit} ||= $davening_times{'end fast'};
               }
           }
       }

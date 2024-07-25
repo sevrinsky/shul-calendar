@@ -75,7 +75,7 @@ sub havdalah {
 sub tzeit {
   my($self) = @_;
   unless (defined($self->{tzeit})) {
-    my @tzeit_times = $self->suntime(96, 0);
+    my @tzeit_times = $self->suntime(96, 27);
     $self->{tzeit} = timeadj($tzeit_times[2]);
   }
   if ($self->{time_constructor}) {

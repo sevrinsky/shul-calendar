@@ -295,6 +295,9 @@ sub get_parsha {
   # Add weeks for holidays that were on Shabbat.
   # Special case double-ups, check leap year.
 
+  my $rh_date = DateTime::Calendar::Hebrew->new(year => $date->year,
+                                                month => 7,
+                                                day => 1);
   my $pesach_date = DateTime::Calendar::Hebrew->new(year => $date->year,
                                                     month => 1,
                                                     day => 15);
@@ -320,6 +323,17 @@ sub get_parsha {
         splice(@parshiot, 38, 2, $parshiot[38] . '-' . $parshiot[39]); # matot-maasei
         $nitzavim_index--;
     }
+  }
+  else {
+      # Join Matot-Maasei in not in specific leap years
+      if (!(($rh_date->dow_0 == 2 && $pesach_date->dow_0 == 6) ||
+            ($rh_date->dow_0 == 1 && $pesach_date->dow_0 == 6) ||
+            ($rh_date->dow_0 == 4 && $pesach_date->dow_0 == 0) ||
+            ($rh_date->dow_0 == 4 && $pesach_date->dow_0 == 2))) {
+
+          splice(@parshiot, 41, 2, $parshiot[41] . '-' . $parshiot[42]); # matot-maasei
+          $nitzavim_index--;
+      }
   }
 
   my $next_rosh_hashana = ShulCal::Day::get_rosh_hashana($date->year + 1);

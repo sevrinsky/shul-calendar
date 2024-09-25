@@ -285,7 +285,7 @@
     'start fast': '$sunset'
     'arvit': "($sunset + 22) % 5"
     mincha: '18:00'
-    additional megillat eicha: "($sunset + 90) % 105"
+    additional megillat eicha: "($sunset + 95) % 105"
 - day: 9
   fast: 2
   month: 5
@@ -825,3 +825,9 @@
 - year: 5784
   parsha: behaalotcha
   bar_mitzva: איתן שכטרמן
+- year: 5784
+  parsha: ekev
+  bar_mitzva: אלי פליישמן, אהרון כהן
+- year: 5784
+  parsha: shoftim
+  shabbat_chatan: איתן צור

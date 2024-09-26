@@ -8,7 +8,7 @@ use DateTime::Calendar::Hebrew;
 use ShulCal::Util qw(e2h gematria);
 use ShulCal::Holiday;
 use ShulCal::Time;
-use Suntimes;
+use ShulCal::SolarTimes;
 use base 'DateTime::Calendar::Hebrew';
 
 memoize 'get_rosh_hashana';
@@ -268,21 +268,11 @@ sub get_times {
     }
   }
 
-  my $time_calc = new Suntimes(day => $self->e_day,
-                               month => $self->e_month,
-                               year => $self->e_year,
-                               londeg => 34,
-                               lonmin => 59.9172,
-                               latdeg => 31,
-                               latmin => 42.852,
-                               # Lon/lat at center of Beit Shemesh
-#                               # 31.744918788613344, 34.98822908437604
-#                               londeg => 34,
-#                               lonmin => 59.29373,
-#                               latdeg => 31,
-#                               latmin => 44.69513,
-                               timezone => 2 + ($self->is_dst ? 1 : 0),
-			       time_constructor => sub { new ShulCal::Time($_[0]) } );
+  my $time_calc = ShulCal::SolarTimes->new(day => $self->e_day,
+                                           month => $self->e_month,
+                                           year => $self->e_year,
+                                           timezone => 2 + ($self->is_dst ? 1 : 0),
+                                          );
   my $sunrise = $time_calc->sunrise;
   my $sunset = $time_calc->sunset;
   my $shaa_zmanit = ($sunset - $sunrise) / 12;
@@ -361,7 +351,6 @@ sub get_times {
 #  }
 
   if ($include_holiday_times && $holiday->notice && $holiday->notice eq 'bedikat chometz') {
-#    $davening_times{'tzeit hacochavim'} = ShulCal::Time->new($time_calc->tzeit());
     $davening_times{'arvit'} = ($time_calc->tzeit + 5) % 105;
   }
 
@@ -550,15 +539,11 @@ sub get_times {
                   # Calculate based on second day's sunset
                   my $rh2_datetime = DateTime->from_object(object => $self);
                   $rh2_datetime->add_duration(DateTime::Duration->new(days => 1));
-                  my $rh2_time_calc = new Suntimes(day => $rh2_datetime->day,
-                                                   month => $rh2_datetime->month,
-                                                   year => $rh2_datetime->year,
-                                                   londeg => 34,
-                                                   lonmin => 59.9172,
-                                                   latdeg => 31,
-                                                   latmin => 42.852,
-                                                   timezone => 2 + ($self->is_dst ? 1 : 0),
-                                                   time_constructor => sub { new ShulCal::Time($_[0]) } );
+                  my $rh2_time_calc = ShulCal::SolarTimes->new(day => $rh2_datetime->day,
+                                                               month => $rh2_datetime->month,
+                                                               year => $rh2_datetime->year,
+                                                               timezone => 2 + ($self->is_dst ? 1 : 0),
+                                                              );
                   $rh_sunset = $rh2_time_calc->sunset;
               }
 
@@ -699,9 +684,9 @@ sub get_times {
               # Fast end time based on 18 minute principle of Rav Melamed
               # https://www.yeshiva.org.il/calendar/timeprinciples
               my $fast_end_tzeit_interval = int(($shaa_zmanit / 3.3333333) + 0.5);
-#              if ($fast_end_tzeit_interval < 18) {
-#                  $fast_end_tzeit_interval = 18;
-#              }
+              if ($fast_end_tzeit_interval < 18) {
+                  $fast_end_tzeit_interval = 18;
+              }
 
               $davening_times{'end fast'} = $sunset + $fast_end_tzeit_interval;
           }
@@ -736,15 +721,11 @@ sub get_times {
           if ($self->dow_0 >= 3) {
               $compare_sunrise_day_diff = -3;
           }
-          my $time_calc = new Suntimes(day => $self->e_day + $compare_sunrise_day_diff,
-                                       month => $self->e_month,
-                                       year => $self->e_year,
-                                       londeg => 34,
-                                       lonmin => 59.9172,
-                                       latdeg => 31,
-                                       latmin => 42.852,
-                                       timezone => 2 + ($self->is_dst ? 1 : 0),
-                                       time_constructor => sub { new ShulCal::Time($_[0]) } );
+          my $time_calc = ShulCal::SolarTimes->new(day => $self->e_day + $compare_sunrise_day_diff,
+                                                   month => $self->e_month,
+                                                   year => $self->e_year,
+                                                   timezone => 2 + ($self->is_dst ? 1 : 0),
+                                                  );
           my $compare_sunrise = $time_calc->sunrise;
           if ($compare_sunrise - $sunrise < 0) {
               $compare_sunrise = $sunrise;

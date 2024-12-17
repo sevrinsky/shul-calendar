@@ -70,13 +70,11 @@
   duration: 7
   month: 9
   name: chanukah
-  minor_holiday: 1
   times:
-    shacharit: 0-4/6:20//5/6:20
+    shacharit: 0-4/6:20//5/6:20, 8:00
 - day: 2
   month: 10
   name: zot chanukah
-  minor_holiday: 1
   times:
     shacharit: 6:20
   dow_times:
@@ -831,3 +829,6 @@
 - year: 5784
   parsha: shoftim
   shabbat_chatan: איתן צור
+- year: 5785
+  parsha: vayera
+  bar_mitzva: נתנאל דיוידס

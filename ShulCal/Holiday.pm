@@ -308,15 +308,23 @@ sub get_parsha {
   # Hard coded fix for 5764 - joined parshiot - todo: write real code for this
   # Still needs real code, but for just don't join in leap years
   if (DateTime::Calendar::Hebrew::_LastMonthOfYear($date->year) == 12) {
-    splice(@parshiot, 21, 2, $parshiot[21] . '-' . $parshiot[22]); # vayakhel-pekudei
-    splice(@parshiot, 25, 2, $parshiot[25] . '-' . $parshiot[26]); # tazria-metzora
-    splice(@parshiot, 26, 2, $parshiot[26] . '-' . $parshiot[27]); # acharei mot-kedoshim
-    $nitzavim_index -= 3;
+      my $tazria_index = 25;
+      if ($pesach_date->dow_0 == 0) {
+          $nitzavim_index -= 2;
+          $tazria_index = 26;
+      }
+      else {
+          splice(@parshiot, 21, 2, $parshiot[21] . '-' . $parshiot[22]); # vayakhel-pekudei
+          $nitzavim_index -= 3;
+      }
+
+      splice(@parshiot, $tazria_index, 2, $parshiot[$tazria_index] . '-' . $parshiot[$tazria_index + 1]); # tazria-metzora
+      splice(@parshiot, $tazria_index + 1, 2, $parshiot[$tazria_index + 1] . '-' . $parshiot[$tazria_index + 2]); # acharei-mot-kedoshim
 
     if ($pesach_date->dow_0 != 6) {
         # If Pesach falls on Shabbat, Behar-Bechukotai are separate
-        splice(@parshiot, 28, 2, $parshiot[28] . '-' . $parshiot[29]); # behar-bechukotai
-        splice(@parshiot, 37, 2, $parshiot[37] . '-' . $parshiot[38]); # matot-maasei
+        splice(@parshiot, $tazria_index + 3, 2, $parshiot[$tazria_index + 3] . '-' . $parshiot[$tazria_index + 4]); # behar-bechukotai
+        splice(@parshiot, $tazria_index + 12, 2, $parshiot[$tazria_index + 12] . '-' . $parshiot[$tazria_index + 13]); # matot-maasei
         $nitzavim_index -= 2;
     }
     else {

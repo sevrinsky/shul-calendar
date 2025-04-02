@@ -121,8 +121,8 @@
   dow_times:
     dow: 5
     times:
-      morning megillah reading: 9:45
-      shacharit: '6:30, 8:00'
+      morning megillah reading: 9:30
+      shacharit: '6:15, 7:45'
 - day: 15
   month: -1
   name: shushan purim
@@ -501,7 +501,7 @@
   bar_mitzva: ארי ג'ייקובס
 - year: 5775
   parsha: miketz
-  bar_mitzva: 
+  bar_mitzva:
     - גבי סנדי
     - נתנאל סנדי
 - year: 5775

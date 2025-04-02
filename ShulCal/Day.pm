@@ -256,7 +256,7 @@ sub get_times {
           if ($possible_time eq '-') {
             delete $davening_times{$k};
           } else {
-              if ($possible_time =~ /,/) {
+              if ($possible_time =~ /[,&]/) {
                   $davening_times{$k} = $possible_time;
               }
               else {
@@ -727,14 +727,19 @@ sub get_times {
                                                    timezone => 2 + ($self->is_dst ? 1 : 0),
                                                   );
           my $compare_sunrise = $time_calc->sunrise;
-          if ($compare_sunrise - $sunrise < 0) {
+          if ($compare_sunrise - $sunrise <= 0) {
               $compare_sunrise = $sunrise;
           }
 
-          if ($shacharit_time !~ /,/ && ! $holiday->fast && ! $holiday->contains('rosh chodesh') && ! $holiday->contains('chanukah')) {
-              if ($compare_sunrise - $shacharit_time > 15) {
+          if (! $holiday->contains('rosh chodesh') && ! $holiday->is_chanukah) {
+              my $initial_shacharit_time = $shacharit_time;
+              $initial_shacharit_time =~ s/(, .*)//;
+              my $remainder_shacharit_time = $1 || '';
+              $initial_shacharit_time = ShulCal::Time->new($initial_shacharit_time);
+
+              if ($compare_sunrise - $initial_shacharit_time > 15) {
                   $davening_times{netz} = $sunrise;
-                  $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5;
+                  $davening_times{$shacharit_key} = ($compare_sunrise - 12) % 5 . $remainder_shacharit_time;
               }
           }
       }
@@ -827,6 +832,13 @@ sub get_times {
   }
 
   return %davening_times;
+}
+
+#--------------------------------------------------
+
+sub netz_fix {
+    my($time) = @_;
+    return ShulCal::Time->new($time);
 }
 
 #--------------------------------------------------

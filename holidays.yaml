@@ -159,6 +159,12 @@
   times:
     tzeit hacochavim: '$tzeit'
   notice: bedikat chometz
+- day: 13
+  month: 1
+  dow_times:
+    - dow: 5
+      times:
+        burn chometz: 'in code'
 - day: 14
   month: 1
   name: erev pesach
@@ -172,7 +178,7 @@
     - dow: 6
       times:
         shacharit: 7:00
-        burn chometz: 'in code'
+        bitul chometz: 'in code'
         end eating chometz: 'in code'
         chatzot halayla: chatzot
 - day: 15
@@ -195,6 +201,7 @@
     - dow: 0,1,2,3,4
       times:
         shacharit: 7:00, 8:10
+        mincha: '($sunset - 13) % 5'
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach
@@ -206,6 +213,10 @@
   name: acharon pesach
   times:
     shacharit: '6:40, 8:30'
+  dow_times:
+    - dow: 6
+      times:
+        shacharit: '6:35, 8:30'
 - day: 27
   month: 1
   name: yom hashoah
@@ -833,3 +844,24 @@
 - year: 5785
   parsha: vayera
   bar_mitzva: נתנאל דיוידס
+- year: 5785
+  parsha: vayechi
+  bar_mitzva: אוריאל בלומנפלד
+- year: 5785
+  parsha: shmot
+  bar_mitzva: גבי זטמן
+- year: 5785
+  parsha: bo
+  bar_mitzva: איתי בלקמן
+- year: 5785
+  parsha: yitro
+  bar_mitzva: חזקיהו סוקול
+- year: 5785
+  day: 12
+  # Added for Motz"ash Pesach specifically
+  notice: taanit bechorot and bedikat chometz
+  month: 1
+  times:
+    shacharit and siyum: 6:20
+    arvit: '$tzeit'
+    tzeit hacochavim: '$tzeit'

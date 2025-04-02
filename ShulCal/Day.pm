@@ -330,6 +330,9 @@ sub get_times {
   if ($davening_times{'burn chometz'}) {
       $davening_times{'burn chometz'} = $burn_chametz;
   }
+  if ($davening_times{'bitul chometz'}) {
+      $davening_times{'bitul chometz'} = $burn_chametz;
+  }
 
   if ($davening_times{'netz'}) {
     $davening_times{'netz'} = $sunrise;
@@ -490,9 +493,9 @@ sub get_times {
       }
 
       if (($self->month == 1 && $self->day == 7) || # Exception for Shabbat Hagadol drasha when Erev Pesach is on Shabbat
-          ($holiday->subparsha =~ /(hagadol|shuva)/ && $self->day != 14)) { 
+          ($holiday->subparsha =~ /(hagadol|shuva)/ && $self->day != 14)) {
 
-          $davening_times{"drasha"} = (($sunset - 75) % 5);
+          $davening_times{"drasha"} = (($sunset - 85) % 5);
           $davening_times{'mincha'} = $davening_times{drasha} - 20;
       }
 
@@ -805,12 +808,15 @@ sub get_times {
           $davening_times{"mincha"} ||= ($sunset - 14) % 5;
           $davening_times{"arvit"} ||= (($sunset + 26) % 5) . ", 20:30";
       }
+      else {
+          $davening_times{"mincha"} ||= ShulCal::Time->new('17:00');
+      }
   }
 
   if (!$self->is_shabbat) {
       if ($holiday->is_chanukah) {
           if ($holiday->is_rosh_chodesh) {
-              $davening_times{shacharit} -= 5;
+              $davening_times{shacharit} = "6:15";
           }
           if ($include_youth_minyan && $holiday->duration_instance > 1) {
 

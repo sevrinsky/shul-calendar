@@ -52,6 +52,7 @@ sub print_cell {
                                         include_late_friday => $include_late_friday,
                                         include_youth_minyan => $include_youth_minyan,
                                         include_bezman_mincha => $include_bezman_mincha,
+                                        full_month => $params{full_month},
                                        );
   if (! $include_shul_times) {
       my %nonshul_times = map { ($_ => 1) } ('candle lighting',
@@ -228,6 +229,8 @@ sub get_times {
   my $force_include_late_friday = 0;
   my $global_include_youth_minyan = $params{include_youth_minyan};
   my $include_bezman_mincha = $params{include_bezman_mincha};
+  my $full_month = $params{full_month};
+
   my $include_holiday_times = 1;
   my $holiday = $self->holiday;
   my $tom_holiday;
@@ -809,7 +812,9 @@ sub get_times {
           $davening_times{"arvit"} ||= (($sunset + 26) % 5) . ", 20:30";
       }
       else {
-          $davening_times{"mincha"} ||= ShulCal::Time->new('17:00');
+          if ($full_month && @$full_month && (! $full_month->[0]->is_dst() || ! $full_month->[-1]->is_dst())) {
+              $davening_times{"mincha"} ||= ShulCal::Time->new('17:00');
+          }
       }
   }
 

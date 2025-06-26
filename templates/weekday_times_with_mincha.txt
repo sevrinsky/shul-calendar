@@ -1,0 +1,21 @@
+<table class="regular_times" width="60%" border=0 cellpadding=0 cellspacing=0>
+<tr><td>
+
+<b>זמני תפילה רגילים:</b>
+<br>
+שחרית בחול:<br>
+
+<table class="regular_times" border=0 cellpadding=0 cellspacing=0>
+<tr><td>&nbsp;&nbsp;</td><td>יום א', ג', ד':&nbsp;</td><td>6:30</td></tr>
+<tr><td>&nbsp;&nbsp;</td><td>יום ב', ה':&nbsp;</td><td>6:20</td></tr>
+<tr><td>&nbsp;&nbsp;</td><td>יום ו':&nbsp;</td><td>6:30, 8:00</td></tr>
+</table>
+<!-- &nbsp;&nbsp;נא לעיין ביוצאי דופן, נרשמים בלוח לעיל <br> -->
+מנחה בחול: 17:00
+<br>
+ערבית בחול: 20:30 
+
+</td>
+
+</tr>
+</table>

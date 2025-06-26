@@ -21,13 +21,19 @@ binmode STDOUT, ":utf8";
 {
   my $printed_times = 0;
   sub maybe_tefillah_times {
-    my($days_remaining, $month, $month_note, $include_shul_times, $year) = @_;
+    my($days_remaining, $month, $month_note, $include_shul_times, $year, $args) = @_;
     $year ||= '';
     if ($days_remaining < 3 || $printed_times || ! $include_shul_times) {
       return "&nbsp;";
     }
     $printed_times = 1;
-    my $msg =  read_text("$FindBin::Bin/templates/weekday_times.txt");
+    my $msg;
+    if ($args->{month}->[0]->is_dst() && $args->{month}->[-1]->is_dst()) {
+        $msg = read_text("$FindBin::Bin/templates/weekday_times_with_mincha.txt");
+    }
+    else {
+        $msg = read_text("$FindBin::Bin/templates/weekday_times.txt");
+    }
     if ($month_note) {
         $msg .= "\n<br><br>\n$month_note";
     }
@@ -276,6 +282,7 @@ sub month_cal {
                                              include_late_friday => $include_late_friday,
                                              include_youth_minyan => $include_youth_minyan,
                                              include_bezman_mincha => $include_bezman_mincha,
+                                             full_month => \@month,
            ));
       if (my $note = $d->get_month_note()) {
           $month_note .= $note;
@@ -286,7 +293,11 @@ sub month_cal {
     push(@row, $q->td({-colspan => $month[0]->dow_0,
 		       -class => 'general_tefillah_times'},
 		      $q->div({-class => 'general_tefillah_times_div'},
-            maybe_tefillah_times($month[0]->dow_0, $month_num, $month_note, $include_shul_times, $year))));
+                  maybe_tefillah_times($month[0]->dow_0, $month_num, $month_note, $include_shul_times, $year,
+                                       {
+                                        month => \@month,
+                                       }
+                                      ))));
   }
 
   for my $i (0..$#month) {
@@ -306,7 +317,11 @@ sub month_cal {
     push(@weeks, join("",@row, $q->td({-colspan => (7 - $month[-1]->dow),
                                        -class => 'general_tefillah_times'}, 
 				      $q->div({-class => 'general_tefillah_times_div'},
-                maybe_tefillah_times(7- $month[-1]->dow, $month_num, $month_note, $include_shul_times, $year))
+                      maybe_tefillah_times(7- $month[-1]->dow, $month_num, $month_note, $include_shul_times, $year,
+                                           {
+                                            month => \@month,
+                                           }
+                                          ))
 				     )));
   }
 

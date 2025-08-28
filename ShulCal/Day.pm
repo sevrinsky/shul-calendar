@@ -660,7 +660,7 @@ sub get_times {
 
   if ($holiday->fast && !$holiday->yomtov) {
       if (! $include_late_friday) {
-          $davening_times{'start fast'} ||= $time_calc->alot;
+          $davening_times{'start fast'} ||= $time_calc->sunrise - 72;
           $davening_times{'end fast'} = $time_calc->tzeit;
       }
       else {
@@ -669,7 +669,7 @@ sub get_times {
               $davening_times{'end fast'} = $time_calc->tzeit;
           }
           else {
-              $davening_times{'start fast'} ||= $time_calc->alot;
+              $davening_times{'start fast'} ||= $time_calc->sunrise - 72;
               #      $davening_times{'alot later'} = $time_calc->alot_later;
               #      $davening_times{'regular 72'} = $time_calc->sunrise - 72;
               #      $davening_times{'adjusted 72'} = $time_calc->sunrise - (72/60 * $shaa_zmanit);

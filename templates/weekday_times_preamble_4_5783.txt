@@ -1,5 +1,0 @@
-<div style="float: left; width: 50%; margin-left: 10px; font-size: 130%; ">
-<b>
-החל מיום ראשון ו' תמוז ובמשך החופש הגדול מניין נוער בימי חול בשעה 8:45
-</b>
-</div>

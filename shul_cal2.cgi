@@ -39,14 +39,20 @@ binmode STDOUT, ":utf8";
     }
     $msg .= maybe_month_message($month);
 
-    my $month_year_preamble_filename = "$FindBin::Bin/templates/weekday_times_preamble_${month}_$year.txt";
-    my $month_preamble_filename = "$FindBin::Bin/templates/weekday_times_preamble_$month.txt";
-    if (-f $month_year_preamble_filename) {
-        $msg = read_text($month_year_preamble_filename) . $msg;
+    if ($args->{month}->[0]->is_chofesh_hagadol() || $args->{month}->[-1]->is_chofesh_hagadol()) {
+        my $preamble_format = <<"EndText";
+        <div style="float: left; width: 50%; margin-left: 10px; font-size: 130%; ">
+<b>
+{{preamble_body}}
+</b>
+</div>
+EndText
+        my $preamble_body = e2h("chofesh hagadol minyan");
+        my $preamble_content = $preamble_format;
+        $preamble_content =~ s/\{\{preamble_body\}\}/$preamble_body/;
+        $msg = $preamble_content . $msg;
     }
-    elsif (-f $month_preamble_filename) {
-        $msg = read_text($month_preamble_filename) . $msg;
-    }
+
     return $msg;
   } 
 }

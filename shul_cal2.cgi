@@ -177,7 +177,7 @@ exit();
 sub month_header {
   my(@month, $month_num) = @_;
   
-  my $date = $month[1];
+  my $date = $month[2];
   my $next_month_date = $month[-1];
 
   my $year_gem = gematria($date->year, 1);

@@ -28,11 +28,11 @@ fi
 
 if [ $DO_PUBLISH == 1 ] ; then
     $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year $YEAR  $EXTRA_OPTS > $HOME/web/kat.mamash.com/calendar/${YEAR}_$MONTH.html
-    wkhtmltopdf $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html $HOME/web/kat.mamash.com/calendar/${YEAR}_$MONTH.pdf
+    mywkhtmltopdf $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html $HOME/web/kat.mamash.com/calendar/${YEAR}_$MONTH.pdf
     cp $HOME/web/kat.mamash.com/calendar/${YEAR}_$MONTH.pdf  $HOME/web/kat.mamash.com/calendar/current.pdf
     cp  $HOME/web/mamash.com/kat-calendars/${YEAR}_$PADDED_MONTH.html  $HOME/web/kat.mamash.com/calendar/current.html
     cp $HOME/web/kat.mamash.com/calendar/${YEAR}_$MONTH.html  $HOME/web/kat.mamash.com/calendar/current_include.html
     $HOME/shul/shul-calendar/shul_cal2.cgi --month $MONTH --year ${YEAR}  --fullpage $EXTRA_OPTS --noinclude-shiurim > $HOME/web/kat.mamash.com/calendar/current_simple.html
-    wkhtmltopdf -O landscape  $HOME/web/kat.mamash.com/calendar/current_simple.html $HOME/web/kat.mamash.com/calendar/current_simple.pdf
+    mywkhtmltopdf -O landscape  $HOME/web/kat.mamash.com/calendar/current_simple.html $HOME/web/kat.mamash.com/calendar/current_simple.pdf
     rsync  -avz $HOME/web/kat.mamash.com m:web
 fi

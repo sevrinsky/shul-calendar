@@ -76,13 +76,13 @@
   month: 9
   name: chanukah
   times:
-    shacharit: 0-4/6:25//5/6:25, 8:00
+    shacharit: 0-4/6:20//5/6:20, 8:00
 #    shacharit: '0-4/&netz_fix("6:20")//5/&netz_fix("6:20") . ", 8:00"'
 - day: 2
   month: 10
   name: zot chanukah
   times:
-    shacharit: 6:25
+    shacharit: 6:20
   dow_times:
     dow: 5
     times:
@@ -877,3 +877,9 @@
 - year: 5785
   parsha: matot-maasei
   bar_mitzva: דביר בודנהיימר
+- year: 5786
+  parsha: vayeshev
+  bar_mitzva: איתן כהן
+- year: 5786
+  parsha: miketz
+  bar_mitzva: אשי סליפקין

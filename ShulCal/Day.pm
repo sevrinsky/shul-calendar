@@ -737,7 +737,7 @@ sub get_times {
               $compare_sunrise = $sunrise;
           }
 
-          if (! $holiday->contains('rosh chodesh') && ! $holiday->is_chanukah && ! $holiday->yomtov) {
+          if (! $holiday->contains('rosh chodesh') && ! $holiday->fast && ! $holiday->is_chanukah && ! $holiday->yomtov) {
               my $initial_shacharit_time = $shacharit_time;
               $initial_shacharit_time =~ s/(, .*)//;
               my $remainder_shacharit_time = $1 || '';

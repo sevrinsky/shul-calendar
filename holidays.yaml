@@ -44,6 +44,11 @@
   name: chol hamoed sukkot
   times:
     shacharit: '7:00, 8:10'
+  dow_times:
+    - dow: 0,1,2,3,4
+      low_priority_times:
+        shacharit: '7:00, 8:10'
+        mincha: '17:55'
 - day: 16 + 6
   month: 7
   name: shabbat chol hamoed sukkot
@@ -53,7 +58,7 @@
   month: 7
   name: hoshana rabbah
   times:
-    shacharit: 6:30
+    shacharit: '($sunrise - 19) % 5'
 - day: 22
   yomtov: 1
   month: 7

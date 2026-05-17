@@ -207,7 +207,7 @@
     - dow: 0,1,2,3,4
       times:
         shacharit: 7:00, 8:10
-        mincha: '($sunset - 13) % 5'
+        mincha: '($sunset - 14) % 5'
 - day: 16 + 6 limit 5
   month: 1
   name: shabbat chol hamoed pesach
@@ -232,16 +232,16 @@
   name: yom hazikaron
   disallow_dow: 0,4,5,6
   times:
-    mincha: '($sunset - 57) % 5'
-    tekes yom hazikaron: '($sunset - 42) % 5'
-    festive arvit: '($tzeit - 20) % 5'
+    mincha: '($sunset - 42) % 105'
+    tekes yom hazikaron: '($sunset - 27) % 105'
+    festive arvit: '($tzeit - 10) % 105'
 - day: 5
   month: 2
   name: yom haatzmaut
   disallow_dow: 0,1,5,6
   times:
     shacharit chagigit: '7:45'
-    mincha: '($sunset - 15) % 5'
+    mincha: '($sunset - 12) % 5'
 - day: 14
   month: 2
   name: pesach sheni
@@ -271,8 +271,7 @@
   dow_times:
     dow: 5
     times:
-      shacharit: 6:20
-      shacharit chagigit: 8:00
+      shacharit chagigit: '6:20, 8:00'
 - day: 5
   month: 3
   name: erev shavuot
@@ -884,3 +883,9 @@
 - year: 5786
   parsha: miketz
   bar_mitzva: אשי סליפקין
+- year: 5786
+  parsha: tazria-metzora
+  bar_mitzva: אביאל סקלברינו
+- year: 5786
+  parsha: behar-bechukotai
+  bar_mitzva: אבי שינדלר

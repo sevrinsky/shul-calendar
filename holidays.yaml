@@ -115,6 +115,7 @@
     - dow: 0,1,2,3
       times:
         arvit: '($sunset + 20) % 5'
+        megillah reading: '($sunset + 30) % 5 . ", " . ($sunset + 100) % 105'
 - day: 14
   month: -1
   name: purim

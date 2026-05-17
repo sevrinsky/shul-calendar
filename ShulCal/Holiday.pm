@@ -234,6 +234,20 @@ sub generate_cache {
                     }
                 }
 
+                if (defined($h->{dow_times})) {
+                    my $all_dow_times = $h->{dow_times};
+                    if (ref($all_dow_times) ne 'ARRAY') {
+                        $all_dow_times = [ $all_dow_times ];
+                    }
+                    for my $dow_times (@$all_dow_times) {
+                        my(@all_days) = split(/,/,$dow_times->{dow});
+                        if (grep { $date->dow_0 == $_ } @all_days) {
+                            $new_h->{times} = $dow_times->{times};
+                            $new_h->{low_priority_times} = $dow_times->{low_priority_times};
+                        }
+                    }
+                }
+
                 $holiday_cache{$date->year}->{$date->month}->{$date->day} = {} 
                   unless exists $holiday_cache{$date->year}->{$date->month}->{$date->day};
 

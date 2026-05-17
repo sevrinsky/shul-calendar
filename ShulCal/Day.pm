@@ -808,8 +808,20 @@ sub get_times {
         ($self->dow_0 == 1 || $self->dow_0 == 2)))) {
 
       if (! $self->is_dst) {
-          $davening_times{"mincha"} ||= ($sunset - 14) % 5;
-          $davening_times{"arvit"} ||= (($sunset + 26) % 5) . ", 20:30";
+          my $bezman_mincha_sunset = $sunset;
+          if ($self->day == 1 && $self->dow_0 != 0) {
+              # Take sunset from prior Sunday
+              my $last_sunday_datetime = DateTime->from_object(object => $self);
+              $last_sunday_datetime->add_duration(DateTime::Duration->new(days => - $self->dow_0));
+              my $last_sunday_time_calc = ShulCal::SolarTimes->new(day => $last_sunday_datetime->day,
+                                                           month => $last_sunday_datetime->month,
+                                                           year => $last_sunday_datetime->year,
+                                                           timezone => 2 + ($self->is_dst ? 1 : 0),
+                                                          );
+              $bezman_mincha_sunset = $last_sunday_time_calc->sunset;
+          }
+          $davening_times{"mincha"} ||= ($bezman_mincha_sunset - 14) % 5;
+          $davening_times{"arvit"} ||= (($bezman_mincha_sunset + 26) % 5) . ", 20:30";
       }
       else {
           if ($full_month && @$full_month && (! $full_month->[0]->is_dst() || ! $full_month->[-1]->is_dst())) {

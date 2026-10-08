@@ -48,7 +48,7 @@
     - dow: 0,1,2,3,4
       low_priority_times:
         shacharit: '7:00, 8:10'
-        mincha: '17:55'
+        mincha: '($sunset - 25) % 5'
 - day: 16 + 6
   month: 7
   name: shabbat chol hamoed sukkot
@@ -58,7 +58,7 @@
   month: 7
   name: hoshana rabbah
   times:
-    shacharit: '($sunrise - 19) % 5'
+    shacharit: 6:30
 - day: 22
   yomtov: 1
   month: 7
@@ -889,3 +889,21 @@
 - year: 5786
   parsha: behar-bechukotai
   bar_mitzva: אבי שינדלר
+- year: 5786
+  parsha: vaetchanan
+  shabbat_chatan: דן ברנט
+- year: 5786
+  parsha: reei
+  shabbat_chatan: חנניה דוידס
+- year: 5786
+  parsha: ki tavo
+  bar_mitzva: ישי שטרן
+  shabbat_chatan: דב וייס
+- year: 5786
+  parsha: nitzavim-vayelech
+  bar_mitzva: חננאל ראשי
+- year: 5787
+  parsha: vayera
+  bar_mitzva: קובי גילדין
+
+

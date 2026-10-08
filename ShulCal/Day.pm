@@ -849,7 +849,12 @@ sub get_times {
 
   if ($holiday->low_priority_times) {
       for my $k (keys %{$holiday->low_priority_times}) {
-          $davening_times{$k} ||= $holiday->low_priority_times->{$k};
+          my $time_string = $holiday->low_priority_times->{$k};
+          if ($time_string =~ /\$\w+/) {
+              $time_string =~ s/\$/\$time_calc->/g;
+              $time_string = eval($time_string);
+          }
+          $davening_times{$k} ||= $time_string;
       }
   }
 
